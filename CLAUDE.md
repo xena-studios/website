@@ -18,10 +18,20 @@ landing page is a Waku React page. The site builds to static output. Priority or
 - **Fumapress `0.7.1`** on **Waku `1.0.0-beta.6`**, **React 19**, **Tailwind CSS v4**,
   **TypeScript** (strict). Package manager is **pnpm**.
 - Scripts: `pnpm dev` (dev server on :3000), `pnpm build` (static build → `dist/`),
-  `pnpm start` (serve the build), `pnpm types:check` (`fumadocs-mdx` codegen + `tsc --noEmit`).
+  `pnpm start` (serve the build), `pnpm types:check` (`fumadocs-mdx` codegen + `tsc --noEmit`),
+  `pnpm preview` (`wrangler dev` over `dist/public`), `pnpm deploy` (`waku build && wrangler deploy`).
 - **Verify with a real build**, not just types: `pnpm build` renders every page (SSG) and is the
   only thing that catches MDX/Shiki/RSC errors. `pnpm types:check` alone will pass on a page that
   fails to render.
+- **Fully static + Cloudflare.** `press.config.tsx` sets `mode: "static"`, so `waku build`
+  prerenders everything into `dist/public` — pages, the search index (`/api/search`), RSC
+  navigation payloads, `sitemap.xml`, `llms.txt`, OG images — with **no server runtime**. It
+  deploys to **Cloudflare Workers as static assets** via [`wrangler.jsonc`](wrangler.jsonc)
+  (assets-only, no Worker script; `html_handling: "drop-trailing-slash"` to keep Waku's clean
+  URLs, `not_found_handling: "404-page"`). Fumapress hardcodes `waku/adapters/default` in its
+  managed server entry, so the *dynamic* Worker path isn't wired up — static is the supported
+  route and matches the content (docs/blog/landing are all static). `pnpm exec wrangler login`
+  once before `pnpm deploy`.
 
 ## Layout
 - `src/pages/index.tsx` — the landing page (a Waku React page): the mission-control HUD (hero,

@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "xena-studios-website",
+  "compatibility_date": "2025-11-17",
+  // Static-assets-only Worker: the site is fully prerendered (fumapress `mode: "static"`),
+  // so there is no server entry — Cloudflare just serves `dist/public`.
+  "assets": {
+    "directory": "./dist/public",
+    // Waku uses clean URLs with no trailing slash; serve `/route/index.html` at
+    // `/route` directly and redirect `/route/` back to `/route`.
+    "html_handling": "drop-trailing-slash",
+    // Serve the prerendered 404 page for unknown paths (this is an MPA, not an SPA).
+    "not_found_handling": "404-page"
+  }
+}

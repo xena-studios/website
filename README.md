@@ -29,10 +29,26 @@ pnpm dev          # start the dev server (http://localhost:3000)
 ## Build
 
 ```sh
-pnpm build        # static build into dist/
-pnpm start        # serve the production build
+pnpm build        # static build into dist/ (fully prerendered — dist/public)
+pnpm start        # serve the production build with the Node server
 pnpm types:check  # generate MDX types and type-check
 ```
+
+## Deploy (Cloudflare Workers)
+
+The site is **fully static** (`mode: "static"` in `press.config.tsx`): every page, the search
+index (`/api/search`), RSC navigation payloads, `sitemap.xml`, `llms.txt`, and OG images are
+prerendered into `dist/public`. There is no server runtime, so it deploys to **Cloudflare
+Workers as static assets** (config in [`wrangler.jsonc`](./wrangler.jsonc), assets-only, no
+Worker script).
+
+```sh
+pnpm preview      # wrangler dev — serve the built dist/public exactly as Cloudflare would
+pnpm deploy       # waku build && wrangler deploy
+```
+
+First-time setup: authenticate wrangler once with `pnpm exec wrangler login` (or set a
+`CLOUDFLARE_API_TOKEN`). `pnpm deploy` then builds and uploads `dist/public`.
 
 ## Adding a project
 

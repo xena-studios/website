@@ -11,6 +11,9 @@ import { createNotebookLayoutPage } from "fumapress/layouts/notebook";
 import { blog, docs } from "./.source/server";
 
 const config = defineConfig({
+  // Fully static: prerender everything (including search) so the site deploys as
+  // plain assets (e.g. Cloudflare static assets) with no server runtime.
+  mode: "static",
   content: {
     docs: docs.toFumadocsSource({ baseDir: "docs" }),
     blog: blog.toFumadocsSource({ baseDir: "blog" }),

@@ -9,7 +9,7 @@ import { llmsPlugin } from "fumapress/plugins/llms.txt";
 import { sitemapPlugin } from "fumapress/plugins/sitemap";
 import { takumiPlugin } from "fumapress/plugins/takumi";
 import { blog, docs } from "./.source/server";
-import { ModrinthIcon } from "./src/components/icons";
+import { GitHubIcon, ModrinthIcon } from "./src/components/icons";
 
 const config = defineConfig({
 	// Fully static: prerender everything (including search) so the site deploys as
@@ -77,7 +77,13 @@ const config = defineConfig({
 		page: createNotebookLayoutPage(),
 		defaultProps() {
 			return {
-				githubUrl: "https://github.com/xena-studios",
+				// fumapress auto-derives `githubUrl` from site.git, and fumadocs then
+				// renders it as an <svg role="img"> with no accessible name (fails
+				// axe). Override to null to drop that icon (fumapress merges with
+				// onlyDefinedProperties, so `undefined` won't override the derived
+				// value but `null` will); we add our own accessible GitHub icon to
+				// `links` below. Docs "edit" links use site.git directly, unaffected.
+				githubUrl: null as unknown as undefined,
 				themeSwitch: { enabled: false },
 				nav: {
 					title: (
@@ -106,6 +112,13 @@ const config = defineConfig({
 						label: "Modrinth",
 						url: "https://modrinth.com/organization/xena-studios",
 						icon: <ModrinthIcon size={18} />,
+					},
+					{
+						type: "icon",
+						text: "GitHub",
+						label: "GitHub",
+						url: "https://github.com/xena-studios",
+						icon: <GitHubIcon size={18} />,
 					},
 				],
 			};

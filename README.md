@@ -50,6 +50,20 @@ pnpm deploy       # waku build && wrangler deploy
 First-time setup: authenticate wrangler once with `pnpm exec wrangler login` (or set a
 `CLOUDFLARE_API_TOKEN`). `pnpm deploy` then builds and uploads `dist/public`.
 
+### Deploying via Cloudflare's Git integration
+
+Deploy **only the static assets**, not the Node server. `waku build` also emits `dist/server/`
+(for `pnpm start`), which imports `node:module` and **cannot run on Workers** — if Cloudflare
+tries to deploy it (its "Waku" framework preset does, because fumapress builds a Node server, not
+a Worker), you get `No such module "node:module"`. Point the project at the static path instead:
+
+- **Build command:** `pnpm build`
+- **Deploy command:** `npx wrangler deploy` (uses `wrangler.jsonc` → assets-only, serves
+  `dist/public`; it uploads a tiny no-op worker plus the static files, never `dist/server`)
+- Do **not** pick a "Waku" framework preset that deploys a server/Worker.
+
+A local `pnpm deploy` already does exactly this.
+
 ## Adding a project
 
 1. Create `content/docs/<project>/` with a `meta.json` (`"title"`, `"root": true`, and a
@@ -63,4 +77,4 @@ First-time setup: authenticate wrangler once with `pnpm exec wrangler login` (or
 
 ## License
 
-MIT
+[MIT](./LICENSE)

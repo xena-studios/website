@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "waku dev",
     "build": "waku build",
+    "postbuild": "printf '# build-only artifacts, never served at runtime\\n**/*.wasm\\n' > dist/public/.assetsignore",
     "start": "waku start",
     "types:check": "fumadocs-mdx && tsc --noEmit",
     "preview": "wrangler dev",
-    "deploy": "waku build && wrangler deploy"
+    "deploy": "pnpm build && wrangler deploy"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

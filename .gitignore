@@ -11,9 +11,3 @@ src/pages.gen.ts
 .claude/
 .codex/
 .cursor/
-
-# Licensed fonts — not redistributable, kept out of the public repo (see public/fonts/README.md)
-public/fonts/*.otf
-public/fonts/*.ttf
-public/fonts/*.woff
-public/fonts/*.woff2

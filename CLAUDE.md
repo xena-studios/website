@@ -24,15 +24,20 @@ landing page is a Waku React page. The site builds to static output. Priority or
   fails to render.
 
 ## Layout
-- `src/pages/index.tsx` — the landing page (a Waku React page: hero, project cards, contact
-  section). Uses `buttonVariants` from `fumadocs-ui`, `Link` from `fumapress/client`, and
-  hand-rolled inline-SVG icons (no `lucide-react` — it isn't a hoisted dependency here).
+- `src/pages/index.tsx` — the landing page (a Waku React page): the mission-control HUD (hero,
+  telemetry strip, `systems` manifest rows, Uplink terminal, footer). Uses `buttonVariants` from
+  `fumadocs-ui`, `Link` from `fumapress/client`, and hand-rolled inline-SVG icons (no
+  `lucide-react` — it isn't a hoisted dependency here).
 - `src/pages/_layout.tsx` — re-exports `HomeLayout` from `press.config` to wrap the landing page.
 - `src/cn.ts` — tiny `cn()` class-name joiner (avoids adding `cnfast`/`clsx`).
-- `src/app.css` — Tailwind + Fumadocs/Fumapress CSS presets; Geist / JetBrains Mono fonts.
+- `src/app.css` — Tailwind + Fumadocs/Fumapress presets, then the design system: fonts
+  (Ethnocentric/Orbitron + Source Code Pro), the mission-control palette (overrides `--color-fd-*`),
+  a sharpened `--radius-*` scale, and the HUD primitives (`.hud-grid`, `.hud-frame`,
+  `.signal-bloom`, the `animate-*` keyframes). See **Design system** below and `DESIGN.md`.
 - `press.config.tsx` — the Fumapress config: site metadata, the content source, plugins, the
-  shared `defaultProps` (nav title + `Documentation` link + `githubUrl` + Modrinth icon), and the
-  exported `HomeLayout`.
+  Google Fonts link (Orbitron + Source Code Pro), the forced-dark **root layout**, and the shared
+  `defaultProps` (display wordmark nav title, `Documentation` link, `githubUrl`, Modrinth icon,
+  `themeSwitch` disabled), plus the exported `HomeLayout`.
 - `source.config.ts` — `defineDocs({ dir: "content" })` (fumadocs-mdx content source).
 - `waku.config.ts` — Vite plugins (`press()`, `mdx()`, `tailwindcss()`).
 - `content/docs/` — all documentation MDX (see **Docs structure**).
@@ -57,21 +62,39 @@ landing page is a Waku React page. The site builds to static output. Priority or
   are present transitively but are **not** top-level/hoisted, so a bare import can fail to
   resolve. Prefer inline SVGs and the local `cn` helper; add a real dependency to `package.json`
   if you genuinely need one.
-- **Theme-aware styling only.** Use Fumadocs design tokens (`fd-foreground`,
-  `fd-muted-foreground`, `fd-card`, `fd-border`, `fd-primary`, `fd-background`, `fd-accent`) so
-  the landing page tracks light/dark automatically. No hard-coded hex colors.
-- **Nav is defined once.** The nav title, the `Documentation` link, `githubUrl` and the Modrinth
-  icon live in `.layouts({ defaultProps })`; `createHomeLayout` inherits them by default
-  (`inheritLayoutProps = true`). Don't also pass `links` to `createHomeLayout` — `@fastify/deepmerge`
-  concatenates arrays, so they'd duplicate.
+- **Style with design tokens, never hex.** Use Fumadocs tokens (`fd-foreground`,
+  `fd-muted-foreground`, `fd-card`, `fd-border`, `fd-primary`, `fd-background`, `fd-accent`) and
+  the HUD utilities; the palette is redefined in `app.css`. The `fd-primary` token IS the signal
+  amber. No hard-coded colors.
+- **Nav is defined once.** The nav title, the `Documentation` link, `githubUrl`, the Modrinth
+  icon, and `themeSwitch: { enabled: false }` live in `.layouts({ defaultProps })`;
+  `createHomeLayout` inherits them by default (`inheritLayoutProps = true`). Don't also pass
+  `links` to `createHomeLayout` — `@fastify/deepmerge` concatenates arrays, so they'd duplicate.
 - **Content is sourced from the project READMEs.** Keep docs accurate to each repo; don't invent
   features. Version targets, requirements and reload semantics are load-bearing — copy them
   faithfully.
 
+## Design system
+See `PRODUCT.md` (brand strategy) and `DESIGN.md` (the full design language). In short:
+- **Dark-only mission-control HUD.** The theme is forced dark in `press.config.tsx`
+  (`providerProps.theme = { forcedTheme: "dark" }`) and the toggle is hidden. Palette tokens are
+  set on both `:root` and `.dark` in `app.css` to avoid a light flash. Do not add a light theme.
+- **Fonts.** Display = Ethnocentric (licensed, self-hosted at `public/fonts/ethnocentric.otf`
+  with `format("opentype")`; falls back to **Orbitron** until the file exists). Body + UI + code =
+  **Source Code Pro** (this mono-body is deliberate, the terminal voice, not laziness).
+- **Color.** Cool near-black neutrals (hue ~250) + one **signal amber** accent (hue ~68), OKLCH,
+  Committed strategy. Amber is never body text.
+- **Geometry.** Near-square: the `--radius-*` scale is flattened in `@theme` (keep `--radius-full`
+  for dots/pills). HUD buttons use `rounded-none`.
+- **Absolute bans honored:** no gradient text, no identical card grids (the systems list is
+  indexed rows), no glassmorphism, no side-stripe borders, no em dashes in interface copy.
+
 ## Content overview
-- **Landing** (`/`) — hero, four project cards (xUtilities, xLimbo, NeoSkript, and Raptor as an
-  external showcase link), and a contact section (GitHub, Modrinth, website `xenastudios.co`,
-  email `contact@xenastudios.co`).
+- **Landing** (`/`) — mission-control HUD: hero + telemetry strip, a `systems` manifest of the
+  four projects (Raptor `S-01` `PLATFORM`, then NeoSkript / xLimbo / xUtilities as `PLUGIN`s, each
+  with a kind marker, a link to its canonical page — Modrinth for published plugins, GitHub for
+  NeoSkript, `raptorpanel.net` for Raptor — plus Docs and source), and an Uplink contact terminal
+  (GitHub, Modrinth, website `xenastudios.co`, email `contact@xenastudios.co`).
 - **Overview** section — `content/docs/index.mdx`, the studio intro + project index.
 - **xUtilities** — overview, commands, configuration.
 - **xLimbo** — overview, configuration, protection.
@@ -79,14 +102,18 @@ landing page is a Waku React page. The site builds to static output. Priority or
 - **Raptor** — no docs section; showcased on the landing page, links to `www.raptorpanel.net`.
 
 ## Status
-Landing page + docs for all four projects are built and verified with `pnpm build` (SSG) and a
-browser smoke test (landing, `/docs`, project sections + the section dropdown). Search
-(`flexsearch`), `llms.txt` and OG images (`takumi`) plugins are enabled.
+Landing page + docs are built and verified with `pnpm build` (SSG) and a browser smoke test
+(landing, `/docs`, project sections + the section dropdown). The dark-only mission-control
+redesign (`PRODUCT.md` / `DESIGN.md`) is shipped. Search (`flexsearch`), `llms.txt` and OG images
+(`takumi`) plugins are enabled.
 
 ## Follow-ups (not required by the brief)
+- **Ethnocentric font** is not committed (licensed). Drop `public/fonts/ethnocentric.otf` to
+  activate it; until then the wordmark renders in Orbitron. See `public/fonts/README.md`.
 - No CI yet (the plugin repos have `build.yml` etc.; this repo could add a build/deploy workflow).
 - No favicon / logo asset — the nav uses a text wordmark; a logo could be added to `defaultProps.nav.title`.
 - Docs are README-depth overviews; deeper per-project guides can be added as new pages under each
   section folder.
 
-Remote: `git@github.com:xena-studios/website.git` (push over gh HTTPS; SSH key isn't authorized).
+Remote: `git@github.com:xena-studios/website.git`. SSH **is** authorized in this environment
+(pushes over SSH work); `gh` HTTPS also works as the `mrzcookie` account.

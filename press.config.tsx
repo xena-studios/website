@@ -4,6 +4,7 @@ import { flexsearchPlugin } from "fumapress/plugins/flexsearch";
 import { llmsPlugin } from "fumapress/plugins/llms.txt";
 import { takumiPlugin } from "fumapress/plugins/takumi";
 import { createHomeLayout } from "fumapress/layouts/home";
+import { createRootLayout } from "fumapress/layouts/root";
 import { docs } from "./.source/server";
 
 const config = defineConfig({
@@ -24,7 +25,7 @@ const config = defineConfig({
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Source+Code+Pro:ital,wght@0,300..700;1,300..700&display=swap"
             rel="stylesheet"
           />
         </>
@@ -35,13 +36,22 @@ const config = defineConfig({
   .adapters(fumadocsMdx())
   .plugins(flexsearchPlugin(), llmsPlugin(), takumiPlugin())
   .layouts({
+    root: createRootLayout({
+      providerProps: {
+        theme: { defaultTheme: "dark", forcedTheme: "dark", enableSystem: false },
+      },
+    }),
     defaultProps() {
       return {
         githubUrl: "https://github.com/xena-studios",
+        themeSwitch: { enabled: false },
         nav: {
           title: (
-            <span className="font-mono text-sm font-semibold uppercase tracking-widest">
-              Xena Studios
+            <span className="inline-flex items-center gap-2">
+              <span className="size-1.5 rotate-45 bg-fd-primary" />
+              <span className="font-display text-[0.95rem] uppercase tracking-tight">
+                Xena Studios
+              </span>
             </span>
           ),
         },

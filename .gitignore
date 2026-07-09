@@ -4,3 +4,9 @@
 dist
 .source
 src/pages.gen.ts
+
+# AI tooling / editor skill installs (not part of the site)
+.agents/
+.claude/
+.codex/
+.cursor/

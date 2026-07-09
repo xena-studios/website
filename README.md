@@ -10,9 +10,10 @@ them. Built with [Fumapress](https://press.fumadocs.dev) (powered by
 - **Landing page** — `src/pages/index.tsx`, wrapped by the home layout re-exported in
   `src/pages/_layout.tsx`. Hero, project showcase, and a contact/links section.
 - **Docs** — MDX in `content/docs/`, served under `/docs`. The top-level `content/docs/` is the
-  **Overview** section; each project (`xutilities/`, `xlimbo/`, `neoskript/`, `raptor/`) is a
+  **Overview** section; each documented project (`xutilities/`, `xlimbo/`, `neoskript/`) is a
   `root: true` folder, so it becomes its own section in the sidebar's section dropdown with its
-  own pages. Ordering is set by each folder's `meta.json`.
+  own pages. Ordering is set by each folder's `meta.json`. (Raptor is showcase-only — it links to
+  [raptorpanel.net](https://www.raptorpanel.net) and has no docs section here.)
 - **Config** — `press.config.tsx` wires the site metadata, navigation (shared nav title, the
   `Documentation` link, GitHub + Modrinth), plugins (search, `llms.txt`, OG images), and the
   `HomeLayout` used by the landing page. `source.config.ts` defines the MDX content source and

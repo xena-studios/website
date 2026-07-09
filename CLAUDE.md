@@ -43,9 +43,10 @@ landing page is a Waku React page. The site builds to static output. Priority or
   `toFumadocsSource()` or you get a doubled `/docs/docs/...` prefix.
 - **Section dropdown = `root: true` folders.** Fumadocs' `getPageTreeRoots` builds the sidebar
   section switcher from every folder whose `meta.json` has `"root": true`, **plus** the top-level
-  tree itself. So the top-level `content/docs/` is the **Overview** section, and each project
-  (`xutilities/`, `xlimbo/`, `neoskript/`, `raptor/`) is its own root folder = its own dropdown
-  section with its own sidebar pages.
+  tree itself. So the top-level `content/docs/` is the **Overview** section, and each documented
+  project (`xutilities/`, `xlimbo/`, `neoskript/`) is its own root folder = its own dropdown
+  section with its own sidebar pages. **Raptor is showcase-only** — it has no docs section; its
+  landing card links out to `www.raptorpanel.net` (`external: true` in the `projects` array).
 - Each folder's `meta.json` sets `title`, `root`, and a `pages` order array. Every page needs
   `title` + `description` frontmatter.
 - **Shiki has no `sk` (Skript) grammar** — use a ` ```text ` fence for NeoSkript/Skript snippets
@@ -68,13 +69,14 @@ landing page is a Waku React page. The site builds to static output. Priority or
   faithfully.
 
 ## Content overview
-- **Landing** (`/`) — hero, four project cards (xUtilities, xLimbo, NeoSkript, Raptor), and a
-  contact section (GitHub, Modrinth, website `xenastudios.co`, email `contact@xenastudios.co`).
+- **Landing** (`/`) — hero, four project cards (xUtilities, xLimbo, NeoSkript, and Raptor as an
+  external showcase link), and a contact section (GitHub, Modrinth, website `xenastudios.co`,
+  email `contact@xenastudios.co`).
 - **Overview** section — `content/docs/index.mdx`, the studio intro + project index.
 - **xUtilities** — overview, commands, configuration.
 - **xLimbo** — overview, configuration, protection.
 - **NeoSkript** — overview, syntax, modules & addons.
-- **Raptor** — overview, architecture, getting started.
+- **Raptor** — no docs section; showcased on the landing page, links to `www.raptorpanel.net`.
 
 ## Status
 Landing page + docs for all four projects are built and verified with `pnpm build` (SSG) and a

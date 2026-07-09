@@ -1,8 +1,22 @@
+import type { ReactNode } from "react";
 import { buttonVariants } from "fumadocs-ui/components/ui/button";
 import { Link } from "fumapress/client";
 import { cn } from "../cn";
 
-const projects = [
+type Project = {
+  name: string;
+  tagline: string;
+  description: string;
+  href: string;
+  /** when true, `href` is an external site and opens in a new tab */
+  external?: boolean;
+  /** call-to-action label; defaults to "Documentation" */
+  cta?: string;
+  repo: string;
+  tags: string[];
+};
+
+const projects: Project[] = [
   {
     name: "xUtilities",
     tagline: "Utility commands for every server",
@@ -35,7 +49,9 @@ const projects = [
     tagline: "Your boxes, your fleet",
     description:
       "A hosted, multi-tenant control panel for running Docker game servers and apps on your own Linux boxes — plus the per-box daemon that does the work. Easy and secure by default.",
-    href: "/docs/raptor",
+    href: "https://www.raptorpanel.net",
+    external: true,
+    cta: "Visit raptorpanel.net",
     repo: "https://github.com/xena-studios/raptor",
     tags: ["TypeScript", "Go", "AGPL-3.0"],
   },
@@ -180,14 +196,37 @@ export default function Page() {
   );
 }
 
-function ProjectCard({ project }: { project: (typeof projects)[number] }) {
+function ProjectLink({
+  project,
+  className,
+  children,
+}: {
+  project: Project;
+  className?: string;
+  children: ReactNode;
+}) {
+  if (project.external) {
+    return (
+      <a href={project.href} target="_blank" rel="noreferrer" className={className}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={project.href} className={className}>
+      {children}
+    </Link>
+  );
+}
+
+function ProjectCard({ project }: { project: Project }) {
   return (
     <div className="group flex flex-col rounded-2xl border border-fd-border bg-fd-card p-6 transition-colors hover:border-fd-primary/50">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <Link href={project.href} className="text-lg font-semibold tracking-tight">
+          <ProjectLink project={project} className="text-lg font-semibold tracking-tight">
             {project.name}
-          </Link>
+          </ProjectLink>
           <p className="text-sm text-fd-primary">{project.tagline}</p>
         </div>
         <a
@@ -211,13 +250,13 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
           </span>
         ))}
       </div>
-      <Link
-        href={project.href}
+      <ProjectLink
+        project={project}
         className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-fd-foreground transition-colors group-hover:text-fd-primary"
       >
-        Documentation
+        {project.cta ?? "Documentation"}
         <ArrowIcon />
-      </Link>
+      </ProjectLink>
     </div>
   );
 }

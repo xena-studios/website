@@ -7,6 +7,10 @@ export default function Page() {
 	return (
 		<>
 			<title>Xena Studios</title>
+			<meta
+				name="description"
+				content="Open-source infrastructure for Minecraft networks and self-hosted game hosting. Near-zero overhead plugins and platforms for Paper and Folia."
+			/>
 			<meta property="og:title" content="Xena Studios" />
 			<meta
 				property="og:description"

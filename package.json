@@ -1,40 +1,43 @@
 {
-  "name": "@xena-studios/website",
-  "private": true,
-  "type": "module",
-  "sideEffects": false,
-  "scripts": {
-    "dev": "waku dev",
-    "build": "waku build",
-    "postbuild": "printf '# build-only artifacts, never served at runtime\\n**/*.wasm\\n' > dist/public/.assetsignore",
-    "start": "waku start",
-    "types:check": "fumadocs-mdx && tsc --noEmit",
-    "preview": "wrangler dev",
-    "deploy": "pnpm build && wrangler deploy"
-  },
-  "dependencies": {
-    "@base-ui/react": "^1.6.0",
-    "@fuma-translate/react": "^1.0.2",
-    "fumadocs-core": "^16.11.0",
-    "fumadocs-mdx": "^15.1.0",
-    "fumadocs-ui": "npm:@fumadocs/base-ui@^16.11.0",
-    "fumapress": "0.7.1",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-server-dom-webpack": "^19.2.7",
-    "waku": "1.0.0-beta.6"
-  },
-  "devDependencies": {
-    "@rolldown/plugin-babel": "^0.2.3",
-    "@tailwindcss/vite": "^4.3.2",
-    "@types/mdx": "^2.0.14",
-    "@types/node": "^26.1.0",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.3",
-    "babel-plugin-react-compiler": "^1.0.0",
-    "tailwindcss": "^4.3.2",
-    "typescript": "^6.0.3",
-    "wrangler": "^4.107.1"
-  }
+	"name": "@xena-studios/website",
+	"private": true,
+	"type": "module",
+	"sideEffects": false,
+	"scripts": {
+		"dev": "waku dev",
+		"build": "waku build",
+		"postbuild": "printf '# build-only artifacts, never served at runtime\\n**/*.wasm\\n' > dist/public/.assetsignore",
+		"start": "waku start",
+		"types:check": "fumadocs-mdx && tsc --noEmit",
+		"check": "biome check --write",
+		"check:ci": "biome ci",
+		"preview": "wrangler dev",
+		"deploy": "pnpm build && wrangler deploy"
+	},
+	"dependencies": {
+		"@base-ui/react": "^1.6.0",
+		"@fuma-translate/react": "^1.0.2",
+		"fumadocs-core": "^16.11.0",
+		"fumadocs-mdx": "^15.1.0",
+		"fumadocs-ui": "npm:@fumadocs/base-ui@^16.11.0",
+		"fumapress": "0.7.1",
+		"react": "^19.2.7",
+		"react-dom": "^19.2.7",
+		"react-server-dom-webpack": "^19.2.7",
+		"waku": "1.0.0-beta.6"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.16",
+		"@rolldown/plugin-babel": "^0.2.3",
+		"@tailwindcss/vite": "^4.3.2",
+		"@types/mdx": "^2.0.14",
+		"@types/node": "^26.1.0",
+		"@types/react": "^19.2.17",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^6.0.3",
+		"babel-plugin-react-compiler": "^1.0.0",
+		"tailwindcss": "^4.3.2",
+		"typescript": "^6.0.3",
+		"wrangler": "^4.107.1"
+	}
 }

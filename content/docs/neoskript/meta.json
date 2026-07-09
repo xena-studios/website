@@ -1,5 +1,5 @@
 {
-  "title": "NeoSkript",
-  "root": true,
-  "pages": ["index", "syntax", "modules"]
+	"title": "NeoSkript",
+	"root": true,
+	"pages": ["index", "syntax", "modules"]
 }

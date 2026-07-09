@@ -1,5 +1,5 @@
 {
-  "title": "xUtilities",
-  "root": true,
-  "pages": ["index", "commands", "configuration"]
+	"title": "xUtilities",
+	"root": true,
+	"pages": ["index", "commands", "configuration"]
 }

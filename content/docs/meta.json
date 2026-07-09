@@ -1,5 +1,5 @@
 {
-  "title": "Overview",
-  "root": true,
-  "pages": ["index", "xutilities", "xlimbo", "neoskript"]
+	"title": "Overview",
+	"root": true,
+	"pages": ["index", "xutilities", "xlimbo", "neoskript"]
 }

@@ -17,6 +17,9 @@ landing page is a Waku React page. The site builds to static output. Priority or
 ## Build / target
 - **Fumapress `0.7.1`** on **Waku `1.0.0-beta.6`**, **React 19**, **Tailwind CSS v4**,
   **TypeScript** (strict). Package manager is **pnpm**.
+- **React Compiler** is enabled in `waku.config.ts` (per waku.gg/guides/react-compiler):
+  `react()` + `@rolldown/plugin-babel` with `reactCompilerPreset()`. It only transforms **client**
+  components, so this RSC-heavy app sees little of it, but the wiring is verified working.
 - Scripts: `pnpm dev` (dev server on :3000), `pnpm build` (static build → `dist/`),
   `pnpm start` (serve the build), `pnpm types:check` (`fumadocs-mdx` codegen + `tsc --noEmit`),
   `pnpm preview` (`wrangler dev` over `dist/public`), `pnpm deploy` (`waku build && wrangler deploy`).

@@ -7,6 +7,7 @@ import { sitemapPlugin } from "fumapress/plugins/sitemap";
 import { blogPlugin } from "fumapress/plugins/blog";
 import { createHomeLayout } from "fumapress/layouts/home";
 import { createRootLayout } from "fumapress/layouts/root";
+import { createNotebookLayoutPage } from "fumapress/layouts/notebook";
 import { blog, docs } from "./.source/server";
 
 const config = defineConfig({
@@ -46,6 +47,7 @@ const config = defineConfig({
         theme: { defaultTheme: "dark", forcedTheme: "dark", enableSystem: false },
       },
     }),
+    page: createNotebookLayoutPage(),
     defaultProps() {
       return {
         githubUrl: "https://github.com/xena-studios",

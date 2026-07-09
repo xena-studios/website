@@ -214,12 +214,11 @@ body {
   font-weight: 500;
 }
 
-/* the section-source tabs (Documentation / Blog) read as mono system labels */
-#nd-sidebar a[href="/docs"],
-#nd-sidebar a[href="/blog"] {
+/* notebook top-nav source tabs (Documentation / Blog) read as mono HUD labels */
+#nd-subnav a[data-active] {
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   font-size: 0.72rem;
 }
 
@@ -233,8 +232,8 @@ body {
   font-weight: 600;
 }
 
-/* search field → HUD input */
-#nd-sidebar button[data-search-full] {
+/* search field → HUD input (sidebar in docs, top bar in notebook) */
+button[data-search-full] {
   font-family: var(--font-mono);
   background-color: color-mix(in oklab, var(--color-fd-card) 60%, transparent);
 }

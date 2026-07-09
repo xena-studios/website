@@ -179,3 +179,96 @@ body {
     animation: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Docs shell — carry the mission-control HUD into the Fumadocs layout.
+   Targets stable Fumadocs hooks (#nd-sidebar, #nd-toc, data-active).
+   -------------------------------------------------------------------------- */
+
+/* keep the sidebar on the cool palette (neutral.css re-tints it warm-gray) */
+.dark #nd-sidebar {
+  --color-fd-muted: oklch(0.205 0.013 252);
+  --color-fd-secondary: oklch(0.2 0.014 252);
+  --color-fd-muted-foreground: oklch(0.64 0.015 250);
+}
+
+/* frame the whole sidebar with a hairline and a mono readout header */
+#nd-sidebar {
+  border-inline-end: 1px solid var(--color-fd-border);
+}
+
+/* section switcher → HUD selector */
+#nd-sidebar button[aria-haspopup="dialog"] {
+  border-color: var(--color-fd-border);
+  background-color: color-mix(in oklab, var(--color-fd-card) 60%, transparent);
+  transition: border-color 0.15s ease;
+}
+#nd-sidebar button[aria-haspopup="dialog"]:hover {
+  border-color: color-mix(in oklab, var(--color-fd-primary) 45%, var(--color-fd-border));
+}
+#nd-sidebar button[aria-haspopup="dialog"] p {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+/* the section-source tabs (Documentation / Blog) read as mono system labels */
+#nd-sidebar a[href="/docs"],
+#nd-sidebar a[href="/blog"] {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+}
+
+/* page items: tighten, and give the active item an amber marker (HUD cursor) */
+#nd-sidebar a[data-active] {
+  transition:
+    color 0.12s ease,
+    background-color 0.12s ease;
+}
+#nd-sidebar a[data-active="true"] {
+  position: relative;
+  padding-inline-start: 1.1rem;
+  font-weight: 600;
+}
+#nd-sidebar a[data-active="true"]::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.4rem;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translateY(-50%);
+  background: var(--color-fd-primary);
+}
+
+/* search field → HUD input */
+#nd-sidebar button[data-search-full] {
+  font-family: var(--font-mono);
+  background-color: color-mix(in oklab, var(--color-fd-card) 60%, transparent);
+}
+
+/* table of contents → mono readout, amber active line */
+#toc-title {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.68rem;
+  color: var(--color-fd-muted-foreground);
+}
+#nd-toc a[data-active="true"],
+#nd-tocnav a[data-active="true"] {
+  color: var(--color-fd-primary);
+  font-weight: 600;
+}
+
+/* docs headings pick up the display face for a HUD signature */
+#nd-page h1,
+article h1 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}

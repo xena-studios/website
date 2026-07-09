@@ -230,19 +230,7 @@ body {
     background-color 0.12s ease;
 }
 #nd-sidebar a[data-active="true"] {
-  position: relative;
-  padding-inline-start: 1.1rem;
   font-weight: 600;
-}
-#nd-sidebar a[data-active="true"]::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 0.4rem;
-  top: 50%;
-  width: 4px;
-  height: 4px;
-  transform: translateY(-50%);
-  background: var(--color-fd-primary);
 }
 
 /* search field → HUD input */

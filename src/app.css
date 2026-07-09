@@ -10,33 +10,35 @@
    stack falls back to Orbitron, loaded from Google Fonts in press.config.tsx.
    -------------------------------------------------------------------------- */
 @font-face {
-  font-family: "Ethnocentric";
-  src: url("/fonts/ethnocentric.otf") format("opentype");
-  font-weight: 400 800;
-  font-style: normal;
-  font-display: swap;
+	font-family: "Ethnocentric";
+	src: url("/fonts/ethnocentric.otf") format("opentype");
+	font-weight: 400 800;
+	font-style: normal;
+	font-display: swap;
 }
 
 @theme {
-  --font-display: "Ethnocentric", "Orbitron", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Source Code Pro", ui-monospace, "SFMono-Regular", monospace;
-  --default-font-family: "Source Code Pro", ui-monospace, "SFMono-Regular", monospace;
+	--font-display:
+		"Ethnocentric", "Orbitron", ui-sans-serif, system-ui, sans-serif;
+	--font-mono: "Source Code Pro", ui-monospace, "SFMono-Regular", monospace;
+	--default-font-family:
+		"Source Code Pro", ui-monospace, "SFMono-Regular", monospace;
 
-  /* raw signal amber, theme-independent (for HUD accents that must stay amber) */
-  --color-signal: oklch(0.8 0.15 68);
-  --color-signal-soft: oklch(0.8 0.15 68 / 0.14);
+	/* raw signal amber, theme-independent (for HUD accents that must stay amber) */
+	--color-signal: oklch(0.8 0.15 68);
+	--color-signal-soft: oklch(0.8 0.15 68 / 0.14);
 
-  /* Sharpen the whole UI. Fumadocs' search box, buttons, popovers and cards all
+	/* Sharpen the whole UI. Fumadocs' search box, buttons, popovers and cards all
      read radius from this scale; the HUD wants near-square corners. --radius-full
      is left alone so status dots and pills stay round. */
-  --radius-xs: 0px;
-  --radius-sm: 0px;
-  --radius-md: 1px;
-  --radius-lg: 2px;
-  --radius-xl: 2px;
-  --radius-2xl: 3px;
-  --radius-3xl: 4px;
-  --radius-4xl: 6px;
+	--radius-xs: 0px;
+	--radius-sm: 0px;
+	--radius-md: 1px;
+	--radius-lg: 2px;
+	--radius-xl: 2px;
+	--radius-2xl: 3px;
+	--radius-3xl: 4px;
+	--radius-4xl: 6px;
 }
 
 /* --------------------------------------------------------------------------
@@ -46,41 +48,41 @@
    -------------------------------------------------------------------------- */
 :root,
 .dark {
-  --color-fd-background: oklch(0.152 0.012 252);
-  --color-fd-foreground: oklch(0.93 0.008 250);
-  --color-fd-muted: oklch(0.205 0.013 252);
-  --color-fd-muted-foreground: oklch(0.68 0.015 250);
-  --color-fd-popover: oklch(0.178 0.014 252);
-  --color-fd-popover-foreground: oklch(0.93 0.008 250);
-  --color-fd-card: oklch(0.183 0.014 252);
-  --color-fd-card-foreground: oklch(0.94 0.008 250);
-  --color-fd-border: oklch(0.42 0.02 250 / 0.4);
-  --color-fd-primary: oklch(0.8 0.15 68);
-  --color-fd-primary-foreground: oklch(0.16 0.03 68);
-  --color-fd-secondary: oklch(0.225 0.014 252);
-  --color-fd-secondary-foreground: oklch(0.93 0.008 250);
-  --color-fd-accent: oklch(0.28 0.018 252 / 0.7);
-  --color-fd-accent-foreground: oklch(0.95 0.008 250);
-  --color-fd-ring: oklch(0.8 0.15 68);
-  --color-fd-overlay: oklch(0.1 0.01 252 / 0.6);
+	--color-fd-background: oklch(0.152 0.012 252);
+	--color-fd-foreground: oklch(0.93 0.008 250);
+	--color-fd-muted: oklch(0.205 0.013 252);
+	--color-fd-muted-foreground: oklch(0.68 0.015 250);
+	--color-fd-popover: oklch(0.178 0.014 252);
+	--color-fd-popover-foreground: oklch(0.93 0.008 250);
+	--color-fd-card: oklch(0.183 0.014 252);
+	--color-fd-card-foreground: oklch(0.94 0.008 250);
+	--color-fd-border: oklch(0.42 0.02 250 / 0.4);
+	--color-fd-primary: oklch(0.8 0.15 68);
+	--color-fd-primary-foreground: oklch(0.16 0.03 68);
+	--color-fd-secondary: oklch(0.225 0.014 252);
+	--color-fd-secondary-foreground: oklch(0.93 0.008 250);
+	--color-fd-accent: oklch(0.28 0.018 252 / 0.7);
+	--color-fd-accent-foreground: oklch(0.95 0.008 250);
+	--color-fd-ring: oklch(0.8 0.15 68);
+	--color-fd-overlay: oklch(0.1 0.01 252 / 0.6);
 }
 
 /* --------------------------------------------------------------------------
    Base
    -------------------------------------------------------------------------- */
 ::selection {
-  background: var(--color-signal);
-  color: oklch(0.16 0.03 68);
+	background: var(--color-signal);
+	color: oklch(0.16 0.03 68);
 }
 
 body {
-  font-feature-settings: "ss01", "cv01";
-  -webkit-font-smoothing: antialiased;
+	font-feature-settings: "ss01", "cv01";
+	-webkit-font-smoothing: antialiased;
 }
 
 /* the display face is wide; tighten tracking so wordmarks lock up */
 .font-display {
-  letter-spacing: -0.01em;
+	letter-spacing: -0.01em;
 }
 
 /* --------------------------------------------------------------------------
@@ -89,95 +91,103 @@ body {
 
 /* fine engineering grid, faded toward the edges */
 .hud-grid {
-  background-image:
-    linear-gradient(to right, var(--color-fd-border) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-fd-border) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 0%, transparent 75%);
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 0%, transparent 75%);
+	background-image:
+		linear-gradient(to right, var(--color-fd-border) 1px, transparent 1px),
+		linear-gradient(to bottom, var(--color-fd-border) 1px, transparent 1px);
+	background-size: 56px 56px;
+	-webkit-mask-image: radial-gradient(
+		ellipse 80% 60% at 50% 40%,
+		#000 0%,
+		transparent 75%
+	);
+	mask-image: radial-gradient(
+		ellipse 80% 60% at 50% 40%,
+		#000 0%,
+		transparent 75%
+	);
 }
 
 /* corner ticks for framed panels */
 .hud-frame {
-  position: relative;
+	position: relative;
 }
 .hud-frame::before,
 .hud-frame::after {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-color: var(--color-fd-primary);
-  border-style: solid;
-  opacity: 0.85;
+	content: "";
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-color: var(--color-fd-primary);
+	border-style: solid;
+	opacity: 0.85;
 }
 .hud-frame::before {
-  top: -1px;
-  left: -1px;
-  border-width: 1px 0 0 1px;
+	top: -1px;
+	left: -1px;
+	border-width: 1px 0 0 1px;
 }
 .hud-frame::after {
-  bottom: -1px;
-  right: -1px;
-  border-width: 0 1px 1px 0;
+	bottom: -1px;
+	right: -1px;
+	border-width: 0 1px 1px 0;
 }
 
 /* soft amber bloom behind the hero */
 .signal-bloom {
-  background: radial-gradient(
-    ellipse 50% 45% at 50% 42%,
-    var(--color-signal-soft),
-    transparent 70%
-  );
+	background: radial-gradient(
+		ellipse 50% 45% at 50% 42%,
+		var(--color-signal-soft),
+		transparent 70%
+	);
 }
 
 /* entrance choreography */
 @keyframes hud-rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+	from {
+		opacity: 0;
+		transform: translateY(14px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 @keyframes hud-sweep {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
 }
 @keyframes hud-blink {
-  0%,
-  60% {
-    opacity: 1;
-  }
-  61%,
-  100% {
-    opacity: 0.25;
-  }
+	0%,
+	60% {
+		opacity: 1;
+	}
+	61%,
+	100% {
+		opacity: 0.25;
+	}
 }
 
 .animate-rise {
-  animation: hud-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+	animation: hud-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .animate-sweep {
-  transform-origin: left;
-  animation: hud-sweep 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+	transform-origin: left;
+	animation: hud-sweep 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .animate-blink {
-  animation: hud-blink 1.6s steps(1) infinite;
+	animation: hud-blink 1.6s steps(1) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-rise,
-  .animate-sweep,
-  .animate-blink {
-    animation: none;
-  }
+	.animate-rise,
+	.animate-sweep,
+	.animate-blink {
+		animation: none;
+	}
 }
 
 /* --------------------------------------------------------------------------
@@ -185,77 +195,85 @@ body {
    Targets stable Fumadocs hooks (#nd-sidebar, #nd-toc, data-active).
    -------------------------------------------------------------------------- */
 
-/* keep the sidebar on the cool palette (neutral.css re-tints it warm-gray) */
-.dark #nd-sidebar {
-  --color-fd-muted: oklch(0.205 0.013 252);
-  --color-fd-secondary: oklch(0.2 0.014 252);
-  --color-fd-muted-foreground: oklch(0.64 0.015 250);
+/* frame the whole sidebar with a hairline */
+#nd-sidebar {
+	border-inline-end: 1px solid var(--color-fd-border);
 }
 
-/* frame the whole sidebar with a hairline and a mono readout header */
-#nd-sidebar {
-  border-inline-end: 1px solid var(--color-fd-border);
+/* keep the sidebar on the cool palette (neutral.css re-tints it warm-gray) */
+.dark #nd-sidebar {
+	--color-fd-muted: oklch(0.205 0.013 252);
+	--color-fd-secondary: oklch(0.2 0.014 252);
+	--color-fd-muted-foreground: oklch(0.64 0.015 250);
 }
 
 /* section switcher → HUD selector */
 #nd-sidebar button[aria-haspopup="dialog"] {
-  border-color: var(--color-fd-border);
-  background-color: color-mix(in oklab, var(--color-fd-card) 60%, transparent);
-  transition: border-color 0.15s ease;
+	border-color: var(--color-fd-border);
+	background-color: color-mix(in oklab, var(--color-fd-card) 60%, transparent);
+	transition: border-color 0.15s ease;
 }
 #nd-sidebar button[aria-haspopup="dialog"]:hover {
-  border-color: color-mix(in oklab, var(--color-fd-primary) 45%, var(--color-fd-border));
+	border-color: color-mix(
+		in oklab,
+		var(--color-fd-primary) 45%,
+		var(--color-fd-border)
+	);
 }
 #nd-sidebar button[aria-haspopup="dialog"] p {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.78rem;
-  font-weight: 500;
+	font-family: var(--font-mono);
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	font-size: 0.78rem;
+	font-weight: 500;
 }
 
 /* notebook top-nav source tabs (Documentation / Blog) read as mono HUD labels */
 #nd-subnav a[data-active] {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.72rem;
+	font-family: var(--font-mono);
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	font-size: 0.72rem;
 }
 
 /* page items: tighten, and give the active item an amber marker (HUD cursor) */
 #nd-sidebar a[data-active] {
-  transition:
-    color 0.12s ease,
-    background-color 0.12s ease;
+	transition:
+		color 0.12s ease,
+		background-color 0.12s ease;
 }
 #nd-sidebar a[data-active="true"] {
-  font-weight: 600;
+	font-weight: 600;
 }
 
-/* search field → HUD input (sidebar in docs, top bar in notebook) */
-button[data-search-full] {
-  font-family: var(--font-mono);
-  background-color: color-mix(in oklab, var(--color-fd-card) 60%, transparent);
+/* search field → HUD input (sidebar in docs, top bar in notebook, home nav).
+   Fumadocs ships it `rounded-full`; the HUD wants it square. */
+button[data-search-full],
+#nd-nav button[data-search-full],
+[data-search-full] {
+	border-radius: var(--radius-lg);
+	font-family: var(--font-mono);
+	background-color: color-mix(in oklab, var(--color-fd-card) 60%, transparent);
 }
 
 /* table of contents → mono readout, amber active line */
 #toc-title {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.68rem;
-  color: var(--color-fd-muted-foreground);
+	font-family: var(--font-mono);
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	font-size: 0.68rem;
+	color: var(--color-fd-muted-foreground);
 }
 #nd-toc a[data-active="true"],
 #nd-tocnav a[data-active="true"] {
-  color: var(--color-fd-primary);
-  font-weight: 600;
+	color: var(--color-fd-primary);
+	font-weight: 600;
 }
 
 /* docs headings pick up the display face for a HUD signature */
-#nd-page h1,
-article h1 {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
+article h1,
+#nd-page h1 {
+	font-family: var(--font-display);
+	text-transform: uppercase;
+	letter-spacing: -0.01em;
 }

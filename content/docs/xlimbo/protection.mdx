@@ -1,0 +1,26 @@
+---
+title: Protection
+description: The exploit-resistance features that keep the limbo sandbox safe.
+---
+
+xLimbo's sandbox is protected by a set of small, individually toggleable listeners — each
+registered only when its feature is enabled, with safe defaults **on**. No single player action
+can lag, crash, grief or escape the world.
+
+## Toggles
+
+- **Unbreakable floor** — the glass floor can't be broken.
+- **Void rescue** — players who somehow fall out are returned safely.
+- **Blocked portals** — no nether/end portal travel out of limbo.
+- **No liquids** — water/lava placement is blocked.
+- **No gravity blocks** — sand, gravel and similar can't be used for exploits.
+- **No fire** — fire spread and ignition are disabled.
+- **No explosions** — TNT and creeper-style explosions do nothing.
+- **No mob spawns** — the world stays empty.
+- **No redstone** — redstone contraptions are inert.
+- **No item drops** — combined with entity-item blocking and periodic cleanup, dropped items
+  don't accumulate.
+- **Build-rate guard** — an optional cap against lag machines.
+
+Because each listener is registered only when its feature is enabled, disabling a protection
+removes its overhead entirely.

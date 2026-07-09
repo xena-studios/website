@@ -1,0 +1,34 @@
+---
+title: Architecture
+description: The panel, the wings daemon, and the trust model between them.
+---
+
+Raptor is two programs:
+
+- A central web **panel** (the hosted SaaS) owns identity, organizations, eggs, and the desired
+  state of your fleet.
+- A per-box Go **daemon** (`wings`) owns each machine — Docker, networking, firewall, and disk —
+  and keeps running even if the panel is unreachable.
+
+## Trust model
+
+The panel drives each box over an authenticated HTTPS API — secured with a per-node key and a
+pinned certificate; the daemon heartbeats back with live status. A shared API contract keeps the
+two in sync.
+
+## Layout
+
+```text
+apps/
+  panel/    TanStack Start web app + API (the hosted panel)
+  wings/    the Go agent that runs on each managed box
+```
+
+## Subsystems
+
+`wings` covers enrollment + heartbeat, the pinned HTTPS control API, Docker servers (lifecycle,
+console, stats), networks / firewall / ports, a sandboxed file manager + SFTP, the egg-style
+install pipeline + config templating, a cron scheduler + borg backups, host maintenance and
+physical-drive management, an offline IPC socket + TUI, ACME TLS, disk quotas, and database
+browsers — plus a tag-driven release pipeline (`wings` self-updates; new boxes install via
+`/install.sh`).

@@ -1,0 +1,32 @@
+---
+title: Modules & addons
+description: The NeoSkript project layout and how to write addons.
+---
+
+## Modules
+
+| Module | Purpose |
+|---|---|
+| `neoskript-api` | Public SPI — stable, semver'd (`Expression`, `Effect`, `Condition`, `Type`, `SyntaxRegistry`, `NeoSkriptAddon`). |
+| `neoskript-core` | Pipeline internals: lexer, parser, resolver, optimizer, runtime. |
+| `neoskript-lang` | Built-in expressions/effects/conditions/events/types. |
+| `neoskript-platform` | Paper + Folia adapters and the `NeoScheduler` abstraction. |
+| `neoskript-plugin` | The shaded, distributable plugin jar. |
+| `neoskript-testkit` | Script conformance harness and benchmarks. |
+
+## Building
+
+Requires JDK 25 (the build uses a Java 25 toolchain).
+
+```bash
+./gradlew build
+```
+
+The distributable plugin jar is produced at
+`neoskript-plugin/build/libs/neoskript-plugin-<version>.jar`.
+
+## Writing an addon
+
+NeoSkript exposes a typed SPI (`neoskript-api`). Implement `NeoSkriptAddon` and either ship it
+via `ServiceLoader` or register it from a dependent plugin's `onEnable`. See `CONTRIBUTING.md`
+in the [repository](https://github.com/xena-studios/neoskript) for the full guide.

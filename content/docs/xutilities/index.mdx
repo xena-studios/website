@@ -1,0 +1,41 @@
+---
+title: Overview
+description: A lightweight, high-performance utility-command plugin for Paper (and Folia) networks.
+---
+
+**xUtilities** is a lightweight, high-performance utility-command plugin for **Paper** (and
+Folia) networks. It's meant to be installed on **every** server — lobby, survival, minigame,
+anything — providing the small quality-of-life commands virtually every server wants,
+regardless of type.
+
+Because it runs everywhere, it adds **near-zero overhead**: no always-on tick work, a tiny
+memory footprint, and clean, fail-safe startup/reload. Every command is individually
+toggleable, permissioned, aliasable, and has fully customizable MiniMessage text, so each
+server can enable exactly the subset it wants.
+
+## Built to stay up
+
+xUtilities is built to **stay up**: every code path fails safe. It never throws out of
+enable/reload, never blocks the main thread, and never disables itself on a bad config value.
+It's **Folia-ready** — player mutations run on the correct scheduler, `/top` and `/back` use
+`teleportAsync`, and no entity is touched off its region thread.
+
+## Requirements
+
+- **Paper (or a fork like Purpur, or Folia) 1.20.6 or newer** — the first release where the
+  modern Brigadier command API is stable and non-experimental. A jar built against 1.20.6 runs
+  unchanged on all newer versions, with no runtime performance cost.
+- **Java 21 runtime.**
+
+## Next steps
+
+- [Commands](/docs/xutilities/commands) — the full command reference.
+- [Configuration](/docs/xutilities/configuration) — install, config, permissions, and reload
+  semantics.
+
+## Links
+
+- **Source** — [github.com/xena-studios/xutilities](https://github.com/xena-studios/xutilities)
+- **Downloads** — [Modrinth](https://modrinth.com/organization/xena-studios) ·
+  [Releases](https://github.com/xena-studios/xutilities/releases/latest)
+- **License** — GPL-3.0

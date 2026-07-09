@@ -1,0 +1,5 @@
+{
+  "title": "xLimbo",
+  "root": true,
+  "pages": ["index", "configuration", "protection"]
+}

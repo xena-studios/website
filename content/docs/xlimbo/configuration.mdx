@@ -1,0 +1,32 @@
+---
+title: Configuration
+description: Install xLimbo, wire it into your proxy, and understand reload semantics.
+---
+
+## Install
+
+1. Grab a jar from the [latest release](https://github.com/xena-studios/xlimbo/releases/latest)
+   or [Modrinth](https://modrinth.com/organization/xena-studios) and drop it in your limbo
+   server's `plugins/` folder.
+2. Start the server once — xLimbo creates the `xlimbo` world and writes a default `config.yml`.
+3. Edit `plugins/xLimbo/config.yml` to taste, then run `/xlimbo reload`.
+4. Point your proxy's fallback server at this instance and set `main-server` to the proxy name
+   of the server `/join` should send players to.
+
+## Options
+
+- **Join** — configurable `/join` aliases, permission and per-player cooldown. Optional
+  auto-join sends players back automatically after a delay.
+- **Action bar** — an optional repeating hint (the component is parsed once and reused each
+  cycle).
+- **Messages** — suppress join/quit/death broadcasts, set an optional custom join message and
+  chat clear. All text is MiniMessage and fully configurable.
+
+## Reload semantics
+
+`/xlimbo reload` re-reads and re-validates config and re-applies settings to the
+already-loaded world; `/xlimbo info` shows the resolved version and status.
+
+A few settings are **restart-only** because the world and generator are fixed at creation:
+`join-command.aliases`, `world.name`, `world.floor-y` and `world.floor-block`. A live
+`world.name` change is logged and ignored rather than orphaning players in the old world.

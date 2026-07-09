@@ -1,0 +1,34 @@
+---
+title: Configuration
+description: Install xUtilities, configure it, and understand reload semantics.
+---
+
+## Install
+
+1. Grab a jar from the [latest release](https://github.com/xena-studios/xutilities/releases/latest)
+   or [Modrinth](https://modrinth.com/organization/xena-studios) and drop it in your server's
+   `plugins/` folder.
+2. Start the server once — xUtilities writes a default `config.yml`.
+3. Edit `plugins/xUtilities/config.yml` to taste, then run `/xutilities reload`.
+4. Grant permissions in your permission plugin as needed.
+
+## Configuration
+
+Every command has its own `enabled`, `aliases`, permission(s) and MiniMessage text, plus a
+shared `messages.error.*` block. Safe defaults are on; bad values fall back to code-level
+defaults with a warning rather than disabling the plugin.
+
+Permissions are declared in `paper-plugin.yml` with safe defaults: state-changing / staff
+commands and every `.others` variant require the relevant permission (default `op`); read-only
+commands like `/ping` and the info commands default to everyone.
+
+## Reload semantics
+
+`/xutilities reload` swaps in a freshly parsed and validated settings snapshot:
+
+- **Message and behaviour values** — all text, speed bounds, heal/clear options and link
+  contents — apply **live**.
+- **Structural config** — which commands are enabled, their aliases and permissions, and which
+  info-commands exist — is applied when commands are registered at startup, and is therefore
+  **restart-only**. A command disabled live still answers with its configured "disabled"
+  message.

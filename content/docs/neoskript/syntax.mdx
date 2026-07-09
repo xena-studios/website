@@ -1,0 +1,33 @@
+---
+title: Syntax
+description: A quick tour of the NeoSkript language.
+---
+
+NeoSkript speaks the Skript dialect you already know — events, effects, conditions, control
+flow, variables and functions — so existing scripts run unchanged.
+
+## Quick example
+
+```text
+on join:
+    add 1 to {joins}
+    broadcast "%player% joined! (%{joins}% total)"
+    send "Welcome to the server!" to player
+
+every 5 minutes:
+    broadcast "Still going strong."
+```
+
+## What's supported
+
+On top of control flow, variables (lists + persistence) and functions, the language covers:
+
+- Custom commands and options.
+- Event-values and `cancel event`.
+- Loop control and top-level `wait` delays.
+- Built-in math functions and string/list operations.
+- Player/world syntax and colour codes.
+
+For the authoritative, up-to-date guide — including exactly what's implemented versus the
+remaining long tail — see `docs/SYNTAX.md`, `docs/GAPS.md` and `docs/PLAN.md` in the
+[repository](https://github.com/xena-studios/neoskript).

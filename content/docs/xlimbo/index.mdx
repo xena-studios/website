@@ -1,0 +1,46 @@
+---
+title: Overview
+description: A rock-solid fallback / limbo server plugin for Paper (Pufferfish) networks.
+---
+
+**xLimbo** is a rock-solid **fallback / limbo** server plugin for **Paper** (Pufferfish)
+networks. When your main server crashes, restarts or becomes unreachable, players routed to
+xLimbo land in an empty void world — creative mode, flight enabled, on an unbreakable glass
+floor — so they stay connected to the network instead of being disconnected. When the main
+server is back, they hop straight over with `/join` (or automatically).
+
+## Built to never go down
+
+Every code path fails safe. xLimbo never throws out of enable/reload, never blocks the main
+thread, never disables itself on a bad config value, and no single player action can lag,
+crash, grief or escape the sandbox.
+
+## How it works
+
+- **Void world** owned by the plugin — an ultra-cheap generator (one shared glass-floor layer
+  per chunk; caves, decorations, structures, mobs and noise all disabled). Ephemeral: autosave
+  off, spawn chunks not kept loaded.
+- **Join flow** — players are put in creative + flight and **async-teleported** to a bounded,
+  spread-out random spawn (the chunk is preloaded first, so the join tick never blocks on
+  generation). A world border bounds all roaming and caps total chunk generation.
+- **`/join`** — sends the player to the main server via the proxy (BungeeCord `Connect`
+  message), with configurable aliases, permission and a per-player cooldown to stop proxy spam.
+
+## Requirements
+
+- **Paper (or a fork like Pufferfish) 1.18.2 or newer** — the oldest release that provides
+  everything xLimbo needs (modern `ChunkGenerator` hooks + `BiomeProvider`, bundled MiniMessage)
+  without shading extra libraries. A jar built against 1.18.2 runs on all newer versions.
+- **Java 21 runtime.**
+
+## Next steps
+
+- [Configuration](/docs/xlimbo/configuration) — install, config, and reload semantics.
+- [Protection](/docs/xlimbo/protection) — the exploit-resistance toggles.
+
+## Links
+
+- **Source** — [github.com/xena-studios/xlimbo](https://github.com/xena-studios/xlimbo)
+- **Downloads** — [Modrinth](https://modrinth.com/organization/xena-studios) ·
+  [Releases](https://github.com/xena-studios/xlimbo/releases/latest)
+- **License** — GPL-3.0

@@ -1,0 +1,37 @@
+---
+title: Overview
+description: A fast, modern, drop-in replacement for Skript — built for Paper + Folia on Java 25.
+---
+
+**NeoSkript** is a fast, modern, drop-in replacement for
+[Skript](https://github.com/SkriptLang/Skript) — built for **Paper + Folia on Java 25**, with a
+clean, extensible API.
+
+NeoSkript runs existing `.sk` scripts unchanged while being dramatically faster to load and
+execute, Folia-safe by construction, and designed so addon authors are first-class users.
+
+## Why NeoSkript
+
+- **Drop-in** — existing `.sk` scripts run without modification.
+- **Fast** — an indexed parser and an optimizing pipeline make loading and execution
+  dramatically quicker.
+- **Folia-safe by construction** — the platform layer abstracts scheduling so scripts behave
+  correctly on regionized servers.
+- **Extensible** — a typed public SPI (`neoskript-api`) makes addon authors first-class users.
+
+## Status
+
+Phases 0–5 of the roadmap are implemented, plus a broad language expansion: custom commands,
+options, event-values and `cancel event`, loop control, top-level `wait` delays, built-in math
+functions, string/list operations, player/world syntax, and colour codes — on top of control
+flow, variables (lists + persistence), functions, a profiler, and the indexed parser.
+
+## Next steps
+
+- [Syntax](/docs/neoskript/syntax) — a quick tour of the language.
+- [Modules &amp; addons](/docs/neoskript/modules) — the project layout and how to write addons.
+
+## Links
+
+- **Source** — [github.com/xena-studios/neoskript](https://github.com/xena-studios/neoskript)
+- **License** — GPL-3.0

@@ -1,0 +1,50 @@
+---
+title: Commands
+description: The full xUtilities command reference.
+---
+
+Every command is individually toggleable, aliasable and permissioned. Commands that act on
+another player require a separate `.others` permission, checked before acting. Player-selector
+arguments provide native tab-completion.
+
+## Gamemode
+
+`/survival`, `/creative`, `/adventure`, `/spectator`, plus a `/gamemode <mode> [player]` parent
+that wires in whichever modes are enabled. Works on yourself or another player (with the
+`.others` permission).
+
+## Player utility
+
+- `/fly` — toggle flight.
+- `/speed` — set fly/walk speed (1–10).
+- `/top` — async-teleport to the highest safe block.
+- `/setrotation` — set yaw/pitch.
+- `/ping` — show latency.
+- `/back` — return to your previous location or death spot.
+
+## State &amp; inventory
+
+- `/heal` — restore health (optionally hunger, fire, negative effects).
+- `/feed` — restore hunger.
+- `/repair` — repair the held item, or `/repair all`.
+- `/clear` — clear inventory.
+- `/enderchest` — open your ender chest.
+
+## Virtual workstation menus
+
+Open the vanilla UI without a placed block: `/anvil`, `/craft`, `/grinder`, `/loom`, `/smith`,
+and `/trash` — a disposal inventory whose contents are discarded on close (no listener, nothing
+persisted or duplicated).
+
+## Info / link commands
+
+Owner-defined clickable links, entirely data-driven (the config-map key is the command name).
+Ships editable `/discord`, `/store` and `/website` defaults and lets you add arbitrary ones
+(e.g. `/vote`) with zero code. These are read from your file directly, so deleting a shipped
+entry won't resurrect it.
+
+## Admin
+
+- `/xutilities reload` — re-read and re-validate config, re-applying all message/behaviour
+  values live.
+- `/xutilities info` — show build/version and status.

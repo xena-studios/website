@@ -40,18 +40,26 @@ landing page is a Waku React page. The site builds to static output. Priority or
   `themeSwitch` disabled), plus the exported `HomeLayout`.
 - `source.config.ts` — `defineDocs({ dir: "content" })` (fumadocs-mdx content source).
 - `waku.config.ts` — Vite plugins (`press()`, `mdx()`, `tailwindcss()`).
-- `content/docs/` — all documentation MDX (see **Docs structure**).
+- `content/docs/` — documentation MDX; `content/blog/` — blog posts (see **Docs & blog**).
 
-## Docs structure
-- Docs are served under `/docs`. The content loader's `dir` is `content`, so files under
-  `content/docs/` map to `/docs/...` — **do not** pass `baseDir: "docs"` to
-  `toFumadocsSource()` or you get a doubled `/docs/docs/...` prefix.
+## Docs & blog
+- **Two content sources.** `source.config.ts` defines `docs` (`dir: "content/docs"`) and `blog`
+  (`dir: "content/blog"`, `blogPageSchema`/`blogMetaSchema`, plus the `lastModified` plugin for
+  post dates). `press.config.tsx` wires them as `content: { docs: …baseDir "docs", blog: …baseDir
+  "blog" }`, serving `/docs/*` and `/blog/*`. Because each source's `dir` already points at its
+  subfolder, `baseDir` here is correct (it does **not** double the prefix — that only happens with
+  `dir: "content"` + `baseDir: "docs"`).
+- **Blog** is enabled with `blogPlugin({ layouts: { layout: HomeLayout } })` in the default
+  export, plus a `Blog` nav link. It ships `/blog` (index), `/blog/tags`, and per-post pages. The
+  blog is its own `root: true` section, so it appears in the docs section switcher as well as the
+  nav (this is fumapress's docs+blog convention; the docs layout reads a global page tree, so you
+  cannot filter the blog out of that switcher from a per-page `render`).
 - **Section dropdown = `root: true` folders.** Fumadocs' `getPageTreeRoots` builds the sidebar
   section switcher from every folder whose `meta.json` has `"root": true`, **plus** the top-level
   tree itself. So the top-level `content/docs/` is the **Overview** section, and each documented
   project (`xutilities/`, `xlimbo/`, `neoskript/`) is its own root folder = its own dropdown
   section with its own sidebar pages. **Raptor is showcase-only** — it has no docs section; its
-  landing card links out to `www.raptorpanel.net` (`external: true` in the `projects` array).
+  landing card links out to `www.raptorpanel.net`.
 - Each folder's `meta.json` sets `title`, `root`, and a `pages` order array. Every page needs
   `title` + `description` frontmatter.
 - **Shiki has no `sk` (Skript) grammar** — use a ` ```text ` fence for NeoSkript/Skript snippets
@@ -104,8 +112,8 @@ See `PRODUCT.md` (brand strategy) and `DESIGN.md` (the full design language). In
 ## Status
 Landing page + docs are built and verified with `pnpm build` (SSG) and a browser smoke test
 (landing, `/docs`, project sections + the section dropdown). The dark-only mission-control
-redesign (`PRODUCT.md` / `DESIGN.md`) is shipped. Search (`flexsearch`), `llms.txt` and OG images
-(`takumi`) plugins are enabled.
+redesign (`PRODUCT.md` / `DESIGN.md`) is shipped. Enabled plugins: search (`flexsearch`),
+`llms.txt`, OG images (`takumi`), `sitemap`, and `blog`.
 
 ## Follow-ups (not required by the brief)
 - **Ethnocentric font** is not committed (licensed). Drop `public/fonts/ethnocentric.otf` to

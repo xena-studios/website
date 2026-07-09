@@ -3,12 +3,17 @@ import { fumadocsMdx } from "fumapress/adapters/mdx";
 import { flexsearchPlugin } from "fumapress/plugins/flexsearch";
 import { llmsPlugin } from "fumapress/plugins/llms.txt";
 import { takumiPlugin } from "fumapress/plugins/takumi";
+import { sitemapPlugin } from "fumapress/plugins/sitemap";
+import { blogPlugin } from "fumapress/plugins/blog";
 import { createHomeLayout } from "fumapress/layouts/home";
 import { createRootLayout } from "fumapress/layouts/root";
-import { docs } from "./.source/server";
+import { blog, docs } from "./.source/server";
 
 const config = defineConfig({
-  content: docs.toFumadocsSource(),
+  content: {
+    docs: docs.toFumadocsSource({ baseDir: "docs" }),
+    blog: blog.toFumadocsSource({ baseDir: "blog" }),
+  },
   site: {
     name: "Xena Studios",
     baseUrl: "https://www.xenastudios.co",
@@ -34,7 +39,7 @@ const config = defineConfig({
   },
 })
   .adapters(fumadocsMdx())
-  .plugins(flexsearchPlugin(), llmsPlugin(), takumiPlugin())
+  .plugins(flexsearchPlugin(), llmsPlugin(), takumiPlugin(), sitemapPlugin())
   .layouts({
     root: createRootLayout({
       providerProps: {
@@ -62,6 +67,11 @@ const config = defineConfig({
             active: "nested-url",
           },
           {
+            text: "Blog",
+            url: "/blog",
+            active: "nested-url",
+          },
+          {
             type: "icon",
             text: "Modrinth",
             label: "Modrinth",
@@ -77,7 +87,7 @@ export type Ctx = typeof config.$context;
 
 export const HomeLayout = createHomeLayout<Ctx>();
 
-export default config;
+export default config.plugins(blogPlugin({ layouts: { layout: HomeLayout } }));
 
 function ModrinthIcon() {
   return (

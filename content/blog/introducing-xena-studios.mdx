@@ -1,0 +1,36 @@
+---
+title: Introducing Xena Studios
+description: Why we build open-source infrastructure for Minecraft networks and self-hosted game hosting.
+tags: [studio]
+---
+
+Xena Studios builds open-source infrastructure for Minecraft networks and self-hosted game
+hosting. Our plugins run on every server in a network with near-zero overhead, and our platform,
+Raptor, extends that same philosophy onto the boxes those servers run on.
+
+## The principle: stay online
+
+Every project we ship shares one priority: it does not go down. Code paths fail safe. A plugin
+never throws out of enable or reload, never blocks the main thread, and never disables itself on
+a bad config value. A single player action cannot lag, crash, grief, or escape the sandbox. That
+discipline is the reason a network operator can install our plugins on lobby, survival, and
+minigame servers alike and forget they are there.
+
+## The fleet
+
+- **xUtilities** is the quality-of-life command set almost every server wants, each command
+  toggleable, permissioned, and fully customizable, with the overhead of running everywhere kept
+  close to zero.
+- **xLimbo** is the fallback server. When the main node goes down, players land in a safe void
+  world instead of being disconnected, then rejoin with `/join`.
+- **NeoSkript** is a drop-in replacement for Skript, built for Paper and Folia on Java 25. It runs
+  existing `.sk` scripts unchanged while being dramatically faster and Folia-safe by construction.
+- **Raptor** is a hosted, multi-tenant control panel for running Docker game servers and apps on
+  your own Linux boxes, plus the per-box daemon that does the work.
+
+## Open by default
+
+Everything we publish is open source on [GitHub](https://github.com/xena-studios), and our
+Paper/Folia plugins are available on [Modrinth](https://modrinth.com/organization/xena-studios).
+Read the [documentation](/docs) to get started, and follow this blog for release notes and
+engineering write-ups.

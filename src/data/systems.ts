@@ -65,4 +65,17 @@ export const systems: System[] = [
 		repo: "https://github.com/xena-studios/xutilities",
 		meta: ["Java", "Paper / Folia", "GPL-3.0"],
 	},
+	{
+		code: "S-05",
+		name: "zChat",
+		kind: "PLUGIN",
+		tagline: "Format your server's chat",
+		description:
+			"A lightweight chat plugin: group-based message formatting, a word and pattern filter, per-player cooldown, global mute, chat clearing, and a per-player toggle. Each feature is individually toggleable and permissioned.",
+		page: "https://modrinth.com/mod/zchat",
+		pageLabel: "Modrinth",
+		docs: "/docs/zchat",
+		repo: "https://github.com/xena-studios/zchat",
+		meta: ["Java", "Paper / Folia", "GPL-3.0"],
+	},
 ];

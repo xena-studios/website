@@ -1,0 +1,69 @@
+---
+title: Configuration
+description: Install zChat, configure the filter, cooldown and commands, and understand reload semantics.
+---
+
+## Install
+
+1. Grab a jar from the [latest release](https://github.com/xena-studios/zchat/releases/latest)
+   or [Modrinth](https://modrinth.com/plugin/zchat) and drop it in your server's `plugins/`
+   folder.
+2. Start the server once — zChat writes a default `config.yml`.
+3. Edit `plugins/zChat/config.yml` to taste, then run `/zchat reload`.
+4. Grant permissions in your permission plugin as needed, including the `zchat.group.*` nodes
+   that select each rank's chat format.
+
+## Filter
+
+The `filter` block blocks or censors configurable words and regex patterns (case-insensitive,
+pre-compiled at load):
+
+- **`mode`** — `block` cancels the message and warns the sender; `censor` masks each match with
+  `censor-char` (default `*`).
+- **`patterns`** — a list of case-insensitive Java regex entries.
+- Holders of `zchat.bypass.filter` are exempt.
+
+## Cooldown
+
+The `cooldown` block enforces a per-player minimum delay (`seconds`, default `3`) between
+messages. Holders of `zchat.bypass.cooldown` are exempt.
+
+## Commands
+
+Each command shares `enabled`, `aliases` and `permission`, plus its own messages.
+
+- **`/mutechat`** (`mc`) — toggle a global chat mute. Only `zchat.bypass.mute` holders can talk
+  while muted.
+- **`/clearchat`** (`cc`) — flood the chat with blank lines (default `100`) to clear it for
+  everyone; `zchat.bypass.clearchat` holders keep their view.
+- **`/togglechat`** (`tc`) — let a player hide or show chat for themselves.
+- **`/zchat reload` / `info`** (`zc`) — reload re-reads and re-validates config; `info` shows
+  build/version and runtime status.
+
+## Permissions
+
+| Node | Default | Grants |
+| --- | --- | --- |
+| `zchat.command.clearchat` | op | Use `/clearchat`. |
+| `zchat.command.mutechat` | op | Use `/mutechat`. |
+| `zchat.command.togglechat` | everyone | Use `/togglechat`. |
+| `zchat.admin` | op | Use `/zchat reload` and `info`. |
+| `zchat.bypass.mute` | op | Speak while chat is muted. |
+| `zchat.bypass.cooldown` | op | Ignore the cooldown. |
+| `zchat.bypass.filter` | op | Ignore the filter. |
+| `zchat.bypass.clearchat` | op | Keep your chat on `/clearchat`. |
+| `zchat.chat.color` | unset | Colour your own messages. |
+| `zchat.group.<name>` | op | Apply that group's chat format. |
+
+All permissions are declared in `paper-plugin.yml` with these defaults, so zChat is safe
+out-of-the-box. Custom permissions set in config that aren't declared default to op-only; set
+them blank (`""`) for no restriction.
+
+## Reload semantics
+
+`/zchat reload` swaps in a freshly parsed and validated settings snapshot:
+
+- **Message and behaviour values** — formats, filter, cooldown and all text — apply **live**.
+  Runtime state (mute, per-player toggles, cooldowns) is preserved across the swap.
+- **Structural config** — whether a command is enabled and its aliases — is applied when commands
+  are registered at startup, and is therefore **restart-only**.

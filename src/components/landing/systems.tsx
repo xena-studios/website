@@ -6,7 +6,7 @@ import { SectionHeader } from "./section-header";
 export function Systems() {
 	return (
 		<section className="py-20 sm:py-28">
-			<SectionHeader index="01" title="Systems" note="4 units · open source" />
+			<SectionHeader index="01" title="Systems" note="5 units · open source" />
 			<ol className="mt-10 border-fd-border border-t">
 				{systems.map((system) => (
 					<SystemRow key={system.code} system={system} />

@@ -1,0 +1,38 @@
+---
+title: Formatting
+description: Group-based chat message formatting with MiniMessage.
+---
+
+zChat renders every chat message through a **group format**. Each group has a `weight`, a
+`permission`, and a MiniMessage `format` string; the highest-`weight` group a player has
+permission for wins, falling back to an open `default` group when none match.
+
+## Groups
+
+Groups live under `formatting.groups` in the config. zChat ships `default`, `vip`, `staff` and
+`admin` — edit them, delete them, or add your own.
+
+- **`weight`** — higher wins when a player matches several groups.
+- **`permission`** — the node that selects this format (for example `zchat.group.vip`). Leave it
+  blank to apply the group to everyone.
+- **`format`** — the MiniMessage template for the whole chat line.
+
+The `default-format` is used when no group matches, so chat always renders even before you
+configure any groups.
+
+## Placeholders
+
+Formats are MiniMessage and support:
+
+- `` `<player>` `` — the player's name.
+- `` `<displayname>` `` — the player's display name.
+- `` `<message>` `` — the message body.
+
+Player text is inserted as a **component, never re-parsed**, so players can't inject MiniMessage
+markup into your formats.
+
+## Colour permission
+
+If you want a rank to colour their own messages, grant the optional colour permission. It's named
+by `formatting.color-permission` (default `zchat.chat.color`); holders may use MiniMessage tags in
+their own messages. Leave it blank to never allow player colours.

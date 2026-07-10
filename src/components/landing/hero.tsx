@@ -5,9 +5,9 @@ import { ArrowUpRight, GitHubIcon, TerminalIcon } from "../icons";
 
 /** Telemetry strip figures shown under the hero. */
 const telemetry: [value: string, label: string][] = [
-	["04", "Systems"],
+	["05", "Systems"],
 	["100%", "Open source"],
-	["03", "Plugins"],
+	["04", "Plugins"],
 	["01", "Platform"],
 ];
 

@@ -1,0 +1,45 @@
+---
+title: Overview
+description: A lightweight, high-performance chat plugin for Paper (and Folia) networks.
+---
+
+**zChat** is a lightweight, high-performance chat plugin for **Paper** (and Folia) networks.
+It handles the chat essentials almost every server wants — **group-based message formatting**,
+a **word/pattern filter**, a **per-player cooldown**, a **global chat mute**, **chat clearing**,
+and a **per-player chat toggle** — each individually toggleable, permissioned, and with fully
+customizable MiniMessage text.
+
+Because it runs on **every chat message**, that path is built to be cheap: group formats are
+pre-parsed, filter patterns are pre-compiled, all runtime state is lock-free, and the message
+renderer runs once per message (not once per viewer). No always-on tick work, a tiny memory
+footprint, and clean, fail-safe startup/reload.
+
+## Built to stay up
+
+zChat is built to **stay up**: every code path fails safe. It never throws out of enable/reload,
+never blocks the main thread, and never disables itself on a bad config value. A malformed
+format template falls back to a plain rendering rather than dropping a message. It's
+**Folia-ready** — the same jar runs on Paper, Purpur and Folia, with all runtime state
+thread-safe and every player mutation on the correct scheduler.
+
+## Requirements
+
+- **Paper (or a fork like Purpur, or Folia) 1.20.6 or newer** — the first release where the
+  modern Brigadier command API and the `AsyncChatEvent` / `ChatRenderer` API are stable. A jar
+  built against 1.20.6 runs unchanged on all newer versions, with no runtime performance cost.
+- **Java 21 runtime.**
+- **No hard dependencies** — groups resolve by permission node, so any permissions plugin
+  (LuckPerms, etc.) works, but none is required.
+
+## Next steps
+
+- [Formatting](/docs/zchat/formatting) — group-based chat formats, weights, and placeholders.
+- [Configuration](/docs/zchat/configuration) — install, filter, cooldown, commands, permissions,
+  and reload semantics.
+
+## Links
+
+- **Source** — [github.com/xena-studios/zchat](https://github.com/xena-studios/zchat)
+- **Downloads** — [Modrinth](https://modrinth.com/plugin/zchat) ·
+  [Releases](https://github.com/xena-studios/zchat/releases/latest)
+- **License** — GPL-3.0

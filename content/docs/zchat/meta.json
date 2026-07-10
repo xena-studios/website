@@ -1,0 +1,5 @@
+{
+	"title": "zChat",
+	"root": true,
+	"pages": ["index", "formatting", "configuration"]
+}

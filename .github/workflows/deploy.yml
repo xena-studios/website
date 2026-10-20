@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Redeploy main by hand from the Actions tab.
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -22,8 +24,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      # Pushes to main deploy; pull requests only check the build.
+      # Main deploys (on push or by hand); pull requests only check the build.
       - name: Deploy to Cloudflare
         # Skipped until the repo has Cloudflare secrets, and on forks.
-        if: ${{ github.event_name == 'push' && env.CLOUDFLARE_API_TOKEN != '' }}
+        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && env.CLOUDFLARE_API_TOKEN != '' }}
         run: npx wrangler deploy

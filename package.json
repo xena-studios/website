@@ -1,0 +1,19 @@
+{
+  "name": "xena-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "brand:sync": "node scripts/sync-brand.mjs",
+    "deploy": "astro build && wrangler pages deploy dist --project-name xenastudios"
+  },
+  "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "astro": "^7.4.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.2"
+  }
+}

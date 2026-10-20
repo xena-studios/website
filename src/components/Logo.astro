@@ -1,0 +1,21 @@
+---
+// A brand logo from src/brand/logo, inlined so it inherits currentColor and
+// cropped to its ink (the brand exports carry half a cap height of clear space).
+import xenaStudios from "../brand/logo/xena-studios.svg?raw";
+import xena from "../brand/logo/xena.svg?raw";
+
+interface Props {
+  name?: "xena-studios" | "xena";
+  class?: string;
+}
+
+const { name = "xena-studios", class: className } = Astro.props;
+const raw = name === "xena" ? xena : xenaStudios;
+const [, w, h] = raw.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/)!;
+const pad = 50;
+const svg = raw
+  .replace(/ width="[^"]*" height="[^"]*"/, "")
+  .replace(/viewBox="[^"]*"/, `viewBox="${pad} ${pad} ${+w - pad * 2} ${+h - pad * 2}" class="${className ?? ""}" role="img" aria-label="Xena Studios"`)
+  .replace(/fill="#[0-9A-Fa-f]{6}"/g, 'fill="currentColor"');
+---
+<Fragment set:html={svg} />

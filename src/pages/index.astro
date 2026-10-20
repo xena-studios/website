@@ -1,0 +1,488 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Horizon from "../components/Horizon.astro";
+import raptorLogo from "../brand/raptor/logo-dark.svg?raw";
+import consoleShot from "../assets/raptor/console-dark.png";
+
+// Raptor's own logo, as shipped in its repo; only made responsive here.
+const raptorSvg = raptorLogo.replace("<svg ", '<svg class="raptor-logo" role="img" aria-label="Raptor" ');
+
+const parts = [
+  {
+    name: "Panel",
+    what: "The web app and API: accounts, organisations, billing, and linking your machines.",
+    where: "Raptor's infrastructure",
+  },
+  {
+    name: "Wings",
+    what: "The daemon that runs your servers, with schedules, backups, SFTP, and crash recovery. Keeps working when the Panel can't be reached.",
+    where: "Your machine",
+  },
+  {
+    name: "raptor CLI",
+    what: "Status, power, console, logs, backups and restores, and doctor, from the machine itself.",
+    where: "Your machine",
+  },
+];
+
+const principles = [
+  {
+    title: "The source is public.",
+    body: "Raptor is AGPL-3.0 on GitHub. Read what it does before you run it, build it yourself, and send changes back.",
+    link: { href: "https://github.com/xena-studios/raptor", text: "xena-studios/raptor" },
+  },
+  {
+    title: "Your machine stays yours.",
+    body: "Servers run on hardware you control. Raptor's daemon keeps them up even when our panel is unreachable, and the raptor CLI works on the box itself.",
+  },
+  {
+    title: "Claims you can check.",
+    body: "If we say something works, there's code, documentation, or a release you can point at. If it isn't shipped yet, we don't say it is.",
+    link: { href: "https://docs.raptorpanel.net", text: "docs.raptorpanel.net" },
+  },
+];
+---
+<Base>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-copy">
+      <h1 id="hero-title">Game server infrastructure, built in the open.</h1>
+      <p class="lead">
+        Xena Studios makes the software that runs game servers on machines you own. Everything we ship is open source, so you
+        can read exactly what it does before you run it.
+      </p>
+      <p class="actions">
+        <a class="button primary" href="#raptor">Meet Raptor</a>
+        <a class="button" href="https://github.com/xena-studios">github.com/xena-studios<span class="arrow" aria-hidden="true">↗</span></a>
+      </p>
+    </div>
+    <Horizon class="horizon" />
+  </section>
+
+  <section id="raptor" class="raptor" aria-labelledby="raptor-title">
+    <div class="wrap">
+      <div class="raptor-head reveal">
+        <Fragment set:html={raptorSvg} />
+        <h2 id="raptor-title">Your own game servers, on your own machine.</h2>
+        <p class="lead">
+          Raptor turns any Linux box into a reliable game server host. Run one install command on a dedicated server, a VPS,
+          or a spare box at home, then manage game servers, Discord bots, and voice servers from the web.
+        </p>
+      </div>
+
+      <figure class="shot reveal">
+        <Image
+          src={consoleShot}
+          alt="Raptor's page for a Paper server named Survival: running, with CPU, memory, disk, and network readouts above its live console."
+          widths={[720, 1200, 1800, 2364]}
+          sizes="(min-width: 76rem) 76rem, (min-width: 44rem) 100vw, 250vw"
+          loading="lazy"
+        />
+        <figcaption class="label">Raptor, managing a Paper server on a home machine</figcaption>
+      </figure>
+
+      <div class="raptor-detail">
+        <dl class="parts reveal">
+          {
+            parts.map((p) => (
+              <div class="part">
+                <dt>{p.name}</dt>
+                <dd class="what">{p.what}</dd>
+                <dd class="where">
+                  <span class="label">Runs on</span> {p.where}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+        <div class="raptor-links reveal">
+          <p>Runs servers from Pterodactyl and Pelican eggs.</p>
+          <ul>
+            <li><a href="https://raptorpanel.net">raptorpanel.net<span aria-hidden="true"> ↗</span></a></li>
+            <li><a href="https://docs.raptorpanel.net">Documentation<span aria-hidden="true"> ↗</span></a></li>
+            <li><a href="https://github.com/xena-studios/raptor">Source on GitHub<span aria-hidden="true"> ↗</span></a></li>
+            <li><a href="https://github.com/xena-studios/raptor/blob/main/LICENSE">AGPL-3.0</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-we-work" class="principles" aria-labelledby="how-title">
+    <div class="wrap">
+      <h2 id="how-title" class="reveal">How we work</h2>
+      <ul class="principle-list">
+        {
+          principles.map((p) => (
+            <li class="principle reveal">
+              <h3>{p.title}</h3>
+              <p>
+                {p.body}
+                {p.link && (
+                  <>
+                    {" "}
+                    <a href={p.link.href}>{p.link.text}</a>
+                  </>
+                )}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-title">
+    <div class="wrap contact-inner reveal">
+      <h2 id="contact-title">Get in touch</h2>
+      <p class="lead">Partnerships, press, hosting, or a question about what we build.</p>
+      <p class="mail"><a href="mailto:contact@xenastudios.co">contact@xenastudios.co</a></p>
+      <p class="aside">
+        Using Raptor and stuck? Its <a href="https://docs.raptorpanel.net">documentation</a> is the fastest answer.
+      </p>
+    </div>
+    <Horizon class="horizon" />
+  </section>
+</Base>
+
+<style>
+  /* ---------------------------------------------------------------- hero */
+
+  .hero {
+    position: relative;
+    display: grid;
+    min-height: calc(100svh - 4rem);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero-copy {
+    align-self: center;
+    padding-block: var(--s-8) clamp(12rem, 30svh, 20rem);
+  }
+
+  .hero h1 {
+    max-width: 18ch;
+    font-size: var(--t-h1);
+    line-height: 1.05;
+  }
+
+  .lead {
+    max-width: var(--measure);
+    margin-top: var(--s-5);
+    font-size: var(--t-lead);
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    margin-top: var(--s-6);
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 var(--s-5);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-size: var(--t-small);
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text);
+    background: color-mix(in srgb, var(--raised) 70%, transparent);
+    transition:
+      border-color 200ms var(--ease),
+      background-color 200ms var(--ease),
+      transform 200ms var(--ease);
+  }
+
+  .button .arrow {
+    margin-left: 0.5ch;
+  }
+
+  .button:hover {
+    border-color: color-mix(in oklch, var(--accent) 55%, var(--rule));
+  }
+
+  .button:active {
+    transform: translateY(1px);
+  }
+
+  .button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  .button.primary:hover {
+    background: color-mix(in oklch, var(--accent) 88%, white);
+  }
+
+  .hero :global(.horizon) {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: -1;
+    width: 100%;
+    height: clamp(16rem, 52svh, 34rem);
+    animation: rise 1800ms var(--ease) both;
+  }
+
+  .hero-copy > * {
+    animation: settle 1000ms var(--ease) both;
+  }
+
+  .hero-copy > :nth-child(2) {
+    animation-delay: 90ms;
+  }
+
+  .hero-copy > :nth-child(3) {
+    animation-delay: 180ms;
+  }
+
+  @keyframes rise {
+    from {
+      transform: translateY(14%);
+      opacity: 0.2;
+    }
+  }
+
+  @keyframes settle {
+    from {
+      transform: translateY(0.75rem);
+      opacity: 0;
+    }
+  }
+
+  /* ---------------------------------------------------------------- raptor */
+
+  .raptor {
+    padding-block: var(--s-8);
+  }
+
+  .raptor-head {
+    max-width: 52rem;
+  }
+
+  .raptor-head :global(.raptor-logo) {
+    width: clamp(10rem, 8rem + 8vw, 13rem);
+    height: auto;
+    margin-bottom: var(--s-6);
+  }
+
+  .raptor h2 {
+    font-size: var(--t-h2);
+  }
+
+  .shot {
+    margin: var(--s-7) 0 0;
+  }
+
+  .shot :global(img) {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    /* Raptor's capture is cropped mid-page; let it trail off instead of stopping. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+    mask-image: linear-gradient(to bottom, #000 72%, transparent);
+  }
+
+  /* On phones the full console is too small to read: show its top-left
+     (server, status, tabs, readouts) at a legible size instead. */
+  @media (max-width: 44rem) {
+    .shot :global(img) {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: left top;
+    }
+  }
+
+  .shot figcaption {
+    margin-top: var(--s-3);
+  }
+
+  .raptor-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: var(--s-7);
+    margin-top: var(--s-8);
+  }
+
+  .parts {
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .part {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr) 11rem;
+    gap: var(--s-2) var(--s-5);
+    padding-block: var(--s-5);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .part dt {
+    font-weight: 600;
+  }
+
+  .part dd {
+    margin: 0;
+  }
+
+  .what {
+    color: var(--muted);
+  }
+
+  .where {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    font-size: var(--t-small);
+  }
+
+  .raptor-links {
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--rule);
+  }
+
+  .raptor-links p {
+    color: var(--muted);
+  }
+
+  .raptor-links ul {
+    display: grid;
+    gap: var(--s-2);
+    margin: var(--s-5) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .raptor-links a {
+    color: var(--text);
+  }
+
+  @media (max-width: 60rem) {
+    .raptor-detail {
+      grid-template-columns: 1fr;
+      gap: var(--s-6);
+    }
+  }
+
+  @media (max-width: 44rem) {
+    .part {
+      grid-template-columns: 1fr;
+    }
+
+    .where {
+      flex-direction: row;
+      align-items: baseline;
+      gap: var(--s-3);
+    }
+  }
+
+  /* ---------------------------------------------------------------- principles */
+
+  .principles {
+    padding-block: var(--s-7) var(--s-8);
+  }
+
+  .principles h2 {
+    font-size: var(--t-h2);
+  }
+
+  .principle-list {
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .principle {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--s-3) var(--s-7);
+    padding-block: var(--s-6);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .principle h3 {
+    font-size: var(--t-h3);
+  }
+
+  .principle p {
+    max-width: var(--measure);
+    color: var(--muted);
+  }
+
+  .principle a {
+    color: var(--text);
+  }
+
+  @media (max-width: 52rem) {
+    .principle {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ---------------------------------------------------------------- contact */
+
+  .contact {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding-block: var(--s-7) clamp(12rem, 26vw, 20rem);
+  }
+
+  .contact :global(.horizon) {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: -1;
+    width: 100%;
+    height: clamp(10rem, 24vw, 18rem);
+  }
+
+  .contact h2 {
+    font-size: var(--t-h2);
+  }
+
+  .mail {
+    margin-top: var(--s-6);
+    font-size: clamp(1.25rem, 0.9rem + 1.6vw, 2.25rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .mail a {
+    color: var(--accent);
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  .mail a:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  .aside {
+    margin-top: var(--s-5);
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  /* ---------------------------------------------------------------- reveal */
+
+  /* Scroll-driven, so content is fully visible wherever this isn't supported. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        animation: settle linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+    }
+  }
+</style>

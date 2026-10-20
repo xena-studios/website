@@ -1,0 +1,24 @@
+---
+// The brand's horizon scene (xena-studios/brand scene/horizon.svg), scaled to
+// cover its box from the bottom edge so the planet limb always sits low.
+import raw from "../brand/scene/horizon.svg?raw";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const svg = raw.replace(
+  / width="[^"]*" height="[^"]*"/,
+  ` preserveAspectRatio="xMidYMax slice" class="${className ?? ""}" aria-hidden="true" focusable="false"`,
+);
+---
+<Fragment set:html={svg} />
+
+<style is:global>
+  /* The planet body fades into the page, so the scene never ends in a hard edge. */
+  svg.horizon {
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  }
+</style>

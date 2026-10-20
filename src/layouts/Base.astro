@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import Logo from "../components/Logo.astro";
+import External from "../components/External.astro";
+import fontLatin from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url";
 
 interface Props {
   title?: string;
@@ -27,6 +29,8 @@ const year = new Date().getFullYear();
     <meta name="theme-color" content="#06080D" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="sitemap" href="/sitemap.xml" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Xena Studios" />
@@ -52,7 +56,7 @@ const year = new Date().getFullYear();
             <li><a href="/#raptor">Raptor</a></li>
             <li class="optional"><a href="/#how-we-work">How we work</a></li>
             <li><a href="/#contact">Contact</a></li>
-            <li><a href="https://github.com/xena-studios" rel="me">GitHub<span aria-hidden="true"> ↗</span></a></li>
+            <li><a href="https://github.com/xena-studios" rel="me">GitHub<External /></a></li>
           </ul>
         </nav>
       </div>

@@ -7,6 +7,8 @@ export default defineConfig({
   trailingSlash: "never",
   build: {
     format: "file",
+    // Hashed CSS, fonts and images go to /assets/ (Astro's default is /_astro/).
+    assets: "assets",
     // The CSP (public/_headers) allows only same-origin styles: no inline <style>.
     inlineStylesheets: "never",
   },

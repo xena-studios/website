@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Horizon from "../components/Horizon.astro";
+import External from "../components/External.astro";
 import raptorLogo from "../brand/raptor/logo-dark.svg?raw";
 import consoleShot from "../assets/raptor/console-dark.png";
 
@@ -53,7 +54,7 @@ const principles = [
       </p>
       <p class="actions">
         <a class="button primary" href="#raptor">Meet Raptor</a>
-        <a class="button" href="https://github.com/xena-studios">github.com/xena-studios<span class="arrow" aria-hidden="true">↗</span></a>
+        <a class="button" href="https://github.com/xena-studios">github.com/xena-studios<External /></a>
       </p>
     </div>
     <Horizon class="horizon" />
@@ -61,7 +62,7 @@ const principles = [
 
   <section id="raptor" class="raptor" aria-labelledby="raptor-title">
     <div class="wrap">
-      <div class="raptor-head reveal">
+      <div class="raptor-head">
         <Fragment set:html={raptorSvg} />
         <h2 id="raptor-title">Your own game servers, on your own machine.</h2>
         <p class="lead">
@@ -70,7 +71,7 @@ const principles = [
         </p>
       </div>
 
-      <figure class="shot reveal">
+      <figure class="shot">
         <Image
           src={consoleShot}
           alt="Raptor's page for a Paper server named Survival: running, with CPU, memory, disk, and network readouts above its live console."
@@ -82,7 +83,7 @@ const principles = [
       </figure>
 
       <div class="raptor-detail">
-        <dl class="parts reveal">
+        <dl class="parts">
           {
             parts.map((p) => (
               <div class="part">
@@ -95,12 +96,12 @@ const principles = [
             ))
           }
         </dl>
-        <div class="raptor-links reveal">
+        <div class="raptor-links">
           <p>Runs servers from Pterodactyl and Pelican eggs.</p>
           <ul>
-            <li><a href="https://raptorpanel.net">raptorpanel.net<span aria-hidden="true"> ↗</span></a></li>
-            <li><a href="https://docs.raptorpanel.net">Documentation<span aria-hidden="true"> ↗</span></a></li>
-            <li><a href="https://github.com/xena-studios/raptor">Source on GitHub<span aria-hidden="true"> ↗</span></a></li>
+            <li><a href="https://raptorpanel.net">raptorpanel.net<External /></a></li>
+            <li><a href="https://docs.raptorpanel.net">Documentation<External /></a></li>
+            <li><a href="https://github.com/xena-studios/raptor">Source on GitHub<External /></a></li>
             <li><a href="https://github.com/xena-studios/raptor/blob/main/LICENSE">AGPL-3.0</a></li>
           </ul>
         </div>
@@ -110,11 +111,11 @@ const principles = [
 
   <section id="how-we-work" class="principles" aria-labelledby="how-title">
     <div class="wrap">
-      <h2 id="how-title" class="reveal">How we work</h2>
+      <h2 id="how-title">How we work</h2>
       <ul class="principle-list">
         {
           principles.map((p) => (
-            <li class="principle reveal">
+            <li class="principle">
               <h3>{p.title}</h3>
               <p>
                 {p.body}
@@ -133,7 +134,7 @@ const principles = [
   </section>
 
   <section id="contact" class="contact" aria-labelledby="contact-title">
-    <div class="wrap contact-inner reveal">
+    <div class="wrap contact-inner">
       <h2 id="contact-title">Get in touch</h2>
       <p class="lead">Partnerships, press, hosting, or a question about what we build.</p>
       <p class="mail"><a href="mailto:contact@xenastudios.co">contact@xenastudios.co</a></p>
@@ -198,10 +199,6 @@ const principles = [
       border-color 200ms var(--ease),
       background-color 200ms var(--ease),
       transform 200ms var(--ease);
-  }
-
-  .button .arrow {
-    margin-left: 0.5ch;
   }
 
   .button:hover {
@@ -471,18 +468,5 @@ const principles = [
     margin-top: var(--s-5);
     font-size: var(--t-small);
     color: var(--muted);
-  }
-
-  /* ---------------------------------------------------------------- reveal */
-
-  /* Scroll-driven, so content is fully visible wherever this isn't supported. */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .reveal {
-        animation: settle linear both;
-        animation-timeline: view();
-        animation-range: entry 0% entry 40%;
-      }
-    }
   }
 </style>

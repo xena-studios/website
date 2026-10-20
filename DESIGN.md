@@ -20,7 +20,8 @@ typography:
   label: { size: "0.75rem", letterSpacing: "0.14em", transform: uppercase, color: muted }
 spacing: "4pt scale: 4, 8, 12, 16, 24, 32, 48, then fluid 64–96 and 96–160"
 rounded: { image: "12px", button: "999px" }
-motion: { ease: "cubic-bezier(0.16, 1, 0.3, 1)", hero: "1.8s rise", reveal: "scroll-driven, view() entry 0–40%" }
+motion: { ease: "cubic-bezier(0.16, 1, 0.3, 1)", hero: "1.8s horizon rise, copy settles in a 90ms stagger" }
+icons: "one authored outbound arrow (External.astro), 1.4 stroke, currentColor"
 ---
 
 # Design
@@ -45,10 +46,12 @@ Restrained: tinted deep-space neutrals with Ion Blue under a tenth of any screen
 One family, **JetBrains Mono** (variable, self-hosted via Fontsource), with size and weight doing the hierarchy. **Ethnocentric is never live text**: its licence covers outlined artwork only, so it appears solely inside the brand's logo SVGs (`Logo.astro`).
 
 - Headings 600 with -0.03em tracking and `text-wrap: balance`; prose `text-wrap: pretty`, capped at 64ch.
-- `.label` (uppercase, +0.14em) is used for metadata only (captions, "Runs on", the copyright), never as a section eyebrow.
+- `.label` (uppercase, +0.14em) is used for metadata only (the screenshot caption, "Runs on", the copyright), never as an eyebrow above a heading.
+- The latin subset of the font is preloaded so headings don't reflow after the first paint.
 
 ## 4. Components
 
+- **External** (`src/components/External.astro`): the site's only icon, an outbound arrow drawn as SVG at 0.62em in `currentColor`, nudging up-right on hover and focus. Every link that leaves the site carries it; no Unicode arrows.
 - **Logo** (`src/components/Logo.astro`): inlines a brand logo SVG, crops the exported clear space, and fills with `currentColor`.
 - **Horizon** (`src/components/Horizon.astro`): inlines `scene/horizon.svg` with `preserveAspectRatio="xMidYMax slice"` and a bottom mask so the planet body fades into the page. Positioned absolutely at the bottom of an `isolation: isolate` section.
 - **Buttons**: pill, 44px tall. Primary is solid Ion Blue with void text; secondary is a hairline outline that warms toward Ion Blue on hover.
@@ -58,12 +61,16 @@ One family, **JetBrains Mono** (variable, self-hosted via Fontsource), with size
 
 ## 5. Motion
 
-- Hero: the horizon rises once (1.8s, expo out) and the copy settles in a short stagger.
-- Sections ease in on scroll with CSS scroll-driven animations, behind `@supports (animation-timeline: view())`, so content is fully visible wherever that isn't supported.
-- `prefers-reduced-motion: reduce` collapses every animation and transition to an instant final state.
+One authored moment: on load, the hero horizon rises (1.8s, expo out) and the hero copy settles in a short stagger. Nothing else animates on entry; sections are simply there when you scroll to them. Hover and focus transitions run 160–200ms on the same curve.
 
-## 6. Do's and Don'ts
+`prefers-reduced-motion: reduce` collapses every animation and transition to its final state instantly, and no content depends on an animation to become visible.
+
+## 6. Browser surfaces
+
+The parts the browser draws are themed from the palette too: `color-scheme: dark`, Ion Blue focus rings (2px, 3px offset), Ion Blue text selection at 35%, a `line`-on-`void` scrollbar, and link underlines at 0.25em offset in a 35% tint of the text colour.
+
+## 7. Do's and Don'ts
 
 **Do:** pull new visuals from the brand repo first (`npm run brand:sync`); link claims to code, docs, or releases; keep one idea per section; keep Raptor in its own identity.
 
-**Don't:** add stars, particles, galaxy imagery, glows beyond the horizon, gradient text, card grids, section eyebrows, or a second accent colour. Don't set Ethnocentric as live text. Don't recolour Raptor's logo.
+**Don't:** add stars, particles, galaxy imagery, glows beyond the horizon, gradient text, card grids, eyebrows above headings, Unicode or emoji icons, entrance animations on every section, or a second accent colour. Don't set Ethnocentric as live text. Don't recolour Raptor's logo. Don't inline styles or scripts: the CSP blocks them.

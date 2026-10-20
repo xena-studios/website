@@ -1,6 +1,7 @@
 // Copies the site's brand assets from a checkout of xena-studios/brand, the
 // single source of truth for logos, colours and scenes. The copies are
-// committed, so builds (and Cloudflare Pages) never need the private brand repo.
+// committed, so builds never fetch the brand repo and the site only changes
+// when someone syncs on purpose.
 //
 //   npm run brand:sync                 # expects ../brand
 //   BRAND_DIR=/path/to/brand npm run brand:sync

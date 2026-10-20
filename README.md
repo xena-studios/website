@@ -48,7 +48,7 @@ npm run brand:sync                        # expects the brand repo at ../brand
 BRAND_DIR=/path/to/brand npm run brand:sync
 ```
 
-`src/brand/SOURCE.json` records the brand commit the copies came from. The copies are committed, so builds never need access to the private brand repo.
+`src/brand/SOURCE.json` records the brand commit the copies came from. The copies are committed, so a build never has to fetch the brand repo and the site only changes when someone syncs on purpose.
 
 Ethnocentric, the logo typeface, only appears inside the brand's outlined logo SVGs. Its licence doesn't allow webfont use, so never set it as live text.
 

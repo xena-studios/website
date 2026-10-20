@@ -1,0 +1,16 @@
+// xenastudios.co: the Astro build (dist/) as a Cloudflare Worker with static
+// assets only, no Worker code, the same setup as Raptor's site. Headers,
+// the CSP among them, are in public/_headers.
+{
+  "name": "xenastudios",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  // On until the xenastudios.co custom domain is attached; then turn both
+  // off like raptor-site, so the site only answers on its own domain.
+  "workers_dev": true,
+  "preview_urls": false
+}

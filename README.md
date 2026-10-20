@@ -1,6 +1,6 @@
 # xenastudios.co
 
-The Xena Studios website: a static [Astro](https://astro.build) site deployed to Cloudflare Pages.
+The Xena Studios website: a static [Astro](https://astro.build) site served by Cloudflare.
 
 The design comes from [xena-studios/brand](https://github.com/xena-studios/brand): colours, logos, the horizon scene, the favicon and the link preview are synced from it, not redrawn here. See [DESIGN.md](DESIGN.md) for the visual system and [PRODUCT.md](PRODUCT.md) for who the site is for.
 
@@ -28,12 +28,12 @@ Ethnocentric, the logo typeface, only appears inside the brand's outlined logo S
 
 ## Deploy
 
-Cloudflare Pages project **`xenastudios`**.
+A Cloudflare Worker named **`xenastudios`** that serves `dist/` as static assets, with no Worker code: Cloudflare's successor to Pages, and the same setup as Raptor's site. Configuration is in [`wrangler.jsonc`](wrangler.jsonc).
 
-- **CI**: `.github/workflows/deploy.yml` builds every push and pull request. With the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets set, `main` deploys to production and pull requests get a preview URL.
+- **CI**: `.github/workflows/deploy.yml` builds every push and pull request. With the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets set, pushes to `main` deploy.
 - **Manually**: `npm run deploy` (needs `wrangler login`).
 
-`public/_headers` sets a strict Content-Security-Policy (the site ships no JavaScript), security headers, and long-lived caching for hashed assets.
+`public/_headers` sets a strict Content-Security-Policy (the site ships no JavaScript), security headers, and long-lived caching for hashed assets. Unknown paths get `404.html`.
 
 ## Design skill
 

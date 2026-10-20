@@ -28,7 +28,7 @@ Ethnocentric, the logo typeface, only appears inside the brand's outlined logo S
 
 ## Deploy
 
-A Cloudflare Worker named **`xenastudios`** that serves `dist/` as static assets, with no Worker code: Cloudflare's successor to Pages, and the same setup as Raptor's site. Configuration is in [`wrangler.jsonc`](wrangler.jsonc).
+The Cloudflare Worker **`xenastudios-website`** serves `dist/` as static assets, with no Worker code: Cloudflare's successor to Pages, and the same setup as Raptor's site. It answers only on its custom domain, `xenastudios.co` (`www` redirects there), which was attached by hand, so the deploy token needs no DNS access. Configuration is in [`wrangler.jsonc`](wrangler.jsonc).
 
 - **CI**: `.github/workflows/deploy.yml` builds every push and pull request. With the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets set, pushes to `main` deploy.
 - **Manually**: `npm run deploy` (needs `wrangler login`).

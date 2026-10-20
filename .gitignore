@@ -3,3 +3,6 @@ dist/
 .astro/
 .wrangler/
 .DS_Store
+
+# Impeccable's native engine: platform-specific, installed by `npx impeccable update`.
+.agents/skills/impeccable/scripts/bin/

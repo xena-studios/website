@@ -18,7 +18,7 @@ const svg = raw.replace(
 <style is:global>
   /* The planet body fades into the page, so the scene never ends in a hard edge. */
   svg.horizon {
-    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
-    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, var(--bg) 55%, transparent);
+    mask-image: linear-gradient(to bottom, var(--bg) 55%, transparent);
   }
 </style>

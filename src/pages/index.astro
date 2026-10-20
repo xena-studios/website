@@ -288,8 +288,8 @@ const principles = [
     border: 1px solid var(--rule);
     border-radius: var(--radius);
     /* Raptor's capture is cropped mid-page; let it trail off instead of stopping. */
-    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
-    mask-image: linear-gradient(to bottom, #000 72%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, var(--bg) 72%, transparent);
+    mask-image: linear-gradient(to bottom, var(--bg) 72%, transparent);
   }
 
   /* On phones the full console is too small to read: show its top-left

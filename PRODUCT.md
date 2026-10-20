@@ -1,9 +1,5 @@
 # Product
 
-## Register
-
-brand
-
 ## Users
 
 Four kinds of visitor, usually arriving from GitHub, raptorpanel.net, or a link someone shared:

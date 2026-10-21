@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title = "Xena Studios: game server infrastructure, built in the open",
-  description = "Xena Studios builds open-source software for running game servers on machines you own, starting with Raptor.",
+  description = "Xena Studios builds open-source software for running game servers on machines you own: Raptor, NeoSkript, and Minecraft plugins.",
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -54,6 +54,8 @@ const year = new Date().getFullYear();
         <nav aria-label="Main">
           <ul>
             <li><a href="/#raptor">Raptor</a></li>
+            <li class="optional"><a href="/#neoskript">NeoSkript</a></li>
+            <li><a href="/#plugins">Plugins</a></li>
             <li class="optional"><a href="/#how-we-work">How we work</a></li>
             <li><a href="/#contact">Contact</a></li>
             <li><a href="https://github.com/xena-studios" rel="me">GitHub<External /></a></li>
@@ -72,6 +74,7 @@ const year = new Date().getFullYear();
         <p class="label">© {year} Xena Studios</p>
         <ul class="foot-links">
           <li><a href="https://raptorpanel.net">raptorpanel.net</a></li>
+          <li><a href="https://modrinth.com/organization/xena-studios">Modrinth</a></li>
           <li><a href="https://github.com/xena-studios">GitHub</a></li>
           <li><a href="https://github.com/xena-studios/website">This site's source</a></li>
         </ul>

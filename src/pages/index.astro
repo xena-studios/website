@@ -4,10 +4,45 @@ import Base from "../layouts/Base.astro";
 import Horizon from "../components/Horizon.astro";
 import External from "../components/External.astro";
 import raptorLogo from "../brand/raptor/logo-dark.svg?raw";
+import neoskriptLogo from "../brand/neoskript/logo-dark.svg?raw";
+import xutilitiesIcon from "../brand/plugins/xutilities.svg?url";
+import zchatIcon from "../brand/plugins/zchat.svg?url";
+import xlimboIcon from "../brand/plugins/xlimbo.svg?url";
 import consoleShot from "../assets/raptor/console-dark.png";
 
 // Raptor's own logo, as shipped in its repo; only made responsive here.
 const raptorSvg = raptorLogo.replace("<svg ", '<svg class="raptor-logo" role="img" aria-label="Raptor" ');
+
+// NeoSkript's logo from the brand repo, cropped to its ink (the export carries
+// half a cap height of clear space, 50 units on every side).
+const [, nsW, nsH] = neoskriptLogo.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/)!;
+const neoskriptSvg = neoskriptLogo
+  .replace(/ width="[^"]*" height="[^"]*"/, "")
+  .replace(/viewBox="[^"]*"/, `viewBox="50 50 ${+nsW - 100} ${+nsH - 100}" class="neoskript-logo" role="img" aria-label="NeoSkript"`);
+
+const plugins = [
+  {
+    name: "xUtilities",
+    icon: xutilitiesIcon,
+    what: "Gamemodes, fly, heal, /back, workstations and your own link commands. Every command can be switched off.",
+    runs: "Paper, Folia",
+    href: "https://modrinth.com/plugin/xutilities",
+  },
+  {
+    name: "zChat",
+    icon: zchatIcon,
+    what: "Group-based chat formatting with a filter, cooldown and chat mute, rendered once per message.",
+    runs: "Paper, Folia",
+    href: "https://modrinth.com/plugin/zchat",
+  },
+  {
+    name: "xLimbo",
+    icon: xlimboIcon,
+    what: "A fallback server. When the main server goes down, players wait in a safe void world instead of being kicked.",
+    runs: "Paper",
+    href: "https://modrinth.com/plugin/xlimbo",
+  },
+];
 
 const parts = [
   {
@@ -49,8 +84,8 @@ const principles = [
     <div class="wrap hero-copy">
       <h1 id="hero-title">Game server infrastructure, built in the open.</h1>
       <p class="lead">
-        Xena Studios makes the software that runs game servers on machines you own. Everything we ship is open source, so you
-        can read exactly what it does before you run it.
+        Xena Studios makes the software that runs game servers on machines you own, and the Minecraft plugins that run on
+        them. Everything we ship is open source, so you can read exactly what it does before you run it.
       </p>
       <p class="actions">
         <a class="button primary" href="#raptor">Meet Raptor</a>
@@ -106,6 +141,51 @@ const principles = [
           </ul>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="neoskript" class="neoskript" aria-labelledby="neoskript-title">
+    <div class="wrap neoskript-inner">
+      <div class="neoskript-head">
+        <Fragment set:html={neoskriptSvg} />
+        <h2 id="neoskript-title">Keep your scripts. Lose the lag.</h2>
+        <p class="lead">
+          NeoSkript is a drop-in replacement for Skript, rebuilt for speed. The scripts you already have run unchanged, on
+          Paper and Folia.
+        </p>
+        <p class="status"><span class="label">Status</span> In development, not released yet</p>
+      </div>
+      <figure class="script">
+        <pre><code>on join:
+    send "Welcome, %player%!" to player</code></pre>
+        <figcaption class="label">join.sk, a Skript script that runs as it is</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="plugins" class="plugins" aria-labelledby="plugins-title">
+    <div class="wrap">
+      <h2 id="plugins-title">Plugins</h2>
+      <p class="lead">
+        Small plugins for Paper servers. Each one does one job, costs next to nothing to run, and lets you switch off
+        anything you don't use.
+      </p>
+      <ul class="plugin-list">
+        {
+          plugins.map((p) => (
+            <li class="plugin">
+              <img class="plugin-icon" src={p.icon} alt="" width="48" height="48" loading="lazy" />
+              <h3>{p.name}</h3>
+              <p class="what">{p.what}</p>
+              <p class="where">
+                <span class="label">Runs on</span> {p.runs}
+              </p>
+              <a class="plugin-link" href={p.href}>Modrinth<span class="visually-hidden"> page for {p.name}</span><External /></a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="plugins-all"><a href="https://modrinth.com/organization/xena-studios">All our plugins on Modrinth<External /></a></p>
     </div>
   </section>
 
@@ -376,6 +456,143 @@ const principles = [
     }
 
     .where {
+      flex-direction: row;
+      align-items: baseline;
+      gap: var(--s-3);
+    }
+  }
+
+  /* ---------------------------------------------------------------- neoskript */
+
+  .neoskript {
+    padding-block: var(--s-8);
+    border-top: 1px solid var(--rule);
+  }
+
+  .neoskript-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--s-7);
+    align-items: center;
+  }
+
+  .neoskript-head :global(.neoskript-logo) {
+    width: clamp(10rem, 8rem + 8vw, 13rem);
+    height: auto;
+    margin-bottom: var(--s-6);
+  }
+
+  .neoskript h2 {
+    font-size: var(--t-h2);
+  }
+
+  .status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-3);
+    margin-top: var(--s-5);
+    font-size: var(--t-small);
+  }
+
+  .script {
+    margin: 0;
+  }
+
+  .script pre {
+    margin: 0;
+    padding: var(--s-5);
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--raised);
+    font-size: var(--t-small);
+    line-height: 1.8;
+  }
+
+  .script figcaption {
+    margin-top: var(--s-3);
+  }
+
+  @media (max-width: 60rem) {
+    .neoskript-inner {
+      /* minmax(0, …) so the code scrolls inside its box instead of widening the page. */
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* ---------------------------------------------------------------- plugins */
+
+  .plugins {
+    padding-block: var(--s-8);
+    border-top: 1px solid var(--rule);
+  }
+
+  .plugins h2 {
+    font-size: var(--t-h2);
+  }
+
+  .plugin-list {
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .plugin {
+    display: grid;
+    grid-template-columns: 3rem 9rem minmax(0, 1fr) 9rem auto;
+    gap: var(--s-2) var(--s-5);
+    align-items: center;
+    padding-block: var(--s-5);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .plugin-icon {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10px;
+  }
+
+  .plugin h3 {
+    font-size: var(--t-body);
+    font-weight: 600;
+  }
+
+  .plugin .what {
+    max-width: var(--measure);
+  }
+
+  .plugin-link {
+    font-size: var(--t-small);
+    color: var(--text);
+  }
+
+  .plugins-all {
+    margin-top: var(--s-5);
+    font-size: var(--t-small);
+  }
+
+  .plugins-all a {
+    color: var(--text);
+  }
+
+  @media (max-width: 52rem) {
+    .plugin {
+      grid-template-columns: 3rem minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .plugin > :not(.plugin-icon) {
+      grid-column: 2;
+    }
+
+    .plugin-icon {
+      grid-row: span 4;
+    }
+
+    .plugin .where {
       flex-direction: row;
       align-items: baseline;
       gap: var(--s-3);

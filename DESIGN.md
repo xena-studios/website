@@ -30,14 +30,14 @@ icons: "one authored outbound arrow (External.astro), 1.4 stroke, currentColor"
 
 **North star: Linear-grade precision on the brand repo, nothing invented.** Every colour, logo and scene comes from [xena-studios/brand](https://github.com/xena-studios/brand). The site composes them with exact type, hairlines, and space. It reads like an engineer wrote it: plain claims, real screenshots, links to source.
 
-The page is one column of four ideas (hero, Raptor, how we work, contact) on deep space, bookended by the brand's planet horizon at the top and bottom.
+The page is one column of six ideas (hero, Raptor, NeoSkript, plugins, how we work, contact) on deep space, bookended by the brand's planet horizon at the top and bottom.
 
 ## 2. Colour
 
 Restrained: tinted deep-space neutrals with Ion Blue under a tenth of any screen. Tokens are the brand's `--xena-*` custom properties, aliased in `src/styles/global.css` (`--bg`, `--raised`, `--surface`, `--rule`, `--muted`, `--text`, `--accent`).
 
 - **Ion Blue** (`accent`) marks the one primary action, the contact address, focus rings, selection, and the horizon's rim. Nothing decorative.
-- **Raptor red** appears only inside Raptor's own logo, never as a site colour.
+- **Raptor red**, **NeoSkript magenta** and the **plugin accents** appear only inside each product's own logo or icon, never as site colours. The NeoSkript code sample stays in the site's text colours.
 - Contrast (WCAG 2.2 AA): muted on void 6.5:1, text on void 17.7:1, accent on void 9.0:1, void on accent 9.0:1, muted on surface 5.8:1.
 - Translucent colours mix in **sRGB** (`color-mix(in srgb, X, transparent)`); oklch mixing with `transparent` drifts the hue toward red.
 
@@ -57,6 +57,8 @@ One family, **JetBrains Mono** (variable, self-hosted via Fontsource), with size
 - **Buttons**: pill, 44px tall. Primary is solid Ion Blue with void text; secondary is a hairline outline that warms toward Ion Blue on hover.
 - **Spec list** (Raptor parts): a `<dl>` of hairline-separated rows, name / what / where, collapsing to one column under 44rem.
 - **Principles**: hairline rows, statement left and explanation right, collapsing under 52rem. Not cards.
+- **Plugin list**: hairline rows of icon (48px, the brand's plugin icon SVG), name, what it does, runs on, and a Modrinth link whose accessible name includes the plugin. Collapses to icon + stacked text under 52rem.
+- **Script sample** (NeoSkript): a real `.sk` script in a `raised` box with a hairline border and 12px radius, in the site's mono, with a `.label` caption. It scrolls inside its box on narrow screens.
 - **Screenshot**: real Raptor capture through `astro:assets` (responsive WebP), 12px radius, hairline border, a bottom fade because the capture is cropped. On phones it crops to the top-left at a readable size.
 
 ## 5. Motion
@@ -71,6 +73,6 @@ The parts the browser draws are themed from the palette too: `color-scheme: dark
 
 ## 7. Do's and Don'ts
 
-**Do:** pull new visuals from the brand repo first (`npm run brand:sync`); link claims to code, docs, or releases; keep one idea per section; keep Raptor in its own identity.
+**Do:** pull new visuals from the brand repo first (`npm run brand:sync`); link claims to code, docs, or releases; keep one idea per section; keep each product in its own identity; mark unreleased projects plainly.
 
-**Don't:** add stars, particles, galaxy imagery, glows beyond the horizon, gradient text, card grids, eyebrows above headings, Unicode or emoji icons, entrance animations on every section, or a second accent colour. Don't set Ethnocentric as live text. Don't recolour Raptor's logo. Don't inline styles or scripts: the CSP blocks them.
+**Don't:** add stars, particles, galaxy imagery, glows beyond the horizon, gradient text, card grids, eyebrows above headings, Unicode or emoji icons, entrance animations on every section, or a second accent colour. Don't set Ethnocentric as live text. Don't recolour Raptor's, NeoSkript's or the plugins' marks. Don't inline styles or scripts: the CSP blocks them.

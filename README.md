@@ -22,7 +22,7 @@ The site ships no JavaScript. Pages are Astro components rendered to HTML at bui
 ```
 src/
   pages/
-    index.astro        the home page: hero, Raptor, how we work, contact
+    index.astro        the home page: hero, Raptor, NeoSkript, plugins, how we work, contact
     404.astro          served for unknown paths
     sitemap.xml.ts     /sitemap.xml (add new routes to its list)
   layouts/Base.astro   <head>, header, footer

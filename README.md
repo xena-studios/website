@@ -33,7 +33,7 @@ src/
   styles/global.css    tokens (from the brand), type scale, base styles
   assets/raptor/       Raptor's console screenshot (optimised to WebP at build)
   brand/               synced from xena-studios/brand: don't edit
-public/                copied as-is: _headers, robots.txt, favicon, og.png
+public/                copied as-is: _headers, _redirects (/docs/* → docs.xenastudios.co), robots.txt, favicon, og.png
 scripts/sync-brand.mjs copies brand assets in
 ```
 

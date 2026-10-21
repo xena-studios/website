@@ -13,7 +13,7 @@ They are technical or close to it, skeptical of hype, and spend under a minute d
 
 ## Product Purpose
 
-xenastudios.co is the studio's front door. It says what Xena Studios is in one breath, puts the studio's work in front of the visitor with honest detail and direct links (Raptor, NeoSkript while it's in development, and the Minecraft plugins), states how the studio works, and gives a way to get in touch. It grows into a home for writing later (a blog), so the structure must leave room for that without a redesign.
+xenastudios.co is the studio's front door. It says what Xena Studios is in one breath, puts the studio's work in front of the visitor with honest detail and direct links (Raptor, NeoSkript while it's in development, and the Minecraft plugins with their docs at docs.xenastudios.co), states how the studio works, and gives a way to get in touch. It grows into a home for writing later (a blog), so the structure must leave room for that without a redesign.
 
 Success: a visitor can tell within seconds what the studio builds, can reach Raptor's site, docs, and source in one click, and leaves trusting that the claims are checkable.
 

@@ -1,0 +1,4 @@
+# The plugin docs moved to their own site. Modrinth's wiki links point here
+# (xenastudios.co/docs/<plugin>), so keep them working.
+/docs    https://docs.xenastudios.co/         301
+/docs/*  https://docs.xenastudios.co/:splat   301

@@ -26,6 +26,7 @@ const plugins = [
     icon: xutilitiesIcon,
     what: "Gamemodes, fly, heal, /back, workstations and your own link commands. Every command can be switched off.",
     runs: "Paper, Folia",
+    docs: "https://docs.xenastudios.co/xutilities/",
     href: "https://modrinth.com/plugin/xutilities",
   },
   {
@@ -33,6 +34,7 @@ const plugins = [
     icon: zchatIcon,
     what: "Group-based chat formatting with a filter, cooldown and chat mute, rendered once per message.",
     runs: "Paper, Folia",
+    docs: "https://docs.xenastudios.co/zchat/",
     href: "https://modrinth.com/plugin/zchat",
   },
   {
@@ -40,6 +42,7 @@ const plugins = [
     icon: xlimboIcon,
     what: "A fallback server. When the main server goes down, players wait in a safe void world instead of being kicked.",
     runs: "Paper",
+    docs: "https://docs.xenastudios.co/xlimbo/",
     href: "https://modrinth.com/plugin/xlimbo",
   },
 ];
@@ -180,12 +183,18 @@ const principles = [
               <p class="where">
                 <span class="label">Runs on</span> {p.runs}
               </p>
-              <a class="plugin-link" href={p.href}>Modrinth<span class="visually-hidden"> page for {p.name}</span><External /></a>
+              <ul class="plugin-links">
+                <li><a href={p.docs}>Docs<span class="visually-hidden"> for {p.name}</span><External /></a></li>
+                <li><a href={p.href}>Modrinth<span class="visually-hidden"> page for {p.name}</span><External /></a></li>
+              </ul>
             </li>
           ))
         }
       </ul>
-      <p class="plugins-all"><a href="https://modrinth.com/organization/xena-studios">All our plugins on Modrinth<External /></a></p>
+      <ul class="plugins-all">
+        <li><a href="https://docs.xenastudios.co">docs.xenastudios.co<External /></a></li>
+        <li><a href="https://modrinth.com/organization/xena-studios">All our plugins on Modrinth<External /></a></li>
+      </ul>
     </div>
   </section>
 
@@ -219,7 +228,8 @@ const principles = [
       <p class="lead">Partnerships, press, hosting, or a question about what we build.</p>
       <p class="mail"><a href="mailto:contact@xenastudios.co">contact@xenastudios.co</a></p>
       <p class="aside">
-        Using Raptor and stuck? Its <a href="https://docs.raptorpanel.net">documentation</a> is the fastest answer.
+        Using Raptor and stuck? Its <a href="https://docs.raptorpanel.net">documentation</a> is the fastest answer. For our
+        plugins, it's <a href="https://docs.xenastudios.co">docs.xenastudios.co</a>.
       </p>
     </div>
     <Horizon class="horizon" />
@@ -564,18 +574,28 @@ const principles = [
     max-width: var(--measure);
   }
 
-  .plugin-link {
+  .plugin-links,
+  .plugins-all {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
     font-size: var(--t-small);
+  }
+
+  .plugin-links {
+    flex-direction: column;
+  }
+
+  .plugin-links a,
+  .plugins-all a {
     color: var(--text);
   }
 
   .plugins-all {
     margin-top: var(--s-5);
-    font-size: var(--t-small);
-  }
-
-  .plugins-all a {
-    color: var(--text);
   }
 
   @media (max-width: 52rem) {
@@ -596,6 +616,10 @@ const principles = [
       flex-direction: row;
       align-items: baseline;
       gap: var(--s-3);
+    }
+
+    .plugin-links {
+      flex-direction: row;
     }
   }
 

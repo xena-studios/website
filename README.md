@@ -1,4 +1,6 @@
-# xenastudios.co
+![xenastudios.co by Xena Studios. The title "xenastudios.co" over the Ion Blue planet horizon, with "The studio's website. Astro, served by Cloudflare."](.github/assets/banner.png)
+
+**The studio's website. Astro, served by Cloudflare.**
 
 The Xena Studios website: a one-page static [Astro](https://astro.build) site served by Cloudflare at **[xenastudios.co](https://xenastudios.co)**.
 

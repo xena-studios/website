@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem
+    url: https://github.com/xena-studios/website/security/advisories/new
+    about: Privately, so it can be fixed before it's public.
+  - name: Raptor
+    url: https://github.com/xena-studios/raptor/issues
+    about: Bugs and ideas for Raptor go to its own repository. For help, see docs.raptorpanel.net.
+  - name: xUtilities, zChat or xLimbo
+    url: https://github.com/xena-studios/plugins/issues/new/choose
+    about: Bugs and ideas for the plugins go to their repository.
+  - name: NeoSkript
+    url: https://github.com/xena-studios/neoskript/issues
+    about: Bugs and ideas for NeoSkript go to its own repository.
+  - name: Get in touch
+    url: https://xenastudios.co/#contact
+    about: Partnerships, press, hosting, or anything that isn't a problem with the site.

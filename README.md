@@ -80,3 +80,7 @@ npx impeccable update --project --yes --no-hooks                  # update the s
 ```
 
 Its native engine (`scripts/bin/`) is installed per machine and isn't committed; the launcher downloads it on first run.
+
+## Licence
+
+All rights reserved. The site's code, design and brand assets are © Xena Studios and aren't licensed for reuse; the source is public so it can be read, not copied. The Impeccable skill in `.agents/` and the JetBrains Mono font keep their own licences (Apache-2.0 and the SIL Open Font License).

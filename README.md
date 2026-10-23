@@ -68,7 +68,7 @@ The Cloudflare Worker **`xenastudios-website`** serves `dist/` as static assets,
 | **Run workflow** (Actions tab) | Redeploy `main` without a commit |
 | Pull request | Build only, so a broken build can't merge unnoticed |
 
-The `build` job runs on every event; the `deploy` job runs only on `main`, after `build` passes, in the **`production`** environment. Deploys use that environment's `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets (a token from the "Edit Cloudflare Workers" template, scoped to this account and the `xenastudios.co` zone). To deploy from your machine instead: `npm run deploy` after `wrangler login`.
+The `build` job runs on every event; the `deploy` job runs only on `main`, after `build` passes, in the **`production`** environment. Deploys use that environment's `CLOUDFLARE_API_TOKEN` secret (a token from the "Edit Cloudflare Workers" template, scoped to this account and the `xenastudios.co` zone) and the repo's `CLOUDFLARE_ACCOUNT_ID` variable, which isn't sensitive. To deploy from your machine instead: `npm run deploy` after `wrangler login`.
 
 `public/_headers` sets a strict Content-Security-Policy (no scripts, no inline styles, same-origin assets only), the usual security headers, and a year of caching for the hashed files in `/assets/`. Because of that CSP, Astro is configured never to inline stylesheets or small assets.
 
@@ -80,7 +80,7 @@ The `build` job runs on every event; the `deploy` job runs only on `main`, after
 
 [`public/.well-known/security.txt`](public/.well-known/security.txt) points researchers to the org's [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md); report problems privately through this repo's Security tab or to contact@xenastudios.co. Its `Expires` date is 2027-10-22: move it on (about a year out) before then.
 
-The Cloudflare secrets live in the `production` environment, which only `main` can use, so no branch or pull request can read them, even with an edited workflow. Within the deploy job, only the deploy step gets them, never `npm ci` or the build. Workflows get a read-only `GITHUB_TOKEN` unless they ask for more, and Actions can't approve pull requests.
+The Cloudflare token lives in the `production` environment, which only `main` can use, so no branch or pull request can read it, even with an edited workflow. Within the deploy job, only the deploy step gets it, never `npm ci` or the build. Workflows get a read-only `GITHUB_TOKEN` unless they ask for more, and Actions can't approve pull requests.
 
 Pages get a canonical URL without `.html` (`https://xenastudios.co/`, matching the sitemap); pass `noindex` to `Base` for a page that should stay out of search results, as the 404 page does.
 

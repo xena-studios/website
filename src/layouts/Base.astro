@@ -14,7 +14,10 @@ const {
   description = "Xena Studios builds open-source software for running game servers on machines you own: Raptor, NeoSkript, and Minecraft plugins.",
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site);
+// build.format "file" makes the pathname /index.html or /<page>.html; the
+// canonical address has neither, matching the sitemap and trailingSlash "never".
+const path = Astro.url.pathname.replace(/(?:index)?\.html$/, "");
+const canonical = new URL(path, Astro.site);
 const og = new URL("/og.png", Astro.site);
 const year = new Date().getFullYear();
 ---

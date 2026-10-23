@@ -92,6 +92,14 @@ npx impeccable update --project --yes --no-hooks                  # update the s
 
 Its native engine (`scripts/bin/`) is installed per machine and isn't committed; the launcher downloads it on first run.
 
+## Help
+
+- **Something wrong on the site:** [open an issue](https://github.com/xena-studios/website/issues/new/choose). Problems with Raptor, NeoSkript or the plugins go to their own repositories.
+- **Security problems:** privately, as the org's [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md) describes.
+- **Anything else:** [contact@xenastudios.co](mailto:contact@xenastudios.co).
+
+Everyone taking part follows the [code of conduct](https://github.com/xena-studios/.github/blob/main/CODE_OF_CONDUCT.md). The site is all rights reserved, so it can't take outside pull requests: open an issue instead. The studio's own pull requests get a checklist from the template.
+
 ## Licence
 
 All rights reserved. The site's code, design and brand assets are © Xena Studios and aren't licensed for reuse; the source is public so it can be read, not copied. The Impeccable skill in `.agents/` and the JetBrains Mono font keep their own licences (Apache-2.0 and the SIL Open Font License).

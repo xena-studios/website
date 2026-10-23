@@ -7,11 +7,14 @@ import fontLatin from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-
 interface Props {
   title?: string;
   description?: string;
+  /** Keep the page out of search results, with no canonical or og:url (the 404 page). */
+  noindex?: boolean;
 }
 
 const {
   title = "Xena Studios: game server infrastructure, built in the open",
   description = "Xena Studios builds open-source software for running game servers on machines you own: Raptor, NeoSkript, and Minecraft plugins.",
+  noindex = false,
 } = Astro.props;
 
 // build.format "file" makes the pathname /index.html or /<page>.html; the
@@ -28,7 +31,7 @@ const year = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <meta name="theme-color" content="#06080D" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -39,7 +42,7 @@ const year = new Date().getFullYear();
     <meta property="og:site_name" content="Xena Studios" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={og} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />

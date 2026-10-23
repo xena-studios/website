@@ -36,8 +36,9 @@ src/
   assets/raptor/       Raptor's console screenshot (optimised to WebP at build)
   brand/               synced from xena-studios/brand: don't edit
 public/                copied as-is: _headers, _redirects (/docs/* → docs.xenastudios.co), robots.txt,
-                       .well-known/security.txt, favicon, og.png
+                       .well-known/security.txt, favicon, apple-touch-icon, og.png
 scripts/sync-brand.mjs copies brand assets in
+.github/               workflows (deploy, CodeQL), the issue form, the pull request template, the README banner
 ```
 
 Built CSS, fonts and images land in `dist/assets/` with content hashes.
@@ -78,6 +79,8 @@ Deploys use the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository se
 [`.github/workflows/codeql.yml`](.github/workflows/codeql.yml) runs CodeQL over the workflows and the site's TypeScript and scripts, with the security-extended queries, on every PR, every push to `main`, and weekly. Findings show on the PR and in the Security tab; it isn't a required check. Renovate opens dependency PRs on Monday mornings ([`renovate.json`](renovate.json), on top of the org's shared settings in [`xena-studios/.github`](https://github.com/xena-studios/.github/blob/main/renovate-config.json)), and keeps any third-party action pinned to a commit.
 
 [`public/.well-known/security.txt`](public/.well-known/security.txt) points researchers to the org's [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md); report problems privately through this repo's Security tab or to contact@xenastudios.co. Its `Expires` date is 2027-10-22: move it on (about a year out) before then.
+
+The Cloudflare secrets reach only the deploy step on `main`, never `npm ci`, the build, or a pull request's run. Workflows get a read-only `GITHUB_TOKEN` unless they ask for more, and Actions can't approve pull requests.
 
 Pages get a canonical URL without `.html` (`https://xenastudios.co/`, matching the sitemap); pass `noindex` to `Base` for a page that should stay out of search results, as the 404 page does.
 

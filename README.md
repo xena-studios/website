@@ -68,19 +68,19 @@ The Cloudflare Worker **`xenastudios-website`** serves `dist/` as static assets,
 | **Run workflow** (Actions tab) | Redeploy `main` without a commit |
 | Pull request | Build only, so a broken build can't merge unnoticed |
 
-Deploys use the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets (a token from the "Edit Cloudflare Workers" template, scoped to this account and the `xenastudios.co` zone). To deploy from your machine instead: `npm run deploy` after `wrangler login`.
+The `build` job runs on every event; the `deploy` job runs only on `main`, after `build` passes, in the **`production`** environment. Deploys use that environment's `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets (a token from the "Edit Cloudflare Workers" template, scoped to this account and the `xenastudios.co` zone). To deploy from your machine instead: `npm run deploy` after `wrangler login`.
 
 `public/_headers` sets a strict Content-Security-Policy (no scripts, no inline styles, same-origin assets only), the usual security headers, and a year of caching for the hashed files in `/assets/`. Because of that CSP, Astro is configured never to inline stylesheets or small assets.
 
 ## Checks and security
 
-`main` takes changes only through pull requests: a ruleset blocks deleting it and force-pushing, and requires the `deploy` job above to pass (it builds every PR). No review is required.
+`main` takes changes only through pull requests: a ruleset blocks deleting it and force-pushing, and requires the `build` job above to pass. No review is required.
 
 [`.github/workflows/codeql.yml`](.github/workflows/codeql.yml) runs CodeQL over the workflows and the site's TypeScript and scripts, with the security-extended queries, on every PR, every push to `main`, and weekly. Findings show on the PR and in the Security tab; it isn't a required check. Renovate opens dependency PRs on Monday mornings ([`renovate.json`](renovate.json), on top of the org's shared settings in [`xena-studios/.github`](https://github.com/xena-studios/.github/blob/main/renovate-config.json)), and keeps any third-party action pinned to a commit.
 
 [`public/.well-known/security.txt`](public/.well-known/security.txt) points researchers to the org's [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md); report problems privately through this repo's Security tab or to contact@xenastudios.co. Its `Expires` date is 2027-10-22: move it on (about a year out) before then.
 
-The Cloudflare secrets reach only the deploy step on `main`, never `npm ci`, the build, or a pull request's run. Workflows get a read-only `GITHUB_TOKEN` unless they ask for more, and Actions can't approve pull requests.
+The Cloudflare secrets live in the `production` environment, which only `main` can use, so no branch or pull request can read them, even with an edited workflow. Within the deploy job, only the deploy step gets them, never `npm ci` or the build. Workflows get a read-only `GITHUB_TOKEN` unless they ask for more, and Actions can't approve pull requests.
 
 Pages get a canonical URL without `.html` (`https://xenastudios.co/`, matching the sitemap); pass `noindex` to `Base` for a page that should stay out of search results, as the 404 page does.
 

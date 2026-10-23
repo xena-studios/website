@@ -23,7 +23,6 @@ const files = [
   ["tokens/colors.json", "src/brand/colors.json"],
   ["logo/xena-studios.svg", "src/brand/logo/xena-studios.svg"],
   ["logo/xena.svg", "src/brand/logo/xena.svg"],
-  ["logo/x-blue.svg", "src/brand/logo/x-blue.svg"],
   ["scene/horizon.svg", "src/brand/scene/horizon.svg"],
   ["raptor/official/logo-dark.svg", "src/brand/raptor/logo-dark.svg"],
   ["neoskript/logo-dark.svg", "src/brand/neoskript/logo-dark.svg"],
@@ -31,7 +30,7 @@ const files = [
   ["plugins/zchat/icon.svg", "src/brand/plugins/zchat.svg"],
   ["plugins/xlimbo/icon.svg", "src/brand/plugins/xlimbo.svg"],
   ["avatar/favicon.svg", "public/favicon.svg"],
-  ["avatar/avatar.png", "public/apple-touch-icon.png"],
+  ["avatar/apple-touch-icon.png", "public/apple-touch-icon.png"],
   ["social/og-card.png", "public/og.png"],
 ];
 

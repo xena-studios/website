@@ -24,7 +24,7 @@ const plugins = [
   {
     name: "xUtilities",
     icon: xutilitiesIcon,
-    what: "Gamemodes, fly, heal, /back, workstations and your own link commands. Every command can be switched off.",
+    what: "Gamemodes, flight, heal, /back, workstation menus, and link commands like /discord that you write yourself. Every command can be switched off.",
     runs: "Paper, Folia",
     docs: "https://docs.xenastudios.co/xutilities/",
     href: "https://modrinth.com/plugin/xutilities",
@@ -32,7 +32,7 @@ const plugins = [
   {
     name: "zChat",
     icon: zchatIcon,
-    what: "Group-based chat formatting with a filter, cooldown and chat mute, rendered once per message.",
+    what: "A chat format per rank, a filter that's hard to dodge, cooldowns, mentions and private messages. Each message is drawn once, however many players see it.",
     runs: "Paper, Folia",
     docs: "https://docs.xenastudios.co/zchat/",
     href: "https://modrinth.com/plugin/zchat",
@@ -40,7 +40,7 @@ const plugins = [
   {
     name: "xLimbo",
     icon: xlimboIcon,
-    what: "A fallback server. When the main server goes down, players wait in a safe void world instead of being kicked.",
+    what: "Your network's fallback server. When the main server goes down, players wait in a safe void world instead of being disconnected, and go back when it's up.",
     runs: "Paper",
     docs: "https://docs.xenastudios.co/xlimbo/",
     href: "https://modrinth.com/plugin/xlimbo",
@@ -60,7 +60,7 @@ const parts = [
   },
   {
     name: "raptor CLI",
-    what: "Status, power, console, logs, backups and restores, and doctor, from the machine itself.",
+    what: "Status, power, console, logs, backups and restores, and a doctor that says what's wrong and how to fix it, on the machine itself.",
     where: "Your machine",
   },
 ];
@@ -68,8 +68,8 @@ const parts = [
 const principles = [
   {
     title: "The source is public.",
-    body: "Raptor is AGPL-3.0 on GitHub. Read what it does before you run it, build it yourself, and send changes back.",
-    link: { href: "https://github.com/xena-studios/raptor", text: "xena-studios/raptor" },
+    body: "Raptor is AGPL-3.0, and NeoSkript and the plugins are GPL-3.0, all on GitHub. Read what they do before you run them, build them yourself, and send changes back.",
+    link: { href: "https://github.com/xena-studios", text: "github.com/xena-studios" },
   },
   {
     title: "Your machine stays yours.",
@@ -140,7 +140,7 @@ const principles = [
             <li><a href="https://raptorpanel.net">raptorpanel.net<External /></a></li>
             <li><a href="https://docs.raptorpanel.net">Documentation<External /></a></li>
             <li><a href="https://github.com/xena-studios/raptor">Source on GitHub<External /></a></li>
-            <li><a href="https://github.com/xena-studios/raptor/blob/main/LICENSE">AGPL-3.0</a></li>
+            <li><a href="https://github.com/xena-studios/raptor/blob/main/LICENSE">AGPL-3.0<External /></a></li>
           </ul>
         </div>
       </div>
@@ -161,7 +161,7 @@ const principles = [
       <figure class="script">
         <pre><code>on join:
     send "Welcome, %player%!" to player</code></pre>
-        <figcaption class="label">join.sk, a Skript script that runs as it is</figcaption>
+        <figcaption class="label">join.sk, a Skript script NeoSkript runs unchanged</figcaption>
       </figure>
     </div>
   </section>
@@ -211,7 +211,7 @@ const principles = [
                 {p.link && (
                   <>
                     {" "}
-                    <a href={p.link.href}>{p.link.text}</a>
+                    <a href={p.link.href}>{p.link.text}<External /></a>
                   </>
                 )}
               </p>
@@ -228,8 +228,8 @@ const principles = [
       <p class="lead">Partnerships, press, hosting, or a question about what we build.</p>
       <p class="mail"><a href="mailto:contact@xenastudios.co">contact@xenastudios.co</a></p>
       <p class="aside">
-        Using Raptor and stuck? Its <a href="https://docs.raptorpanel.net">documentation</a> is the fastest answer. For our
-        plugins, it's <a href="https://docs.xenastudios.co">docs.xenastudios.co</a>.
+        Using Raptor and stuck? Its <a href="https://docs.raptorpanel.net">documentation<External /></a> is the fastest answer. For our
+        plugins, it's <a href="https://docs.xenastudios.co">docs.xenastudios.co<External /></a>.
       </p>
     </div>
     <Horizon class="horizon" />

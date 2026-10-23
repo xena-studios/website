@@ -51,7 +51,7 @@ One family, **JetBrains Mono** (variable, self-hosted via Fontsource), with size
 
 ## 4. Components
 
-- **External** (`src/components/External.astro`): the site's only icon, an outbound arrow drawn as SVG at 0.62em in `currentColor`, nudging up-right on hover and focus. Every link that leaves the site carries it; no Unicode arrows.
+- **External** (`src/components/External.astro`): the site's only icon, an outbound arrow drawn as SVG at 0.62em in `currentColor`, nudging up-right on hover and focus. Every link to another site carries it, in the header, body and footer alike; the contact address, a `mailto:` link, doesn't. No Unicode arrows.
 - **Logo** (`src/components/Logo.astro`): inlines a brand logo SVG, crops the exported clear space, and fills with `currentColor`.
 - **Horizon** (`src/components/Horizon.astro`): inlines `scene/horizon.svg` with `preserveAspectRatio="xMidYMax slice"` and a bottom mask so the planet body fades into the page. Positioned absolutely at the bottom of an `isolation: isolate` section.
 - **Buttons**: pill, 44px tall. Primary is solid Ion Blue with void text; secondary is a hairline outline that warms toward Ion Blue on hover.

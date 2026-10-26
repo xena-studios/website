@@ -9,6 +9,8 @@ import xutilitiesIcon from "../brand/plugins/xutilities.svg?url";
 import zchatIcon from "../brand/plugins/zchat.svg?url";
 import xlimboIcon from "../brand/plugins/xlimbo.svg?url";
 import consoleShot from "../assets/raptor/console-dark.png";
+import mostwantedWordmark from "../brand/mostwanted/wordmark.png";
+import mostwantedKeyArt from "../brand/mostwanted/key-art.png";
 
 // Raptor's own logo, as shipped in its repo; only made responsive here.
 const raptorSvg = raptorLogo.replace("<svg ", '<svg class="raptor-logo" role="img" aria-label="Raptor" ');
@@ -68,7 +70,7 @@ const parts = [
 const principles = [
   {
     title: "The source is public.",
-    body: "Raptor is AGPL-3.0, and NeoSkript and the plugins are GPL-3.0, all on GitHub. Read what they do before you run them, build them yourself, and send changes back.",
+    body: "Raptor is AGPL-3.0, and NeoSkript, the plugins and MostWanted are GPL-3.0, all on GitHub. Read what they do before you run them, build them yourself, and send changes back.",
     link: { href: "https://github.com/xena-studios", text: "github.com/xena-studios" },
   },
   {
@@ -87,8 +89,9 @@ const principles = [
     <div class="wrap hero-copy">
       <h1 id="hero-title">Game server infrastructure, built in the open.</h1>
       <p class="lead">
-        Xena Studios makes the software that runs game servers on machines you own, and the Minecraft plugins that run on
-        them. Everything we ship is open source, so you can read exactly what it does before you run it.
+        Xena Studios makes the software that runs game servers on machines you own, the Minecraft plugins that run on
+        them, and a Minecraft server of our own. Everything we ship is open source, so you can read exactly what it does
+        before you run it.
       </p>
       <p class="actions">
         <a class="button primary" href="#raptor">Meet Raptor</a>
@@ -162,6 +165,34 @@ const principles = [
         <pre><code>on join:
     send "Welcome, %player%!" to player</code></pre>
         <figcaption class="label">join.sk, a Skript script NeoSkript runs unchanged</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="mostwanted" class="mostwanted" aria-labelledby="mostwanted-title">
+    <div class="wrap mostwanted-inner">
+      <div class="mostwanted-head">
+        <Image class="mostwanted-logo" src={mostwantedWordmark} alt="MostWanted" widths={[420, 840]} sizes="20rem" loading="lazy" />
+        <h2 id="mostwanted-title">Cops vs. prisoners, on Java and Bedrock.</h2>
+        <p class="lead">
+          MostWanted is our own Jailbreak-style Minecraft server. Prisoners break out and rob the town; guards, picked by
+          application, bring them back. One world that keeps running, built on Raptor and our plugins.
+        </p>
+        <p class="status"><span class="label">Status</span> In development, not open yet</p>
+        <ul class="mostwanted-links">
+          <li><a href="https://github.com/xena-studios/mostwanted">Source and design docs on GitHub<External /></a></li>
+          <li><a href="https://github.com/xena-studios/mostwanted/blob/main/LICENSE">GPL-3.0<External /></a></li>
+        </ul>
+      </div>
+      <figure class="key-art">
+        <Image
+          src={mostwantedKeyArt}
+          alt="The MOSTWANTED wordmark over a pixel-art desert at sunset, blurred: mesas, cacti and a sand road under a low sun."
+          widths={[640, 960, 1280, 1920]}
+          sizes="(min-width: 60rem) 32rem, 100vw"
+          loading="lazy"
+        />
+        <figcaption class="label">MostWanted's key art</figcaption>
       </figure>
     </div>
   </section>
@@ -527,6 +558,67 @@ const principles = [
   @media (max-width: 60rem) {
     .neoskript-inner {
       /* minmax(0, …) so the code scrolls inside its box instead of widening the page. */
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* ---------------------------------------------------------------- mostwanted */
+
+  .mostwanted {
+    padding-block: var(--s-8);
+    border-top: 1px solid var(--rule);
+  }
+
+  .mostwanted-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    gap: var(--s-7);
+    align-items: center;
+  }
+
+  .mostwanted-head :global(.mostwanted-logo) {
+    display: block;
+    width: clamp(14rem, 11rem + 10vw, 20rem);
+    height: auto;
+    margin-bottom: var(--s-6);
+  }
+
+  .mostwanted h2 {
+    font-size: var(--t-h2);
+  }
+
+  .mostwanted-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    margin: var(--s-5) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--t-small);
+  }
+
+  .mostwanted-links a {
+    color: var(--text);
+  }
+
+  .key-art {
+    margin: 0;
+  }
+
+  .key-art :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+  }
+
+  .key-art figcaption {
+    margin-top: var(--s-3);
+  }
+
+  @media (max-width: 60rem) {
+    .mostwanted-inner {
       grid-template-columns: minmax(0, 1fr);
     }
   }

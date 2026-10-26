@@ -13,7 +13,7 @@ They are technical or close to it, skeptical of hype, and spend under a minute d
 
 ## Product Purpose
 
-xenastudios.co is the studio's front door. It says what Xena Studios is in one breath, puts the studio's work in front of the visitor with honest detail and direct links (Raptor, NeoSkript while it's in development, and the Minecraft plugins with their docs at docs.xenastudios.co), states how the studio works, and gives a way to get in touch. It grows into a home for writing later (a blog), so the structure must leave room for that without a redesign.
+xenastudios.co is the studio's front door. It says what Xena Studios is in one breath, puts the studio's work in front of the visitor with honest detail and direct links (Raptor, NeoSkript while it's in development, MostWanted, the studio's own Minecraft server, while it's in development, and the Minecraft plugins with their docs at docs.xenastudios.co), states how the studio works, and gives a way to get in touch. It grows into a home for writing later (a blog), so the structure must leave room for that without a redesign.
 
 Success: a visitor can tell within seconds what the studio builds, can reach Raptor's site, docs, and source in one click, and leaves trusting that the claims are checkable.
 
@@ -33,7 +33,7 @@ Success: a visitor can tell within seconds what the studio builds, can reach Rap
 1. **Show the source, not adjectives.** Every claim either links to something checkable (code, docs, the product) or is specific enough to be checked. No superlatives.
 2. **The brand repo is the design.** Colours, logos, and the horizon come from xena-studios/brand. The site composes them; it doesn't invent new ones.
 3. **One idea per screen.** Each section makes one point and gets out of the way. Space is part of the message.
-4. **Products keep their identity.** Raptor appears as Raptor (red raptor beside its wordmark), NeoSkript as NeoSkript (its `.sk` tile beside its wordmark), and each plugin with its own icon; the studio frames them, never re-skins them.
+4. **Products keep their identity.** Raptor appears as Raptor (red raptor beside its wordmark), NeoSkript as NeoSkript (its `.sk` tile beside its wordmark), MostWanted as MostWanted (its block wordmark and desert key art), and each plugin with its own icon; the studio frames them, never re-skins them.
 5. **Room to grow, nothing empty.** Structure anticipates writing and more projects, but nothing ships as a placeholder. A project that isn't released yet says so plainly and shows something real (NeoSkript shows a script it runs), never a "coming soon" banner.
 
 ## Accessibility & Inclusion

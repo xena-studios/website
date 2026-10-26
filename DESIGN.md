@@ -30,14 +30,14 @@ icons: "one authored outbound arrow (External.astro), 1.4 stroke, currentColor"
 
 **North star: Linear-grade precision on the brand repo, nothing invented.** Every colour, logo and scene comes from [xena-studios/brand](https://github.com/xena-studios/brand). The site composes them with exact type, hairlines, and space. It reads like an engineer wrote it: plain claims, real screenshots, links to source.
 
-The page is one column of six ideas (hero, Raptor, NeoSkript, plugins, how we work, contact) on deep space, bookended by the brand's planet horizon at the top and bottom.
+The page is one column of seven ideas (hero, Raptor, NeoSkript, MostWanted, plugins, how we work, contact) on deep space, bookended by the brand's planet horizon at the top and bottom.
 
 ## 2. Colour
 
 Restrained: tinted deep-space neutrals with Ion Blue under a tenth of any screen. Tokens are the brand's `--xena-*` custom properties, aliased in `src/styles/global.css` (`--bg`, `--raised`, `--surface`, `--rule`, `--muted`, `--text`, `--accent`).
 
 - **Ion Blue** (`accent`) marks the one primary action, the contact address, focus rings, selection, and the horizon's rim. Nothing decorative.
-- **Raptor red**, **NeoSkript magenta** and the **plugin accents** appear only inside each product's own logo or icon, never as site colours. The NeoSkript code sample stays in the site's text colours.
+- **Raptor red**, **NeoSkript magenta**, **MostWanted orange** and the **plugin accents** appear only inside each product's own logo, icon or key art, never as site colours. The NeoSkript code sample stays in the site's text colours.
 - Contrast (WCAG 2.2 AA): muted on void 6.5:1, text on void 17.7:1, accent on void 9.0:1, void on accent 9.0:1, muted on surface 5.8:1.
 - Translucent colours mix in **sRGB** (`color-mix(in srgb, X, transparent)`); oklch mixing with `transparent` drifts the hue toward red.
 

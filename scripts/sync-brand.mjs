@@ -26,6 +26,8 @@ const files = [
   ["scene/horizon.svg", "src/brand/scene/horizon.svg"],
   ["raptor/official/logo-dark.svg", "src/brand/raptor/logo-dark.svg"],
   ["neoskript/logo-dark.svg", "src/brand/neoskript/logo-dark.svg"],
+  ["mostwanted/official/wordmark.png", "src/brand/mostwanted/wordmark.png"],
+  ["mostwanted/official/key-art.png", "src/brand/mostwanted/key-art.png"],
   ["plugins/xutilities/icon.svg", "src/brand/plugins/xutilities.svg"],
   ["plugins/zchat/icon.svg", "src/brand/plugins/zchat.svg"],
   ["plugins/xlimbo/icon.svg", "src/brand/plugins/xlimbo.svg"],

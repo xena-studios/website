@@ -70,7 +70,7 @@ const parts = [
 const principles = [
   {
     title: "The source is public.",
-    body: "Raptor is AGPL-3.0, and NeoSkript, the plugins and MostWanted are GPL-3.0, all on GitHub. Read what they do before you run them, build them yourself, and send changes back.",
+    body: "Raptor is AGPL-3.0. NeoSkript is GPL-3.0-or-later, and the plugins and MostWanted are GPL-3.0-only. All of it is on GitHub: read what it does before you run it, build it yourself, and send changes back.",
     link: { href: "https://github.com/xena-studios", text: "github.com/xena-studios" },
   },
   {
@@ -95,10 +95,10 @@ const principles = [
       </p>
       <p class="actions">
         <a class="button primary" href="#raptor">Meet Raptor</a>
-        <a class="button" href="https://github.com/xena-studios">github.com/xena-studios<External /></a>
+        <a class="button" href="https://github.com/xena-studios"><External>github.com/xena-studios</External></a>
       </p>
     </div>
-    <Horizon class="horizon" />
+    <Horizon class="horizon" idPrefix="hero" />
   </section>
 
   <section id="raptor" class="raptor" aria-labelledby="raptor-title">
@@ -117,7 +117,7 @@ const principles = [
           src={consoleShot}
           alt="Raptor's page for a Paper server named Survival: running, with CPU, memory, disk, and network readouts above its live console."
           widths={[720, 1200, 1800, 2364]}
-          sizes="(min-width: 76rem) 76rem, (min-width: 44rem) 100vw, 250vw"
+          sizes="(min-width: 76rem) 76rem, (min-width: 44rem) 100vw, 170vw"
           loading="lazy"
         />
         <figcaption class="label">Raptor, managing a Paper server on a home machine</figcaption>
@@ -140,10 +140,10 @@ const principles = [
         <div class="raptor-links">
           <p>Runs servers from Pterodactyl and Pelican eggs.</p>
           <ul>
-            <li><a href="https://raptorpanel.net">raptorpanel.net<External /></a></li>
-            <li><a href="https://docs.raptorpanel.net">Documentation<External /></a></li>
-            <li><a href="https://github.com/xena-studios/raptor">Source on GitHub<External /></a></li>
-            <li><a href="https://github.com/xena-studios/raptor/blob/main/LICENSE">AGPL-3.0<External /></a></li>
+            <li><a href="https://raptorpanel.net"><External>raptorpanel.net</External></a></li>
+            <li><a href="https://docs.raptorpanel.net"><External>Documentation</External></a></li>
+            <li><a href="https://github.com/xena-studios/raptor">Source on <External>GitHub</External></a></li>
+            <li><a href="https://github.com/xena-studios/raptor/blob/main/LICENSE"><External>AGPL-3.0</External></a></li>
           </ul>
         </div>
       </div>
@@ -160,9 +160,13 @@ const principles = [
           Paper and Folia.
         </p>
         <p class="status"><span class="label">Status</span> In development, not released yet</p>
+        <ul class="project-links">
+          <li><a href="https://github.com/xena-studios/neoskript">Source on <External>GitHub</External></a></li>
+          <li><a href="https://github.com/xena-studios/neoskript/blob/main/LICENSE"><External>GPL-3.0-or-later</External></a></li>
+        </ul>
       </div>
       <figure class="script">
-        <pre><code>on join:
+        <pre tabindex="0"><code>on join:
     send "Welcome, %player%!" to player</code></pre>
         <figcaption class="label">join.sk, a Skript script NeoSkript runs unchanged</figcaption>
       </figure>
@@ -176,12 +180,13 @@ const principles = [
         <h2 id="mostwanted-title">Cops vs. prisoners, on Java and Bedrock.</h2>
         <p class="lead">
           MostWanted is our own Jailbreak-style Minecraft server. Prisoners break out and rob the town; guards, picked by
-          application, bring them back. One world that keeps running, built on Raptor and our plugins.
+          application, bring them back. One world that keeps running, with our own plugins for commands and chat.
         </p>
         <p class="status"><span class="label">Status</span> In development, not open yet</p>
-        <ul class="mostwanted-links">
-          <li><a href="https://github.com/xena-studios/mostwanted">Source and design docs on GitHub<External /></a></li>
-          <li><a href="https://github.com/xena-studios/mostwanted/blob/main/LICENSE">GPL-3.0<External /></a></li>
+        <ul class="project-links">
+          <li><a href="https://mostwantedmc.com"><External>mostwantedmc.com</External></a></li>
+          <li><a href="https://github.com/xena-studios/mostwanted">Source and design docs on <External>GitHub</External></a></li>
+          <li><a href="https://github.com/xena-studios/mostwanted/blob/main/LICENSE"><External>GPL-3.0-only</External></a></li>
         </ul>
       </div>
       <figure class="key-art">
@@ -189,7 +194,7 @@ const principles = [
           src={mostwantedKeyArt}
           alt="The MOSTWANTED wordmark over a pixel-art desert at sunset, blurred: mesas, cacti and a sand road under a low sun."
           widths={[640, 960, 1280, 1920]}
-          sizes="(min-width: 60rem) 32rem, 100vw"
+          sizes="(min-width: 80rem) 36.5rem, (min-width: 60rem) 50vw, 100vw"
           loading="lazy"
         />
         <figcaption class="label">MostWanted's key art</figcaption>
@@ -215,16 +220,16 @@ const principles = [
                 <span class="label">Runs on</span> {p.runs}
               </p>
               <ul class="plugin-links">
-                <li><a href={p.docs}>Docs<span class="visually-hidden"> for {p.name}</span><External /></a></li>
-                <li><a href={p.href}>Modrinth<span class="visually-hidden"> page for {p.name}</span><External /></a></li>
+                <li><a href={p.docs}><External>Docs<span class="visually-hidden"> for {p.name}</span></External></a></li>
+                <li><a href={p.href}><External>Modrinth<span class="visually-hidden"> page for {p.name}</span></External></a></li>
               </ul>
             </li>
           ))
         }
       </ul>
       <ul class="plugins-all">
-        <li><a href="https://docs.xenastudios.co">docs.xenastudios.co<External /></a></li>
-        <li><a href="https://modrinth.com/organization/xena-studios">All our plugins on Modrinth<External /></a></li>
+        <li><a href="https://docs.xenastudios.co"><External>docs.xenastudios.co</External></a></li>
+        <li><a href="https://modrinth.com/organization/xena-studios">All our plugins on <External>Modrinth</External></a></li>
       </ul>
     </div>
   </section>
@@ -242,7 +247,7 @@ const principles = [
                 {p.link && (
                   <>
                     {" "}
-                    <a href={p.link.href}>{p.link.text}<External /></a>
+                    <a href={p.link.href}><External>{p.link.text}</External></a>
                   </>
                 )}
               </p>
@@ -259,11 +264,11 @@ const principles = [
       <p class="lead">Partnerships, press, hosting, or a question about what we build.</p>
       <p class="mail"><a href="mailto:contact@xenastudios.co">contact@xenastudios.co</a></p>
       <p class="aside">
-        Using Raptor and stuck? Its <a href="https://docs.raptorpanel.net">documentation<External /></a> is the fastest answer. For our
-        plugins, it's <a href="https://docs.xenastudios.co">docs.xenastudios.co<External /></a>.
+        Using Raptor and stuck? Its <a href="https://docs.raptorpanel.net"><External>documentation</External></a> is the fastest answer. For our
+        plugins, it's <a href="https://docs.xenastudios.co"><External>docs.xenastudios.co</External></a>.
       </p>
     </div>
-    <Horizon class="horizon" />
+    <Horizon class="horizon" idPrefix="contact" />
   </section>
 </Base>
 
@@ -411,7 +416,8 @@ const principles = [
   }
 
   /* On phones the full console is too small to read: show its top-left
-     (server, status, tabs, readouts) at a legible size instead. */
+     (server, status, tabs, readouts) at a legible size instead. The square
+     crop draws the whole capture about 1.7 screens wide, hence sizes 170vw. */
   @media (max-width: 44rem) {
     .shot :global(img) {
       aspect-ratio: 1 / 1;
@@ -489,6 +495,12 @@ const principles = [
       grid-template-columns: 1fr;
       gap: var(--s-6);
     }
+
+    /* Stacked under the parts, whose last row already ends in a hairline. */
+    .raptor-links {
+      padding-top: 0;
+      border-top: 0;
+    }
   }
 
   @media (max-width: 44rem) {
@@ -534,6 +546,21 @@ const principles = [
     gap: var(--s-3);
     margin-top: var(--s-5);
     font-size: var(--t-small);
+  }
+
+  /* Source and licence links under NeoSkript's and MostWanted's status. */
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    margin: var(--s-5) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--t-small);
+  }
+
+  .project-links a {
+    color: var(--text);
   }
 
   .script {
@@ -585,20 +612,6 @@ const principles = [
 
   .mostwanted h2 {
     font-size: var(--t-h2);
-  }
-
-  .mostwanted-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-5);
-    margin: var(--s-5) 0 0;
-    padding: 0;
-    list-style: none;
-    font-size: var(--t-small);
-  }
-
-  .mostwanted-links a {
-    color: var(--text);
   }
 
   .key-art {

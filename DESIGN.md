@@ -58,7 +58,7 @@ One family, **JetBrains Mono** (variable, self-hosted via Fontsource), with size
 - **Spec list** (Raptor parts): a `<dl>` of hairline-separated rows, name / what / where, collapsing to one column under 44rem.
 - **Principles**: hairline rows, statement left and explanation right, collapsing under 52rem. Not cards.
 - **Plugin list**: hairline rows of icon (48px, the brand's plugin icon SVG), name, what it does, runs on, and Docs and Modrinth links whose accessible names include the plugin. Collapses to icon + stacked text under 52rem.
-- **Script sample** (NeoSkript): a real `.sk` script in a `raised` box with a hairline border and 12px radius, in the site's mono, with a `.label` caption. It scrolls inside its box on narrow screens.
+- **Script sample** (NeoSkript): a real `.sk` script in a `raised` box with a hairline border and 12px radius, in the site's mono, with a `.label` caption. It scrolls inside its box on narrow screens, and takes keyboard focus so that scrolling works without a mouse.
 - **Screenshot**: real Raptor capture through `astro:assets` (responsive WebP), 12px radius, hairline border, a bottom fade because the capture is cropped. On phones it crops to the top-left at a readable size.
 
 ## 5. Motion

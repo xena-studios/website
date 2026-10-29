@@ -8,16 +8,17 @@ The design comes from [xena-studios/brand](https://github.com/xena-studios/brand
 
 ## Develop
 
-Needs Node 24.
+Needs Node 24 and pnpm.
 
 ```sh
-npm install
-npm run dev        # http://localhost:4321, with hot reload
-npm run build      # static site in dist/
-npm run preview    # serve dist/ locally
+pnpm install
+pnpm dev        # http://localhost:4321, with hot reload
+pnpm check      # type-check the pages, components and scripts
+pnpm build      # check, then build the static site in dist/
+pnpm preview    # serve dist/ locally
 ```
 
-The site ships no JavaScript. Pages are Astro components rendered to HTML at build time.
+The site ships no JavaScript. Pages are Astro components rendered to HTML at build time. The rest is TypeScript, checked by `astro check`; `scripts/sync-brand.ts` runs on Node directly, which strips its types.
 
 ## Layout
 
@@ -37,7 +38,7 @@ src/
   brand/               synced from xena-studios/brand: don't edit
 public/                copied as-is: _headers, _redirects (/docs/* → docs.xenastudios.co), robots.txt,
                        .well-known/security.txt, favicon, apple-touch-icon, og.png
-scripts/sync-brand.mjs copies brand assets in
+scripts/sync-brand.ts  copies brand assets in
 .github/               workflows (deploy, CodeQL), the issue form, the pull request template, the README banner
 ```
 
@@ -48,8 +49,8 @@ Built CSS, fonts and images land in `dist/assets/` with content hashes.
 Everything in `src/brand/`, plus `public/favicon.svg`, `public/apple-touch-icon.png` and `public/og.png`, is copied from the brand repo. Change them there, then sync:
 
 ```sh
-npm run brand:sync                        # expects the brand repo at ../brand
-BRAND_DIR=/path/to/brand npm run brand:sync
+pnpm brand:sync                        # expects the brand repo at ../brand
+BRAND_DIR=/path/to/brand pnpm brand:sync
 ```
 
 `src/brand/SOURCE.json` records the brand commit the copies came from. The copies are committed, so a build never has to fetch the brand repo and the site only changes when someone syncs on purpose.
@@ -68,7 +69,7 @@ The Cloudflare Worker **`xenastudios-website`** serves `dist/` as static assets,
 | **Run workflow** (Actions tab) | Redeploy `main` without a commit |
 | Pull request | Build only, so a broken build can't merge unnoticed |
 
-The `build` job runs on every event; the `deploy` job runs only on `main`, after `build` passes, in the **`production`** environment. Deploys use that environment's `CLOUDFLARE_API_TOKEN` secret (a token from the "Edit Cloudflare Workers" template, scoped to this account and the `xenastudios.co` zone) and the repo's `CLOUDFLARE_ACCOUNT_ID` variable, which isn't sensitive. To deploy from your machine instead: `npm run deploy` after `wrangler login`.
+The `build` job runs on every event; the `deploy` job runs only on `main`, after `build` passes, in the **`production`** environment. Deploys use that environment's `CLOUDFLARE_API_TOKEN` secret (a token from the "Edit Cloudflare Workers" template, scoped to this account and the `xenastudios.co` zone) and the repo's `CLOUDFLARE_ACCOUNT_ID` variable, which isn't sensitive. To deploy from your machine instead: `pnpm run deploy` after `pnpm exec wrangler login` (plain `pnpm deploy` is pnpm's own command).
 
 `public/_headers` sets a strict Content-Security-Policy (no scripts, no inline styles, same-origin assets only), the usual security headers, and a year of caching for the hashed files in `/assets/`. Because of that CSP, Astro is configured never to inline stylesheets or small assets.
 
@@ -80,7 +81,7 @@ The `build` job runs on every event; the `deploy` job runs only on `main`, after
 
 [`public/.well-known/security.txt`](public/.well-known/security.txt) points researchers to the org's [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md); report problems privately through this repo's Security tab or to contact@xenastudios.co. Its `Expires` date is 2027-10-22: move it on (about a year out) before then.
 
-The Cloudflare token lives in the `production` environment, which only `main` can use, so no branch or pull request can read it, even with an edited workflow. Within the deploy job, only the deploy step gets it, never `npm ci` or the build. Workflows get a read-only `GITHUB_TOKEN` unless they ask for more, and Actions can't approve pull requests.
+The Cloudflare token lives in the `production` environment, which only `main` can use, so no branch or pull request can read it, even with an edited workflow. Within the deploy job, only the deploy step gets it, never `pnpm install` or the build. Workflows get a read-only `GITHUB_TOKEN` unless they ask for more, and Actions can't approve pull requests.
 
 Pages get a canonical URL without `.html` (`https://xenastudios.co/`, matching the sitemap); pass `noindex` to `Base` for a page that should stay out of search results, as the 404 page does.
 
@@ -90,7 +91,7 @@ Pages get a canonical URL without `.html` (`https://xenastudios.co/`, matching t
 
 ```sh
 .agents/skills/impeccable/scripts/impeccable detect --json src   # scan for design anti-patterns
-npx impeccable update --project --yes --no-hooks                  # update the skill
+pnpm dlx impeccable update --project --yes --no-hooks             # update the skill
 ```
 
 Its native engine (`scripts/bin/`) is installed per machine and isn't committed; the launcher downloads it on first run.

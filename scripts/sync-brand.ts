@@ -3,8 +3,8 @@
 // committed, so builds never fetch the brand repo and the site only changes
 // when someone syncs on purpose.
 //
-//   npm run brand:sync                 # expects ../brand
-//   BRAND_DIR=/path/to/brand npm run brand:sync
+//   pnpm brand:sync                    # expects ../brand
+//   BRAND_DIR=/path/to/brand pnpm brand:sync
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
@@ -42,7 +42,7 @@ for (const [from, to] of files) {
   fs.copyFileSync(path.join(BRAND, from), dest);
 }
 
-const git = (...args) => execFileSync("git", ["-C", BRAND, ...args], { encoding: "utf8" }).trim();
+const git = (...args: string[]) => execFileSync("git", ["-C", BRAND, ...args], { encoding: "utf8" }).trim();
 const source = { repo: "xena-studios/brand", commit: git("rev-parse", "HEAD"), dirty: git("status", "--porcelain") !== "" };
 fs.writeFileSync(path.join(ROOT, "src/brand/SOURCE.json"), JSON.stringify(source, null, 2) + "\n");
 

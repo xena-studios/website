@@ -117,7 +117,7 @@ const principles = [
           src={consoleShot}
           alt="Raptor's page for a Paper server named Survival: running, with CPU, memory, disk, and network readouts above its live console."
           widths={[720, 1200, 1800, 2364]}
-          sizes="(min-width: 76rem) 76rem, (min-width: 44rem) 100vw, 250vw"
+          sizes="(min-width: 76rem) 76rem, (min-width: 44rem) 100vw, 170vw"
           loading="lazy"
         />
         <figcaption class="label">Raptor, managing a Paper server on a home machine</figcaption>
@@ -194,7 +194,7 @@ const principles = [
           src={mostwantedKeyArt}
           alt="The MOSTWANTED wordmark over a pixel-art desert at sunset, blurred: mesas, cacti and a sand road under a low sun."
           widths={[640, 960, 1280, 1920]}
-          sizes="(min-width: 60rem) 32rem, 100vw"
+          sizes="(min-width: 80rem) 36.5rem, (min-width: 60rem) 50vw, 100vw"
           loading="lazy"
         />
         <figcaption class="label">MostWanted's key art</figcaption>
@@ -416,7 +416,8 @@ const principles = [
   }
 
   /* On phones the full console is too small to read: show its top-left
-     (server, status, tabs, readouts) at a legible size instead. */
+     (server, status, tabs, readouts) at a legible size instead. The square
+     crop draws the whole capture about 1.7 screens wide, hence sizes 170vw. */
   @media (max-width: 44rem) {
     .shot :global(img) {
       aspect-ratio: 1 / 1;
@@ -493,6 +494,12 @@ const principles = [
     .raptor-detail {
       grid-template-columns: 1fr;
       gap: var(--s-6);
+    }
+
+    /* Stacked under the parts, whose last row already ends in a hairline. */
+    .raptor-links {
+      padding-top: 0;
+      border-top: 0;
     }
   }
 

@@ -98,7 +98,7 @@ Its native engine (`scripts/bin/`) is installed per machine and isn't committed;
 
 ## Help
 
-- **Something wrong on the site:** [open an issue](https://github.com/xena-studios/website/issues/new/choose). Problems with Raptor, NeoSkript or the plugins go to their own repositories.
+- **Something wrong on the site:** [open an issue](https://github.com/xena-studios/website/issues/new/choose). Problems with Raptor, NeoSkript, MostWanted or the plugins go to their own repositories.
 - **Security problems:** privately, as the org's [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md) describes.
 - **Anything else:** [contact@xenastudios.co](mailto:contact@xenastudios.co).
 

@@ -1,7 +1,7 @@
 ---
 name: Xena Studios website
 description: xenastudios.co, the studio's front door. Ion Blue on deep space, type-only brand, one planet horizon.
-source: xena-studios/brand (synced into src/brand/ by scripts/sync-brand.mjs)
+source: xena-studios/brand (synced into src/brand/ by scripts/sync-brand.ts)
 colors:
   void: "#06080D"
   space: "#0A0E16"
@@ -73,6 +73,6 @@ The parts the browser draws are themed from the palette too: `color-scheme: dark
 
 ## 7. Do's and Don'ts
 
-**Do:** pull new visuals from the brand repo first (`npm run brand:sync`); link claims to code, docs, or releases; keep one idea per section; keep each product in its own identity; mark unreleased projects plainly.
+**Do:** pull new visuals from the brand repo first (`pnpm brand:sync`); link claims to code, docs, or releases; keep one idea per section; keep each product in its own identity; mark unreleased projects plainly.
 
 **Don't:** add stars, particles, galaxy imagery, glows beyond the horizon, gradient text, card grids, eyebrows above headings, Unicode or emoji icons, entrance animations on every section, or a second accent colour. Don't set Ethnocentric as live text. Don't recolour Raptor's, NeoSkript's or the plugins' marks. Don't inline styles or scripts: the CSP blocks them.

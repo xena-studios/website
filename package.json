@@ -2,11 +2,13 @@
   "name": "xena-website",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@12.16.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "check": "astro check",
+    "build": "astro check && astro build",
     "preview": "astro preview",
-    "brand:sync": "node scripts/sync-brand.mjs",
+    "brand:sync": "node scripts/sync-brand.ts",
     "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
@@ -14,6 +16,9 @@
     "astro": "^7.4.2"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/node": "^24.19.2",
+    "typescript": "^6.0.3",
     "wrangler": "^4.152.0"
   },
   "engines": {

@@ -70,7 +70,7 @@ const parts = [
 const principles = [
   {
     title: "The source is public.",
-    body: "Raptor is AGPL-3.0, and NeoSkript, the plugins and MostWanted are GPL-3.0, all on GitHub. Read what they do before you run them, build them yourself, and send changes back.",
+    body: "Raptor is AGPL-3.0. NeoSkript is GPL-3.0-or-later, and the plugins and MostWanted are GPL-3.0-only. All of it is on GitHub: read what it does before you run it, build it yourself, and send changes back.",
     link: { href: "https://github.com/xena-studios", text: "github.com/xena-studios" },
   },
   {
@@ -160,6 +160,10 @@ const principles = [
           Paper and Folia.
         </p>
         <p class="status"><span class="label">Status</span> In development, not released yet</p>
+        <ul class="project-links">
+          <li><a href="https://github.com/xena-studios/neoskript">Source on GitHub<External /></a></li>
+          <li><a href="https://github.com/xena-studios/neoskript/blob/main/LICENSE">GPL-3.0-or-later<External /></a></li>
+        </ul>
       </div>
       <figure class="script">
         <pre><code>on join:
@@ -176,12 +180,13 @@ const principles = [
         <h2 id="mostwanted-title">Cops vs. prisoners, on Java and Bedrock.</h2>
         <p class="lead">
           MostWanted is our own Jailbreak-style Minecraft server. Prisoners break out and rob the town; guards, picked by
-          application, bring them back. One world that keeps running, built on Raptor and our plugins.
+          application, bring them back. One world that keeps running, with our own plugins for commands and chat.
         </p>
         <p class="status"><span class="label">Status</span> In development, not open yet</p>
-        <ul class="mostwanted-links">
+        <ul class="project-links">
+          <li><a href="https://mostwantedmc.com">mostwantedmc.com<External /></a></li>
           <li><a href="https://github.com/xena-studios/mostwanted">Source and design docs on GitHub<External /></a></li>
-          <li><a href="https://github.com/xena-studios/mostwanted/blob/main/LICENSE">GPL-3.0<External /></a></li>
+          <li><a href="https://github.com/xena-studios/mostwanted/blob/main/LICENSE">GPL-3.0-only<External /></a></li>
         </ul>
       </div>
       <figure class="key-art">
@@ -536,6 +541,21 @@ const principles = [
     font-size: var(--t-small);
   }
 
+  /* Source and licence links under NeoSkript's and MostWanted's status. */
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    margin: var(--s-5) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--t-small);
+  }
+
+  .project-links a {
+    color: var(--text);
+  }
+
   .script {
     margin: 0;
   }
@@ -585,20 +605,6 @@ const principles = [
 
   .mostwanted h2 {
     font-size: var(--t-h2);
-  }
-
-  .mostwanted-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-5);
-    margin: var(--s-5) 0 0;
-    padding: 0;
-    list-style: none;
-    font-size: var(--t-small);
-  }
-
-  .mostwanted-links a {
-    color: var(--text);
   }
 
   .key-art {

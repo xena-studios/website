@@ -20,6 +20,8 @@ jobs:
   # Every pull request and every push: the check main requires.
   build:
     runs-on: ubuntu-26.04
+    # A build takes about a minute; a hung one shouldn't hold the queue for six hours.
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
       # The version comes from packageManager in package.json.
@@ -38,6 +40,8 @@ jobs:
     needs: build
     if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && github.repository == 'xena-studios/website' }}
     runs-on: ubuntu-26.04
+    # A stuck deploy would block every later one in the concurrency group.
+    timeout-minutes: 10
     environment:
       name: production
       url: https://xenastudios.co

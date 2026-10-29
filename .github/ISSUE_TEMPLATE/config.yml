@@ -12,6 +12,9 @@ contact_links:
   - name: NeoSkript
     url: https://github.com/xena-studios/neoskript/issues
     about: Bugs and ideas for NeoSkript go to its own repository.
+  - name: MostWanted
+    url: https://github.com/xena-studios/mostwanted/issues
+    about: Bugs and ideas for MostWanted, the server and its website, go to its own repository.
   - name: Get in touch
     url: https://xenastudios.co/#contact
     about: Partnerships, press, hosting, or anything that isn't a problem with the site.

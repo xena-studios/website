@@ -2,9 +2,10 @@
 
 **The studio's website. Astro, served by Cloudflare.**
 
-The Xena Studios website: a one-page static [Astro](https://astro.build) site served by Cloudflare at **[xenastudios.co](https://xenastudios.co)**.
+The one-page site at **[xenastudios.co](https://xenastudios.co)**. It's static [Astro](https://astro.build) and ships no JavaScript.
 
-The design comes from [xena-studios/brand](https://github.com/xena-studios/brand). Colours, logos, the horizon scene, the favicon and the link preview are synced from it, not redrawn here. [DESIGN.md](DESIGN.md) describes the visual system; [PRODUCT.md](PRODUCT.md) says who the site is for and what it must do.
+- [PRODUCT.md](PRODUCT.md): who the site is for and what it has to do
+- [DESIGN.md](DESIGN.md): the visual system
 
 ## Develop
 
@@ -12,98 +13,61 @@ Needs Node 24 and pnpm.
 
 ```sh
 pnpm install
-pnpm dev        # http://localhost:4321, with hot reload
-pnpm check      # type-check the pages, components and scripts
-pnpm build      # check, then build the static site in dist/
-pnpm preview    # serve dist/ locally
+pnpm dev        # http://localhost:4321
+pnpm build      # type-check, then build to dist/
+pnpm preview    # serve dist/
 ```
 
-The site ships no JavaScript. Pages are Astro components rendered to HTML at build time. The rest is TypeScript, checked by `astro check`; `scripts/sync-brand.ts` runs on Node directly, which strips its types.
-
-## Layout
-
 ```
-src/
-  pages/
-    index.astro        the home page: hero, Raptor, NeoSkript, MostWanted, plugins, how we work, contact
-    404.astro          served for unknown paths
-    sitemap.xml.ts     /sitemap.xml (add new routes to its list)
-  layouts/Base.astro   <head>, header, footer
-  components/
-    Logo.astro         inlines a brand logo SVG in currentColor
-    Horizon.astro      inlines the brand's horizon scene
-    External.astro     the outbound-link arrow
-  styles/global.css    tokens (from the brand), type scale, base styles
-  assets/raptor/       Raptor's console screenshot (optimised to WebP at build)
-  brand/               synced from xena-studios/brand: don't edit
-public/                copied as-is: _headers, _redirects (/docs/* → docs.xenastudios.co), robots.txt,
-                       .well-known/security.txt, favicon, apple-touch-icon, og.png
-scripts/sync-brand.ts  copies brand assets in
-.github/               workflows (deploy, CodeQL), the issue form, the pull request template, the README banner
+src/pages/        index (the home page), 404, sitemap.xml
+src/layouts/      Base: <head>, header, footer
+src/components/   Logo, Horizon, External (the outbound-link arrow)
+src/styles/       global.css: tokens and type
+src/brand/        synced from the brand repo, don't edit
+public/           served as-is: _headers, _redirects, robots.txt, security.txt, icons
 ```
 
-Built CSS, fonts and images land in `dist/assets/` with content hashes.
+Add new pages to `src/pages/sitemap.xml.ts`.
 
 ## Brand assets
 
-Everything in `src/brand/`, plus `public/favicon.svg`, `public/apple-touch-icon.png` and `public/og.png`, is copied from the brand repo. Change them there, then sync:
+Logos, colours, the horizon and the icons come from [xena-studios/brand](https://github.com/xena-studios/brand). Change them there, then copy them in:
 
 ```sh
-pnpm brand:sync                        # expects the brand repo at ../brand
-BRAND_DIR=/path/to/brand pnpm brand:sync
+pnpm brand:sync    # expects the brand repo at ../brand, or set BRAND_DIR
 ```
 
-`src/brand/SOURCE.json` records the brand commit the copies came from. The copies are committed, so a build never has to fetch the brand repo and the site only changes when someone syncs on purpose.
-
-Ethnocentric, the logo typeface, only appears inside the brand's outlined logo SVGs. Its licence doesn't allow webfont use, so never set it as live text.
+Never set Ethnocentric (the logo font) as live text. Its licence only covers the outlined logos.
 
 ## Deploy
 
-The Cloudflare Worker **`xenastudios-website`** serves `dist/` as static assets, with no Worker code: Cloudflare's successor to Pages, and the same setup as Raptor's site. It answers only on its custom domain, `xenastudios.co` (`www` redirects there), which was attached by hand, so the deploy token needs no DNS access. Configuration is in [`wrangler.jsonc`](wrangler.jsonc).
+Pushing to `main` builds and deploys to the `xenastudios-website` Cloudflare Worker ([`deploy.yml`](.github/workflows/deploy.yml)). Pull requests only build. To redeploy without a commit, use **Run workflow** in the Actions tab.
 
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
+- The Cloudflare token is in the `production` environment, which only `main` can use.
+- To deploy from your machine: `pnpm exec wrangler login`, then `pnpm run deploy`.
+- `public/_headers` sets a strict CSP: no scripts, and no inline styles.
 
-| Event | What happens |
-|---|---|
-| Push to `main` | Build, then deploy to xenastudios.co |
-| **Run workflow** (Actions tab) | Redeploy `main` without a commit |
-| Pull request | Build only, so a broken build can't merge unnoticed |
+## Maintenance
 
-The `build` job runs on every event; the `deploy` job runs only on `main`, after `build` passes, in the **`production`** environment. Deploys use that environment's `CLOUDFLARE_API_TOKEN` secret (a token from the "Edit Cloudflare Workers" template, scoped to this account and the `xenastudios.co` zone) and the repo's `CLOUDFLARE_ACCOUNT_ID` variable, which isn't sensitive. To deploy from your machine instead: `pnpm run deploy` after `pnpm exec wrangler login` (plain `pnpm deploy` is pnpm's own command).
-
-`public/_headers` sets a strict Content-Security-Policy (no scripts, no inline styles, same-origin assets only), the usual security headers, and a year of caching for the hashed files in `/assets/`. Because of that CSP, Astro is configured never to inline stylesheets or small assets.
-
-## Checks and security
-
-`main` takes changes only through pull requests: a ruleset blocks deleting it and force-pushing, and requires the `build` job above to pass. No review is required.
-
-[`.github/workflows/codeql.yml`](.github/workflows/codeql.yml) runs CodeQL over the workflows and the site's TypeScript and scripts, with the security-extended queries, on every PR, every push to `main`, and weekly. Findings show on the PR and in the Security tab; it isn't a required check. Renovate opens dependency PRs on Monday mornings ([`renovate.json`](renovate.json), on top of the org's shared settings in [`xena-studios/.github`](https://github.com/xena-studios/.github/blob/main/renovate-config.json)), and keeps any third-party action pinned to a commit.
-
-[`public/.well-known/security.txt`](public/.well-known/security.txt) points researchers to the org's [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md); report problems privately through this repo's Security tab or to contact@xenastudios.co. Its `Expires` date is 2027-10-22: move it on (about a year out) before then.
-
-The Cloudflare token lives in the `production` environment, which only `main` can use, so no branch or pull request can read it, even with an edited workflow. Within the deploy job, only the deploy step gets it, never `pnpm install` or the build. Workflows get a read-only `GITHUB_TOKEN` unless they ask for more, and Actions can't approve pull requests.
-
-Pages get a canonical URL without `.html` (`https://xenastudios.co/`, matching the sitemap); pass `noindex` to `Base` for a page that should stay out of search results, as the 404 page does.
+- `main` only takes pull requests, and `build` has to pass. CodeQL runs too, but isn't required.
+- Renovate opens dependency PRs on Monday mornings.
+- **`public/.well-known/security.txt` expires on 2027-10-22.** Move the date a year out before then.
 
 ## Design skill
 
-`.agents/skills/impeccable` is the [Impeccable](https://github.com/pbakaus/impeccable) design skill (Apache-2.0, v4.7.0), used to build and review the site. It reads PRODUCT.md and DESIGN.md before any design work.
+`.agents/skills/impeccable` is the [Impeccable](https://github.com/pbakaus/impeccable) design skill (v4.7.0). It reads PRODUCT.md and DESIGN.md.
 
 ```sh
-.agents/skills/impeccable/scripts/impeccable detect --json src   # scan for design anti-patterns
-pnpm dlx impeccable update --project --yes --no-hooks             # update the skill
+.agents/skills/impeccable/scripts/impeccable detect --json src   # scan for design problems
+pnpm dlx impeccable update --project --yes --no-hooks             # update it
 ```
-
-Its native engine (`scripts/bin/`) is installed per machine and isn't committed; the launcher downloads it on first run.
 
 ## Help
 
-- **Something wrong on the site:** [open an issue](https://github.com/xena-studios/website/issues/new/choose). Problems with Raptor, NeoSkript, MostWanted or the plugins go to their own repositories.
-- **Security problems:** privately, as the org's [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md) describes.
-- **Anything else:** [contact@xenastudios.co](mailto:contact@xenastudios.co).
-
-Everyone taking part follows the [code of conduct](https://github.com/xena-studios/.github/blob/main/CODE_OF_CONDUCT.md). The site is all rights reserved, so it can't take outside pull requests: open an issue instead. The studio's own pull requests get a checklist from the template.
+- **Something wrong on the site:** [open an issue](https://github.com/xena-studios/website/issues/new/choose)
+- **Security:** follow the [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md)
+- **Anything else:** [contact@xenastudios.co](mailto:contact@xenastudios.co)
 
 ## Licence
 
-All rights reserved. The site's code, design and brand assets are © Xena Studios and aren't licensed for reuse; the source is public so it can be read, not copied. The Impeccable skill in `.agents/` and the JetBrains Mono font keep their own licences (Apache-2.0 and the SIL Open Font License).
+All rights reserved: the source is public to read, not to reuse, so the repo doesn't take outside pull requests. The Impeccable skill is under Apache-2.0, and JetBrains Mono is under the SIL Open Font License.

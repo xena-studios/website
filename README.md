@@ -23,8 +23,9 @@ src/pages/        index (the home page), 404, sitemap.xml
 src/layouts/      Base: <head>, header, footer
 src/components/   Logo, Horizon, External (the outbound-link arrow)
 src/styles/       global.css: tokens and type
+src/assets/       images processed at build, such as the Raptor screenshot
 src/brand/        synced from the brand repo, don't edit
-public/           served as-is: _headers, _redirects, robots.txt, security.txt, icons
+public/           served as-is: _headers, _redirects, robots.txt, .well-known/security.txt, icons
 ```
 
 Add new pages to `src/pages/sitemap.xml.ts`.
@@ -61,12 +62,6 @@ Pushing to `main` builds and deploys to the `xenastudios-website` Cloudflare Wor
 .agents/skills/impeccable/scripts/impeccable detect --json src   # scan for design problems
 pnpm dlx impeccable update --project --yes --no-hooks             # update it
 ```
-
-## Help
-
-- **Something wrong on the site:** [open an issue](https://github.com/xena-studios/website/issues/new/choose)
-- **Security:** follow the [security policy](https://github.com/xena-studios/.github/blob/main/SECURITY.md)
-- **Anything else:** [contact@xenastudios.co](mailto:contact@xenastudios.co)
 
 ## Licence
 

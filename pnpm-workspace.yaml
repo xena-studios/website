@@ -9,5 +9,9 @@ allowBuilds:
 # undici 7: Miniflare (via Wrangler) pins a version before 7.30.1, which
 # fixes GHSA-4w7w-5xrc-9h26, GHSA-2m5v-pch6-74hx, GHSA-qrxm-fqhp-jwvm,
 # GHSA-9fm3-97px-rjf6 and GHSA-xjj6-f33q-929c.
+# @emnapi/runtime: @napi-rs/wasm-runtime accepts its 2.0 beta, which crashes
+# astro check ("setLastError is not a function"). Stay on the stable 1.x
+# until 2.0 is released.
 overrides:
   'undici@>=7.0.0 <7.30.1': 7.30.1
+  '@emnapi/runtime': 1.11.3

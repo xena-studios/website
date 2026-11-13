@@ -2,3 +2,10 @@
 # (xenastudios.co/docs/<plugin>), so keep them working.
 /docs    https://docs.xenastudios.co/         301
 /docs/*  https://docs.xenastudios.co/:splat   301
+
+# Short addresses for each project, so a link like xenastudios.co/raptor works.
+/raptor      /tools#raptor        301
+/neoskript   /tools#neoskript     301
+/plugins     /tools#plugins       301
+/mostwanted  /servers#mostwanted  301
+/airfields   /servers#airfields   301

@@ -30,14 +30,20 @@ icons: "one authored outbound arrow (External.astro), 1.4 stroke, currentColor"
 
 **North star: Linear-grade precision on the brand repo, nothing invented.** Every colour, logo and scene comes from [xena-studios/brand](https://github.com/xena-studios/brand). The site composes them with exact type, hairlines, and space. It reads like an engineer wrote it: plain claims, real screenshots, links to source.
 
-The page is one column of seven ideas (hero, Raptor, NeoSkript, MostWanted, plugins, how we work, contact) on deep space, bookended by the brand's planet horizon at the top and bottom.
+Five pages on deep space, each bookended by the brand's planet horizon at the top and bottom:
+
+- **Home**: the tagline, the two paths (Tools for server owners, Servers to play on) and the row of product marks; two path panels; "Lately" (dated releases and announcements, each linking to the thing itself); how we work; contact.
+- **Tools**: Raptor, NeoSkript, the plugins.
+- **Servers**: MostWanted and Airfields, each with its key art wide.
+- **About**: how we work, and what's open and what isn't.
+- **Contact**: the main address, then every other way to reach us.
 
 ## 2. Colour
 
 Restrained: tinted deep-space neutrals with Ion Blue under a tenth of any screen. Tokens are the brand's `--xena-*` custom properties, aliased in `src/styles/global.css` (`--bg`, `--raised`, `--surface`, `--rule`, `--muted`, `--text`, `--accent`).
 
 - **Ion Blue** (`accent`) marks the one primary action, the contact address, focus rings, selection, and the horizon's rim. Nothing decorative.
-- **Raptor red**, **NeoSkript magenta**, **MostWanted orange** and the **plugin accents** appear only inside each product's own logo, icon or key art, never as site colours. The NeoSkript code sample stays in the site's text colours.
+- **Raptor red**, **NeoSkript magenta**, **MostWanted orange**, **Airfields gold** and the **plugin accents** appear only inside each product's own logo, icon or key art, never as site colours. The NeoSkript code sample stays in the site's text colours.
 - Contrast (WCAG 2.2 AA): muted on void 6.5:1, text on void 17.7:1, accent on void 9.0:1, void on accent 9.0:1, muted on surface 5.8:1.
 - Translucent colours mix in **sRGB** (`color-mix(in srgb, X, transparent)`); oklch mixing with `transparent` drifts the hue toward red.
 
@@ -46,12 +52,18 @@ Restrained: tinted deep-space neutrals with Ion Blue under a tenth of any screen
 One family, **JetBrains Mono** (variable, self-hosted via Fontsource), with size and weight doing the hierarchy. **Ethnocentric is never live text**: its licence covers outlined artwork only, so it appears solely inside the brand's logo SVGs (`Logo.astro`).
 
 - Headings 600 with -0.03em tracking and `text-wrap: balance`; prose `text-wrap: pretty`, capped at 64ch.
-- `.label` (uppercase, +0.14em) is used for metadata only (the screenshot caption, "Runs on", the copyright), never as an eyebrow above a heading.
+- `.label` (uppercase, +0.14em) is used for metadata only (the screenshot caption, "Runs on", dates, the copyright, footer column names), never as an eyebrow above a heading.
+- The brand's **`//` kicker** (`.kicker`, `// TOOLS`) sits over each page's `<h1>` and nowhere else.
 - The latin subset of the font is preloaded so headings don't reflow after the first paint.
 
 ## 4. Components
 
 - **External** (`src/components/External.astro`): the site's only icon, an outbound arrow drawn as SVG at 0.62em in `currentColor`, nudging up-right on hover and focus. It wraps the link's last word (`Source on <External>GitHub</External>`) so the arrow never lands on a line by itself. Every link to another site carries it, in the header, body and footer alike; the contact address, a `mailto:` link, doesn't. No Unicode arrows.
+- **Inward link** (`.more` in `global.css`): a link deeper into this site, with a chevron drawn in CSS that nudges right on hover. Outbound links use External instead.
+- **PageHero** (`src/components/PageHero.astro`): the top of every page but home: kicker, title, lead, and a low horizon that rises on load.
+- **Path panels** (home): two large panels, Tools and Servers, each with its own content (a Raptor capture; the two servers' key art). Two different panels, not a card grid.
+- **ServerFeature** (`src/components/ServerFeature.astro`): a server's key art wide at 16:9 (it leans in 2% on hover), then what it is beside a facts list (status, editions, address, links).
+- **Lately** (home): hairline rows of date, what happened, and a link to it. Only real releases and announcements.
 - **Logo** (`src/components/Logo.astro`): inlines a brand logo SVG, crops the exported clear space, and fills with `currentColor`.
 - **Horizon** (`src/components/Horizon.astro`): inlines `scene/horizon.svg` with `preserveAspectRatio="xMidYMax slice"` and a bottom mask so the planet body fades into the page. Positioned absolutely at the bottom of an `isolation: isolate` section.
 - **Buttons**: pill, 44px tall. Primary is solid Ion Blue with void text; secondary is a hairline outline that warms toward Ion Blue on hover.
@@ -63,7 +75,7 @@ One family, **JetBrains Mono** (variable, self-hosted via Fontsource), with size
 
 ## 5. Motion
 
-One authored moment: on load, the hero horizon rises (1.8s, expo out) and the hero copy settles in a short stagger. Nothing else animates on entry; sections are simply there when you scroll to them. Hover and focus transitions run 160–200ms on the same curve.
+One authored moment per page: on load, the hero horizon rises (1.8s, expo out) and the hero copy settles in a short stagger. Nothing else animates on entry; sections are simply there when you scroll to them. Hover and focus transitions run 160–200ms on the same curve; key art eases over 600–900ms when the pointer reaches it.
 
 `prefers-reduced-motion: reduce` collapses every animation and transition to its final state instantly, and no content depends on an animation to become visible.
 
@@ -75,4 +87,4 @@ The parts the browser draws are themed from the palette too: `color-scheme: dark
 
 **Do:** pull new visuals from the brand repo first (`pnpm brand:sync`); link claims to code, docs, or releases; keep one idea per section; keep each product in its own identity; mark unreleased projects plainly.
 
-**Don't:** add stars, particles, galaxy imagery, glows beyond the horizon, gradient text, card grids, eyebrows above headings, Unicode or emoji icons, entrance animations on every section, or a second accent colour. Don't set Ethnocentric as live text. Don't recolour Raptor's, NeoSkript's or the plugins' marks. Don't inline styles or scripts: the CSP blocks them.
+**Don't:** add stars, particles, galaxy imagery, glows beyond the horizon, gradient text, card grids, eyebrows above headings (the page kicker is the one exception), the XENA STUDIOS endorsement anywhere but the header and footer, Unicode or emoji icons, entrance animations on every section, or a second accent colour. Don't set Ethnocentric as live text. Don't recolour Raptor's, NeoSkript's or the plugins' marks. Don't inline styles or scripts: the CSP blocks them.

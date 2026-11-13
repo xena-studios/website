@@ -1,0 +1,143 @@
+---
+// One of our Minecraft servers on the Servers page: its key art wide, then what
+// it is beside the facts a player needs (status, editions, address, links).
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import External from "./External.astro";
+
+interface Props {
+  id: string;
+  name: string;
+  tagline: string;
+  keyArt: ImageMetadata;
+  keyArtAlt: string;
+  status: string;
+  address: string;
+  site: { href: string; text: string };
+  links?: { href: string; text: string }[];
+}
+
+const { id, name, tagline, keyArt, keyArtAlt, status, address, site, links = [] } = Astro.props;
+---
+<section id={id} class="server section" aria-labelledby={`${id}-title`}>
+  <div class="wrap">
+    <figure class="art">
+      <Image
+        src={keyArt}
+        alt={keyArtAlt}
+        widths={[640, 960, 1280, 1920]}
+        sizes="(min-width: 82rem) 76rem, calc(100vw - 2 * var(--page))"
+        loading="lazy"
+      />
+    </figure>
+    <div class="body">
+      <div class="about">
+        <h2 id={`${id}-title`}><span class="visually-hidden">{name}: </span>{tagline}</h2>
+        <div class="lead"><slot /></div>
+      </div>
+      <dl class="facts">
+        <div>
+          <dt class="label">Status</dt>
+          <dd>{status}</dd>
+        </div>
+        <div>
+          <dt class="label">Play on</dt>
+          <dd>Java and Bedrock</dd>
+        </div>
+        <div>
+          <dt class="label">Address</dt>
+          <dd><code>{address}</code></dd>
+        </div>
+        <div>
+          <dt class="label">Links</dt>
+          <dd>
+            <ul class="links">
+              <li><a href={site.href}><External>{site.text}</External></a></li>
+              {links.map((l) => <li><a href={l.href}><External>{l.text}</External></a></li>)}
+            </ul>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .art {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+  }
+
+  .art :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 900ms var(--ease);
+  }
+
+  /* The art leans in a touch as you reach it with the pointer, and stays still otherwise. */
+  .art:hover :global(img) {
+    transform: scale(1.02);
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--s-7);
+    margin-top: var(--s-7);
+  }
+
+  .lead :global(p + p) {
+    margin-top: var(--s-4);
+  }
+
+  .facts {
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .facts > div {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: var(--s-4);
+    align-items: baseline;
+    padding-block: var(--s-4);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .facts dd {
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 24rem) {
+    .facts > div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-1);
+    }
+  }
+
+  code {
+    font-family: inherit;
+    color: var(--text);
+  }
+
+  .links {
+    display: grid;
+    gap: var(--s-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 60rem) {
+    .body {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-6);
+    }
+  }
+</style>

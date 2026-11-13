@@ -1,0 +1,79 @@
+---
+// NeoSkript, as it appears on the Tools page: its own logo, its status, and a script it runs.
+import External from "../External.astro";
+import neoskriptLogo from "../../brand/neoskript/logo-dark.svg?raw";
+
+// NeoSkript's logo from the brand repo, cropped to its ink (the export carries
+// half a cap height of clear space, 50 units on every side).
+const [, nsW, nsH] = neoskriptLogo.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/)!;
+const neoskriptSvg = neoskriptLogo
+  .replace(/ width="[^"]*" height="[^"]*"/, "")
+  .replace(/viewBox="[^"]*"/, `viewBox="50 50 ${+nsW - 100} ${+nsH - 100}" class="neoskript-logo" role="img" aria-label="NeoSkript"`);
+---
+<section id="neoskript" class="neoskript section" aria-labelledby="neoskript-title">
+  <div class="wrap neoskript-inner">
+    <div class="neoskript-head">
+      <Fragment set:html={neoskriptSvg} />
+      <h2 id="neoskript-title">Keep your scripts. Lose the lag.</h2>
+      <p class="lead">
+        NeoSkript is a drop-in replacement for Skript, rebuilt for speed. The scripts you already have run unchanged, on
+        Paper and Folia.
+      </p>
+      <p class="status"><span class="label">Status</span> Public beta, 0.1.0-beta.1</p>
+      <ul class="project-links">
+        <li><a href="https://neoskript.dev"><External>neoskript.dev</External></a></li>
+        <li><a href="https://modrinth.com/plugin/neoskript"><External>Modrinth</External></a></li>
+        <li><a href="https://github.com/xena-studios/neoskript">Source on <External>GitHub</External></a></li>
+        <li><a href="https://github.com/xena-studios/neoskript/blob/main/LICENSE"><External>GPL-3.0-only</External></a></li>
+      </ul>
+    </div>
+    <figure class="script">
+      <pre tabindex="0"><code>on join:
+  send "Welcome, %player%!" to player</code></pre>
+      <figcaption class="label">join.sk, a Skript script NeoSkript runs unchanged</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+/* ---------------------------------------------------------------- neoskript */
+
+  .neoskript-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--s-7);
+    align-items: center;
+  }
+
+  .neoskript-head :global(.neoskript-logo) {
+    width: clamp(10rem, 8rem + 8vw, 13rem);
+    height: auto;
+    margin-bottom: var(--s-6);
+  }
+
+  .script {
+    margin: 0;
+  }
+
+  .script pre {
+    margin: 0;
+    padding: var(--s-5);
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--raised);
+    font-size: var(--t-small);
+    line-height: 1.8;
+  }
+
+  .script figcaption {
+    margin-top: var(--s-3);
+  }
+
+  @media (max-width: 60rem) {
+    .neoskript-inner {
+      /* minmax(0, …) so the code scrolls inside its box instead of widening the page. */
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

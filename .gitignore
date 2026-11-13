@@ -6,3 +6,7 @@ dist/
 
 # Impeccable's native engine: platform-specific, installed by `pnpm dlx impeccable update`.
 .agents/skills/impeccable/scripts/bin/
+*.log
+.env*
+.idea/
+.vscode/

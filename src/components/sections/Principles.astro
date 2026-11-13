@@ -1,0 +1,97 @@
+---
+// How we work: hairline rows, statement left, explanation right.
+import External from "../External.astro";
+
+const principles = [
+  {
+    title: "Our software is open source.",
+    body: "Raptor is AGPL-3.0. NeoSkript and the plugins are GPL-3.0-only. All of it is on GitHub: read what it does before you run it, build it yourself, and send changes back.",
+    link: { href: "https://github.com/xena-studios", text: "github.com/xena-studios" },
+  },
+  {
+    title: "Your machine stays yours.",
+    body: "Servers run on hardware you control. Raptor's daemon keeps them up even when our panel is unreachable, and the raptor CLI works on the box itself.",
+  },
+  {
+    title: "Claims you can check.",
+    body: "If we say something works, there's code, documentation, or a release you can point at. If it isn't shipped yet, we don't say it is.",
+    link: { href: "https://docs.raptorpanel.net", text: "docs.raptorpanel.net" },
+  },
+];
+
+interface Props {
+  /** Shown under the list, e.g. a link to the About page from the home page. */
+  more?: { href: string; text: string };
+}
+const { more } = Astro.props;
+---
+<section id="how-we-work" class="principles" aria-labelledby="how-title">
+  <div class="wrap">
+    <h2 id="how-title">How we work</h2>
+    <ul class="principle-list">
+      {
+        principles.map((p) => (
+          <li class="principle">
+            <h3>{p.title}</h3>
+            <p>
+              {p.body}
+              {p.link && (
+                <>
+                  {" "}
+                  <a href={p.link.href}><External>{p.link.text}</External></a>
+                </>
+              )}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+    {more && <a class="more" href={more.href}>{more.text}</a>}
+  </div>
+</section>
+
+<style>
+/* ---------------------------------------------------------------- principles */
+
+  .principles {
+    padding-block: var(--s-7) var(--s-8);
+  }
+
+  .principles h2 {
+    font-size: var(--t-h2);
+  }
+
+  .principle-list {
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .principle {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--s-3) var(--s-7);
+    padding-block: var(--s-6);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .principle h3 {
+    font-size: var(--t-h3);
+  }
+
+  .principle p {
+    max-width: var(--measure);
+    color: var(--muted);
+  }
+
+  .principle a {
+    color: var(--text);
+  }
+
+  @media (max-width: 52rem) {
+    .principle {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

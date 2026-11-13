@@ -1,0 +1,161 @@
+---
+// The plugins, as they appear on the Tools page: one hairline row each.
+import External from "../External.astro";
+import xutilitiesIcon from "../../brand/plugins/xutilities.svg?url";
+import zchatIcon from "../../brand/plugins/zchat.svg?url";
+import xlimboIcon from "../../brand/plugins/xlimbo.svg?url";
+
+const plugins = [
+  {
+    name: "xUtilities",
+    icon: xutilitiesIcon,
+    what: "Gamemodes, flight, heal, /back, workstation menus, and link commands like /discord that you write yourself. Every command can be switched off.",
+    runs: "Paper, Folia",
+    docs: "https://docs.xenastudios.co/xutilities/",
+    href: "https://modrinth.com/plugin/xutilities",
+  },
+  {
+    name: "zChat",
+    icon: zchatIcon,
+    what: "A chat format per rank, a filter that's hard to dodge, cooldowns, mentions and private messages. Each message is drawn once, however many players see it.",
+    runs: "Paper, Folia",
+    docs: "https://docs.xenastudios.co/zchat/",
+    href: "https://modrinth.com/plugin/zchat",
+  },
+  {
+    name: "xLimbo",
+    icon: xlimboIcon,
+    what: "Your network's fallback server. When the main server goes down, players wait in a safe void world instead of being disconnected, and go back when it's up.",
+    runs: "Paper",
+    docs: "https://docs.xenastudios.co/xlimbo/",
+    href: "https://modrinth.com/plugin/xlimbo",
+  },
+];
+---
+<section id="plugins" class="plugins section" aria-labelledby="plugins-title">
+  <div class="wrap">
+    <h2 id="plugins-title">Plugins</h2>
+    <p class="lead">
+      Small plugins for Paper servers. Each one does one job, costs next to nothing to run, and lets you switch off
+      anything you don't use.
+    </p>
+    <ul class="plugin-list">
+      {
+        plugins.map((p) => (
+          <li class="plugin">
+            <img class="plugin-icon" src={p.icon} alt="" width="48" height="48" loading="lazy" />
+            <h3>{p.name}</h3>
+            <p class="what">{p.what}</p>
+            <p class="where">
+              <span class="label">Runs on</span> {p.runs}
+            </p>
+            <ul class="plugin-links">
+              <li><a href={p.docs}><External>Docs<span class="visually-hidden"> for {p.name}</span></External></a></li>
+              <li><a href={p.href}><External>Modrinth<span class="visually-hidden"> page for {p.name}</span></External></a></li>
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+    <ul class="plugins-all">
+      <li><a href="https://docs.xenastudios.co"><External>docs.xenastudios.co</External></a></li>
+      <li><a href="https://modrinth.com/organization/xena-studios">All our plugins on <External>Modrinth</External></a></li>
+    </ul>
+  </div>
+</section>
+
+<style>
+/* ---------------------------------------------------------------- plugins */
+
+  .plugin-list {
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .plugin {
+    display: grid;
+    grid-template-columns: 3rem 9rem minmax(0, 1fr) 9rem auto;
+    gap: var(--s-2) var(--s-5);
+    align-items: center;
+    padding-block: var(--s-5);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .plugin-icon {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10px;
+  }
+
+  .plugin h3 {
+    font-size: var(--t-body);
+    font-weight: 600;
+  }
+
+  .plugin .what {
+    max-width: var(--measure);
+  }
+
+  .plugin-links,
+  .plugins-all {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--t-small);
+  }
+
+  .plugin-links {
+    flex-direction: column;
+  }
+
+  .plugin-links a,
+  .plugins-all a {
+    color: var(--text);
+  }
+
+  .plugins-all {
+    margin-top: var(--s-5);
+  }
+
+  @media (max-width: 52rem) {
+    .plugin {
+      grid-template-columns: 3rem minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .plugin > :not(.plugin-icon) {
+      grid-column: 2;
+    }
+
+    .plugin-icon {
+      grid-row: span 4;
+    }
+
+    .plugin .where {
+      flex-direction: row;
+      align-items: baseline;
+      gap: var(--s-3);
+    }
+
+    .plugin-links {
+      flex-direction: row;
+    }
+  }
+  /* The plugin rows reuse the Raptor parts' muted "what" and stacked "where". */
+  .what {
+    color: var(--muted);
+  }
+
+  .where {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    font-size: var(--t-small);
+  }
+</style>

@@ -2,7 +2,7 @@
 
 **The studio's website. Astro, served by Cloudflare.**
 
-The one-page site at **[xenastudios.co](https://xenastudios.co)**. It's static [Astro](https://astro.build) and ships no JavaScript.
+The studio's site at **[xenastudios.co](https://xenastudios.co)**: a home page, then Tools, Servers, About and Contact. It's static [Astro](https://astro.build) and ships no JavaScript.
 
 - [PRODUCT.md](PRODUCT.md): who the site is for and what it has to do
 - [DESIGN.md](DESIGN.md): the visual system
@@ -19,9 +19,10 @@ pnpm preview    # serve dist/
 ```
 
 ```
-src/pages/        index (the home page), 404, sitemap.xml
+src/pages/        index (home), tools, servers, about, contact, 404, sitemap.xml
 src/layouts/      Base: <head>, header, footer
-src/components/   Logo, Horizon, External (the outbound-link arrow)
+src/components/   Logo, Horizon, External (the outbound-link arrow), PageHero, ServerFeature, ContactCta
+src/components/sections/   Raptor, NeoSkript, Plugins, Principles: the blocks the pages share
 src/styles/       global.css: tokens and type
 src/assets/       images processed at build, such as the Raptor screenshot
 src/brand/        synced from the brand repo, don't edit
@@ -52,7 +53,7 @@ Pushing to `main` builds and deploys to the `xenastudios-website` Cloudflare Wor
 
 - `main` only takes pull requests, and `build` has to pass. CodeQL runs too, but isn't required.
 - Renovate opens dependency PRs on Monday mornings.
-- **`public/.well-known/security.txt` expires on 2027-10-22.** Move the date a year out before then.
+- **`public/.well-known/security.txt` expires on 2027-11-10.** Move the date a year out before then.
 
 ## Design skill
 

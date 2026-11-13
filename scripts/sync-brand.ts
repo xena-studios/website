@@ -28,6 +28,13 @@ const files = [
   ["neoskript/logo-dark.svg", "src/brand/neoskript/logo-dark.svg"],
   ["mostwanted/official/wordmark.png", "src/brand/mostwanted/wordmark.png"],
   ["mostwanted/official/key-art.png", "src/brand/mostwanted/key-art.png"],
+  // Airfields shows its current season's key art, as airfieldsmc.com does.
+  ["airfields/themes/winter/key-art.png", "src/brand/airfields/key-art.png"],
+  // Each product's and server's icon tile, for the site's product row and menus.
+  ["raptor/icon.png", "src/brand/icons/raptor.png"],
+  ["neoskript/icon.png", "src/brand/icons/neoskript.png"],
+  ["mostwanted/icon.png", "src/brand/icons/mostwanted.png"],
+  ["airfields/icon.png", "src/brand/icons/airfields.png"],
   ["plugins/xutilities/icon.svg", "src/brand/plugins/xutilities.svg"],
   ["plugins/zchat/icon.svg", "src/brand/plugins/zchat.svg"],
   ["plugins/xlimbo/icon.svg", "src/brand/plugins/xlimbo.svg"],

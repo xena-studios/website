@@ -1,0 +1,70 @@
+---
+// The closing band on each page: one address, and where to go instead for help.
+import Horizon from "./Horizon.astro";
+import External from "./External.astro";
+
+interface Props {
+  idPrefix?: string;
+  /** The section's own id, for a page that links to it (the home page keeps #contact working). */
+  id?: string;
+}
+const { idPrefix = "cta", id } = Astro.props;
+---
+<section id={id} class="cta" aria-labelledby={`${idPrefix}-title`}>
+  <div class="wrap">
+    <h2 id={`${idPrefix}-title`}>Get in touch</h2>
+    <p class="lead">Partnerships, press, hosting, or a question about what we build.</p>
+    <p class="mail"><a href="mailto:contact@xenastudios.co">contact@xenastudios.co</a></p>
+    <p class="aside">
+      Stuck with Raptor? Its <a href="https://docs.raptorpanel.net"><External>documentation</External></a> is the fastest
+      answer. Playing on one of our servers? <a href="/contact">Every way to reach us</a> is on the contact page.
+    </p>
+  </div>
+  <Horizon class="horizon" idPrefix={`${idPrefix}-horizon`} />
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding-block: var(--s-8) clamp(12rem, 26vw, 20rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .cta :global(.horizon) {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: -1;
+    width: 100%;
+    height: clamp(10rem, 24vw, 18rem);
+  }
+
+  h2 {
+    font-size: var(--t-h2);
+  }
+
+  .mail {
+    margin-top: var(--s-6);
+    font-size: clamp(1.25rem, 0.9rem + 1.6vw, 2.25rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .mail a {
+    color: var(--accent);
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  .mail a:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  .aside {
+    max-width: var(--measure);
+    margin-top: var(--s-5);
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+</style>

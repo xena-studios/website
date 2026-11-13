@@ -13,7 +13,7 @@ interface Props {
 
 const {
   title = "Xena Studios: game servers, and the tools to run them",
-  description = "Xena Studios builds open-source software for game servers on machines you own (Raptor, NeoSkript, Minecraft plugins) and runs its own Minecraft servers, MostWanted and Airfields.",
+  description = "Xena Studios builds open-source software for game servers on machines you own (Raptor, NeoSkript, Minecraft plugins), and runs Minecraft servers of its own: MostWanted and Airfields.",
   noindex = false,
 } = Astro.props;
 
@@ -23,6 +23,15 @@ const path = Astro.url.pathname.replace(/(?:index)?\.html$/, "");
 const canonical = new URL(path, Astro.site);
 const og = new URL("/og.png", Astro.site);
 const year = new Date().getFullYear();
+
+// The main sections. The current one is marked for assistive tech and styled.
+const nav = [
+  { href: "/tools", text: "Tools" },
+  { href: "/servers", text: "Servers" },
+  { href: "/about", text: "About", optional: true },
+  { href: "/contact", text: "Contact" },
+];
+const section = nav.find((n) => path === n.href || path.startsWith(`${n.href}/`))?.href;
 ---
 <!doctype html>
 <html lang="en">
@@ -59,13 +68,14 @@ const year = new Date().getFullYear();
         </a>
         <nav aria-label="Main">
           <ul>
-            <li><a href="/#raptor">Raptor</a></li>
-            <li class="optional"><a href="/#neoskript">NeoSkript</a></li>
-            <li class="optional"><a href="/#mostwanted">MostWanted</a></li>
-            <li><a href="/#plugins">Plugins</a></li>
-            <li class="optional"><a href="/#how-we-work">How we work</a></li>
-            <li><a href="/#contact">Contact</a></li>
-            <li><a href="https://github.com/xena-studios" rel="me"><External>GitHub</External></a></li>
+            {
+              nav.map((n) => (
+                <li class={n.optional ? "optional" : undefined}>
+                  <a href={n.href} aria-current={section === n.href ? "page" : undefined}>{n.text}</a>
+                </li>
+              ))
+            }
+            <li class="optional"><a href="https://github.com/xena-studios" rel="me"><External>GitHub</External></a></li>
           </ul>
         </nav>
       </div>
@@ -77,15 +87,36 @@ const year = new Date().getFullYear();
 
     <footer class="site-footer">
       <div class="wrap foot">
-        <Logo name="xena" class="foot-logo" />
-        <p class="label">© {year} Xena Studios</p>
-        <ul class="foot-links">
-          <li><a href="https://raptorpanel.net"><External>raptorpanel.net</External></a></li>
-          <li><a href="https://docs.xenastudios.co">Plugin <External>docs</External></a></li>
-          <li><a href="https://modrinth.com/organization/xena-studios"><External>Modrinth</External></a></li>
-          <li><a href="https://github.com/xena-studios"><External>GitHub</External></a></li>
-          <li><a href="https://github.com/xena-studios/website">This site's <External>source</External></a></li>
-        </ul>
+        <div class="foot-studio">
+          <Logo name="xena" class="foot-logo" />
+          <p class="label">© {year} Xena Studios</p>
+        </div>
+        <nav class="foot-cols" aria-label="Footer">
+          <div>
+            <h2 class="label">Tools</h2>
+            <ul>
+              <li><a href="https://raptorpanel.net"><External>Raptor</External></a></li>
+              <li><a href="https://neoskript.dev"><External>NeoSkript</External></a></li>
+              <li><a href="https://docs.xenastudios.co">Plugin <External>docs</External></a></li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="label">Servers</h2>
+            <ul>
+              <li><a href="https://mostwantedmc.com"><External>MostWanted</External></a></li>
+              <li><a href="https://airfieldsmc.com"><External>Airfields</External></a></li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="label">Studio</h2>
+            <ul>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="https://github.com/xena-studios"><External>GitHub</External></a></li>
+              <li><a href="https://modrinth.com/organization/xena-studios"><External>Modrinth</External></a></li>
+            </ul>
+          </div>
+        </nav>
       </div>
     </footer>
   </body>
@@ -137,8 +168,16 @@ const year = new Date().getFullYear();
     text-decoration: none;
   }
 
-  nav a:hover {
+  nav a:hover,
+  nav a[aria-current="page"] {
     color: var(--text);
+  }
+
+  nav a[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.6em;
   }
 
   @media (max-width: 40rem) {
@@ -159,14 +198,20 @@ const year = new Date().getFullYear();
   }
 
   .site-footer {
-    padding-block: var(--s-6) var(--s-7);
+    padding-block: var(--s-7) var(--s-7);
+    border-top: 1px solid var(--rule);
   }
 
   .foot {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--s-4) var(--s-6);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-6);
+    align-items: start;
+  }
+
+  .foot-studio {
+    display: grid;
+    gap: var(--s-3);
   }
 
   .foot :global(.foot-logo) {
@@ -175,28 +220,41 @@ const year = new Date().getFullYear();
     color: var(--text);
   }
 
-  .foot-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-5);
-    margin: 0 0 0 auto;
+  .foot-cols {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(8rem, auto));
+    gap: var(--s-6);
+  }
+
+  .foot-cols h2 {
+    margin-bottom: var(--s-3);
+    font-weight: 400;
+  }
+
+  .foot-cols ul {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
     padding: 0;
     list-style: none;
     font-size: var(--t-small);
   }
 
-  .foot-links a {
+  .foot-cols a {
     color: var(--muted);
   }
 
-  .foot-links a:hover {
+  .foot-cols a:hover {
     color: var(--text);
   }
 
-  @media (max-width: 40rem) {
-    .foot-links {
-      margin-left: 0;
-      width: 100%;
+  @media (max-width: 48rem) {
+    .foot {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .foot-cols {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

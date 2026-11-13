@@ -1,5 +1,6 @@
 {
   "name": "xena-website",
+  "description": "xenastudios.co: the Xena Studios website",
   "private": true,
   "license": "UNLICENSED",
   "type": "module",

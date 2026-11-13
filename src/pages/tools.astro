@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Raptor from "../components/sections/Raptor.astro";
+import NeoSkript from "../components/sections/NeoSkript.astro";
+import Plugins from "../components/sections/Plugins.astro";
+import ContactCta from "../components/ContactCta.astro";
+---
+<Base
+  title="Tools · Xena Studios"
+  description="Raptor runs game servers on machines you own. NeoSkript runs your Skript scripts faster. xUtilities, zChat and xLimbo are small plugins for Paper. All open source."
+>
+  <PageHero kicker="Tools" title="Tools for the people who run servers.">
+    Software for hosting game servers on your own hardware, and the Minecraft plugins that run on them. All of it is
+    open source: read what it does before you run it.
+  </PageHero>
+  <Raptor />
+  <NeoSkript />
+  <Plugins />
+  <ContactCta idPrefix="tools-cta" />
+</Base>

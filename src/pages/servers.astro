@@ -1,0 +1,60 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import ServerFeature from "../components/ServerFeature.astro";
+import ContactCta from "../components/ContactCta.astro";
+import mostwantedKeyArt from "../brand/mostwanted/key-art.png";
+import airfieldsKeyArt from "../brand/airfields/key-art.png";
+---
+<Base
+  title="Servers · Xena Studios"
+  description="MostWanted and Airfields: Xena Studios' own Minecraft servers, for Java and Bedrock. Both are in development."
+>
+  <PageHero kicker="Servers" title="Servers of our own.">
+    Minecraft servers we design, build and run ourselves, for Java and Bedrock. Both are in development and not open
+    yet: follow each one's site for news.
+  </PageHero>
+
+  <ServerFeature
+    id="mostwanted"
+    name="MostWanted"
+    tagline="Cops vs. prisoners, on Java and Bedrock."
+    keyArt={mostwantedKeyArt}
+    keyArtAlt="The MOSTWANTED block wordmark over a pixel-art desert at sunset, blurred: mesas, cacti and a sand road under a low sun."
+    status="In development, not open yet"
+    address="play.mostwantedmc.com"
+    site={{ href: "https://mostwantedmc.com", text: "mostwantedmc.com" }}
+    links={[
+      { href: "https://mostwantedmc.com/news", text: "News" },
+      { href: "https://mostwantedmc.com/support", text: "Support" },
+    ]}
+  >
+    <p>
+      A Jailbreak-style server. Prisoners break out and rob the town; guards, picked by application, bring them back.
+      One world that keeps running, with our own plugins for commands and chat.
+    </p>
+  </ServerFeature>
+
+  <ServerFeature
+    id="airfields"
+    name="Airfields"
+    tagline="Sky-mining PvP, on Java and Bedrock."
+    keyArt={airfieldsKeyArt}
+    keyArtAlt="The gold AIRFIELDS wordmark with snow piled on its letters, over pixel-art floating islands under a winter aurora."
+    status="In development, not open yet"
+    address="play.airfieldsmc.com"
+    site={{ href: "https://airfieldsmc.com", text: "airfieldsmc.com" }}
+    links={[
+      { href: "https://airfieldsmc.com/news/airfields-is-coming", text: "Announcement" },
+      { href: "https://airfieldsmc.com/support", text: "Support" },
+    ]}
+  >
+    <p>
+      Mine ore on frozen floating islands, sell it, and buy your way up the mines. Every island has its own ore mob and
+      mini-boss; their shards and cores go into the forge for better gear, and better gear opens the next island.
+    </p>
+    <p>Above it all, the higher mines and KOTH go to whoever can take them. This season is winter.</p>
+  </ServerFeature>
+
+  <ContactCta idPrefix="servers-cta" />
+</Base>

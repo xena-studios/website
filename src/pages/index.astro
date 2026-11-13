@@ -3,86 +3,45 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Horizon from "../components/Horizon.astro";
 import External from "../components/External.astro";
-import raptorLogo from "../brand/raptor/logo-dark.svg?raw";
-import neoskriptLogo from "../brand/neoskript/logo-dark.svg?raw";
-import xutilitiesIcon from "../brand/plugins/xutilities.svg?url";
-import zchatIcon from "../brand/plugins/zchat.svg?url";
-import xlimboIcon from "../brand/plugins/xlimbo.svg?url";
+import Principles from "../components/sections/Principles.astro";
+import ContactCta from "../components/ContactCta.astro";
 import consoleShot from "../assets/raptor/console-dark.png";
-import mostwantedWordmark from "../brand/mostwanted/wordmark.png";
 import mostwantedKeyArt from "../brand/mostwanted/key-art.png";
+import airfieldsKeyArt from "../brand/airfields/key-art.png";
+import raptorIcon from "../brand/icons/raptor.png";
+import neoskriptIcon from "../brand/icons/neoskript.png";
+import mostwantedIcon from "../brand/icons/mostwanted.png";
+import airfieldsIcon from "../brand/icons/airfields.png";
 
-// Raptor's own logo, as shipped in its repo; only made responsive here.
-const raptorSvg = raptorLogo.replace("<svg ", '<svg class="raptor-logo" role="img" aria-label="Raptor" ');
-
-// NeoSkript's logo from the brand repo, cropped to its ink (the export carries
-// half a cap height of clear space, 50 units on every side).
-const [, nsW, nsH] = neoskriptLogo.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/)!;
-const neoskriptSvg = neoskriptLogo
-  .replace(/ width="[^"]*" height="[^"]*"/, "")
-  .replace(/viewBox="[^"]*"/, `viewBox="50 50 ${+nsW - 100} ${+nsH - 100}" class="neoskript-logo" role="img" aria-label="NeoSkript"`);
-
-const plugins = [
-  {
-    name: "xUtilities",
-    icon: xutilitiesIcon,
-    what: "Gamemodes, flight, heal, /back, workstation menus, and link commands like /discord that you write yourself. Every command can be switched off.",
-    runs: "Paper, Folia",
-    docs: "https://docs.xenastudios.co/xutilities/",
-    href: "https://modrinth.com/plugin/xutilities",
-  },
-  {
-    name: "zChat",
-    icon: zchatIcon,
-    what: "A chat format per rank, a filter that's hard to dodge, cooldowns, mentions and private messages. Each message is drawn once, however many players see it.",
-    runs: "Paper, Folia",
-    docs: "https://docs.xenastudios.co/zchat/",
-    href: "https://modrinth.com/plugin/zchat",
-  },
-  {
-    name: "xLimbo",
-    icon: xlimboIcon,
-    what: "Your network's fallback server. When the main server goes down, players wait in a safe void world instead of being disconnected, and go back when it's up.",
-    runs: "Paper",
-    docs: "https://docs.xenastudios.co/xlimbo/",
-    href: "https://modrinth.com/plugin/xlimbo",
-  },
+// The row of marks under the hero: everything we make, each in its own tile.
+const marks = [
+  { name: "Raptor", icon: raptorIcon, href: "/tools#raptor" },
+  { name: "NeoSkript", icon: neoskriptIcon, href: "/tools#neoskript" },
+  { name: "MostWanted", icon: mostwantedIcon, href: "/servers#mostwanted" },
+  { name: "Airfields", icon: airfieldsIcon, href: "/servers#airfields" },
 ];
 
-const parts = [
-  {
-    name: "Panel",
-    what: "The web app and API: accounts, organisations, billing, and linking your machines.",
-    where: "Raptor's infrastructure",
-  },
-  {
-    name: "Wings",
-    what: "The daemon that runs your servers, with schedules, backups, SFTP, and crash recovery. Keeps working when the Panel can't be reached.",
-    where: "Your machine",
-  },
-  {
-    name: "raptor CLI",
-    what: "Status, power, console, logs, backups and restores, and a doctor that says what's wrong and how to fix it, on the machine itself.",
-    where: "Your machine",
-  },
+const tools = [
+  { name: "Raptor", what: "Runs game servers on any Linux box you own or rent, with no panel to host.", href: "/tools#raptor" },
+  { name: "NeoSkript", what: "A drop-in replacement for Skript. Your scripts run unchanged, only faster.", href: "/tools#neoskript" },
+  { name: "Plugins", what: "xUtilities, zChat and xLimbo: small plugins for Paper that each do one job.", href: "/tools#plugins" },
 ];
 
-const principles = [
-  {
-    title: "The source is public.",
-    body: "Raptor is AGPL-3.0. NeoSkript and the plugins are GPL-3.0-only. All of it is on GitHub: read what it does before you run it, build it yourself, and send changes back.",
-    link: { href: "https://github.com/xena-studios", text: "github.com/xena-studios" },
-  },
-  {
-    title: "Your machine stays yours.",
-    body: "Servers run on hardware you control. Raptor's daemon keeps them up even when our panel is unreachable, and the raptor CLI works on the box itself.",
-  },
-  {
-    title: "Claims you can check.",
-    body: "If we say something works, there's code, documentation, or a release you can point at. If it isn't shipped yet, we don't say it is.",
-    link: { href: "https://docs.raptorpanel.net", text: "docs.raptorpanel.net" },
-  },
+const servers = [
+  { name: "MostWanted", what: "Cops vs. prisoners", art: mostwantedKeyArt, href: "/servers#mostwanted", alt: "MostWanted's key art: its block wordmark over a pixel desert at sunset." },
+  { name: "Airfields", what: "Sky-mining PvP", art: airfieldsKeyArt, href: "/servers#airfields", alt: "Airfields' winter key art: the gold wordmark with snow on its letters, over floating islands under an aurora." },
 ];
+
+// Releases and announcements, newest first. Every row links to the thing itself.
+const news = [
+  { date: "2026-11-12", what: "NeoSkript enters public beta with 0.1.0-beta.1.", href: "https://github.com/xena-studios/neoskript/releases/tag/v0.1.0-beta.1", link: "Release notes" },
+  { date: "2026-11-12", what: "Airfields, a winter sky-mining PvP server, is announced.", href: "https://airfieldsmc.com/news/airfields-is-coming", link: "Announcement" },
+  { date: "2026-11-10", what: "Raptor 0.15.0 is out.", href: "https://github.com/xena-studios/raptor/releases/tag/v0.15.0", link: "Release notes" },
+  { date: "2026-10-22", what: "xLimbo 2.0.0 and zChat 3.0.0 are out.", href: "https://modrinth.com/organization/xena-studios", link: "Modrinth" },
+];
+
+const longDate = (iso: string) =>
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 ---
 <Base>
   <section class="hero" aria-labelledby="hero-title">
@@ -90,186 +49,100 @@ const principles = [
       <h1 id="hero-title">Game servers, and the tools to run them.</h1>
       <p class="lead">
         Xena Studios makes the software that runs game servers on machines you own, the Minecraft plugins that run on
-        them, and Minecraft servers of our own. The software is open source, so you can read exactly what it does
-        before you run it.
+        them, and Minecraft servers of our own to play on.
       </p>
       <p class="actions">
-        <a class="button primary" href="#raptor">Meet Raptor</a>
-        <a class="button" href="https://github.com/xena-studios"><External>github.com/xena-studios</External></a>
+        <a class="button primary" href="/tools">Tools for server owners</a>
+        <a class="button" href="/servers">Servers to play on</a>
       </p>
+      <ul class="marks" aria-label="What we make">
+        {
+          marks.map((m) => (
+            <li>
+              <a href={m.href}>
+                <Image src={m.icon} alt="" widths={[64, 128]} sizes="2.5rem" />
+                <span>{m.name}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
     <Horizon class="horizon" idPrefix="hero" />
   </section>
 
-  <section id="raptor" class="raptor" aria-labelledby="raptor-title">
-    <div class="wrap">
-      <div class="raptor-head">
-        <Fragment set:html={raptorSvg} />
-        <h2 id="raptor-title">Pterodactyl had a good run.</h2>
-        <p class="lead">
-          Raptor does everything you run Pterodactyl for, with the add-ons built in and no panel to host. Run one install
-          command on any Linux box you own or rent, then manage game servers, Discord bots, and voice servers from the web.
-        </p>
-      </div>
+  <section class="paths" aria-label="Tools and servers">
+    <div class="wrap paths-grid">
+      <article class="path tools" aria-labelledby="tools-title">
+        <div class="path-copy">
+          <h2 id="tools-title">For the people who run servers</h2>
+          <p class="lead">Open-source software for hosting game servers on your own hardware, and the plugins that run on them.</p>
+          <ul class="path-list">
+            {
+              tools.map((t) => (
+                <li>
+                  <a href={t.href}>{t.name}</a>
+                  <span>{t.what}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <a class="more" href="/tools">See the tools</a>
+        </div>
+        <figure class="path-art shot">
+          <Image
+            src={consoleShot}
+            alt="Raptor's page for a Paper server: running, with its resource readouts above a live console."
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 64rem) 36rem, 100vw"
+            loading="lazy"
+          />
+        </figure>
+      </article>
 
-      <figure class="shot">
-        <Image
-          src={consoleShot}
-          alt="Raptor's page for a Paper server named Survival: running, with CPU, memory, disk, and network readouts above its live console."
-          widths={[720, 1200, 1800, 2364]}
-          sizes="(min-width: 76rem) 76rem, (min-width: 44rem) 100vw, 170vw"
-          loading="lazy"
-        />
-        <figcaption class="label">Raptor, managing a Paper server on a home machine</figcaption>
-      </figure>
-
-      <div class="raptor-detail">
-        <dl class="parts">
+      <article class="path servers" aria-labelledby="servers-title">
+        <div class="path-copy">
+          <h2 id="servers-title">For the people who play</h2>
+          <p class="lead">Our own Minecraft servers, for Java and Bedrock. Both are in development.</p>
+          <a class="more" href="/servers">See the servers</a>
+        </div>
+        <ul class="server-art">
           {
-            parts.map((p) => (
-              <div class="part">
-                <dt>{p.name}</dt>
-                <dd class="what">{p.what}</dd>
-                <dd class="where">
-                  <span class="label">Runs on</span> {p.where}
-                </dd>
-              </div>
+            servers.map((s) => (
+              <li>
+                <a href={s.href}>
+                  <Image src={s.art} alt={s.alt} widths={[640, 960, 1280]} sizes="(min-width: 82rem) 36rem, (min-width: 44rem) 50vw, 100vw" loading="lazy" />
+                  <span class="server-name">{s.name}</span>
+                  <span class="server-what">{s.what}</span>
+                </a>
+              </li>
             ))
           }
-        </dl>
-        <div class="raptor-links">
-          <p>Runs servers from Pterodactyl and Pelican eggs.</p>
-          <ul>
-            <li><a href="https://raptorpanel.net"><External>raptorpanel.net</External></a></li>
-            <li><a href="https://docs.raptorpanel.net"><External>Documentation</External></a></li>
-            <li><a href="https://github.com/xena-studios/raptor">Source on <External>GitHub</External></a></li>
-            <li><a href="https://github.com/xena-studios/raptor/blob/main/LICENSE"><External>AGPL-3.0</External></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="neoskript" class="neoskript" aria-labelledby="neoskript-title">
-    <div class="wrap neoskript-inner">
-      <div class="neoskript-head">
-        <Fragment set:html={neoskriptSvg} />
-        <h2 id="neoskript-title">Keep your scripts. Lose the lag.</h2>
-        <p class="lead">
-          NeoSkript is a drop-in replacement for Skript, rebuilt for speed. The scripts you already have run unchanged, on
-          Paper and Folia.
-        </p>
-        <p class="status"><span class="label">Status</span> Public beta, 0.1.0-beta.1</p>
-        <ul class="project-links">
-          <li><a href="https://neoskript.dev"><External>neoskript.dev</External></a></li>
-          <li><a href="https://modrinth.com/plugin/neoskript"><External>Modrinth</External></a></li>
-          <li><a href="https://github.com/xena-studios/neoskript">Source on <External>GitHub</External></a></li>
-          <li><a href="https://github.com/xena-studios/neoskript/blob/main/LICENSE"><External>GPL-3.0-only</External></a></li>
         </ul>
-      </div>
-      <figure class="script">
-        <pre tabindex="0"><code>on join:
-    send "Welcome, %player%!" to player</code></pre>
-        <figcaption class="label">join.sk, a Skript script NeoSkript runs unchanged</figcaption>
-      </figure>
+      </article>
     </div>
   </section>
 
-  <section id="mostwanted" class="mostwanted" aria-labelledby="mostwanted-title">
-    <div class="wrap mostwanted-inner">
-      <div class="mostwanted-head">
-        <Image class="mostwanted-logo" src={mostwantedWordmark} alt="MostWanted" widths={[420, 840]} sizes="20rem" loading="lazy" />
-        <h2 id="mostwanted-title">Cops vs. prisoners, on Java and Bedrock.</h2>
-        <p class="lead">
-          MostWanted is our own Jailbreak-style Minecraft server. Prisoners break out and rob the town; guards, picked by
-          application, bring them back. One world that keeps running, with our own plugins for commands and chat.
-        </p>
-        <p class="status"><span class="label">Status</span> In development, not open yet</p>
-        <ul class="project-links">
-          <li><a href="https://mostwantedmc.com"><External>mostwantedmc.com</External></a></li>
-        </ul>
-      </div>
-      <figure class="key-art">
-        <Image
-          src={mostwantedKeyArt}
-          alt="The MOSTWANTED wordmark over a pixel-art desert at sunset, blurred: mesas, cacti and a sand road under a low sun."
-          widths={[640, 960, 1280, 1920]}
-          sizes="(min-width: 80rem) 36.5rem, (min-width: 60rem) 50vw, 100vw"
-          loading="lazy"
-        />
-        <figcaption class="label">MostWanted's key art</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="plugins" class="plugins" aria-labelledby="plugins-title">
+  <section class="news section" aria-labelledby="news-title">
     <div class="wrap">
-      <h2 id="plugins-title">Plugins</h2>
-      <p class="lead">
-        Small plugins for Paper servers. Each one does one job, costs next to nothing to run, and lets you switch off
-        anything you don't use.
-      </p>
-      <ul class="plugin-list">
+      <h2 id="news-title">Lately</h2>
+      <ol class="news-list">
         {
-          plugins.map((p) => (
-            <li class="plugin">
-              <img class="plugin-icon" src={p.icon} alt="" width="48" height="48" loading="lazy" />
-              <h3>{p.name}</h3>
-              <p class="what">{p.what}</p>
-              <p class="where">
-                <span class="label">Runs on</span> {p.runs}
-              </p>
-              <ul class="plugin-links">
-                <li><a href={p.docs}><External>Docs<span class="visually-hidden"> for {p.name}</span></External></a></li>
-                <li><a href={p.href}><External>Modrinth<span class="visually-hidden"> page for {p.name}</span></External></a></li>
-              </ul>
+          news.map((n) => (
+            <li>
+              <time datetime={n.date} class="label">{longDate(n.date)}</time>
+              <p>{n.what}</p>
+              <a href={n.href}><External>{n.link}</External></a>
             </li>
           ))
         }
-      </ul>
-      <ul class="plugins-all">
-        <li><a href="https://docs.xenastudios.co"><External>docs.xenastudios.co</External></a></li>
-        <li><a href="https://modrinth.com/organization/xena-studios">All our plugins on <External>Modrinth</External></a></li>
-      </ul>
+      </ol>
     </div>
   </section>
 
-  <section id="how-we-work" class="principles" aria-labelledby="how-title">
-    <div class="wrap">
-      <h2 id="how-title">How we work</h2>
-      <ul class="principle-list">
-        {
-          principles.map((p) => (
-            <li class="principle">
-              <h3>{p.title}</h3>
-              <p>
-                {p.body}
-                {p.link && (
-                  <>
-                    {" "}
-                    <a href={p.link.href}><External>{p.link.text}</External></a>
-                  </>
-                )}
-              </p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
+  <Principles more={{ href: "/about", text: "More about the studio" }} />
 
-  <section id="contact" class="contact" aria-labelledby="contact-title">
-    <div class="wrap contact-inner">
-      <h2 id="contact-title">Get in touch</h2>
-      <p class="lead">Partnerships, press, hosting, or a question about what we build.</p>
-      <p class="mail"><a href="mailto:contact@xenastudios.co">contact@xenastudios.co</a></p>
-      <p class="aside">
-        Using Raptor and stuck? Its <a href="https://docs.raptorpanel.net"><External>documentation</External></a> is the fastest answer. For our
-        plugins, it's <a href="https://docs.xenastudios.co"><External>docs.xenastudios.co</External></a>.
-      </p>
-    </div>
-    <Horizon class="horizon" idPrefix="contact" />
-  </section>
+  <ContactCta id="contact" idPrefix="home-cta" />
 </Base>
 
 <style>
@@ -289,61 +162,9 @@ const principles = [
   }
 
   .hero h1 {
-    max-width: 18ch;
-    font-size: var(--t-h1);
-    line-height: 1.05;
-  }
-
-  .lead {
-    max-width: var(--measure);
-    margin-top: var(--s-5);
-    font-size: var(--t-lead);
-    line-height: 1.75;
-    color: var(--muted);
-  }
-
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-3);
-    margin-top: var(--s-6);
-  }
-
-  .button {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-    padding: 0 var(--s-5);
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    font-size: var(--t-small);
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--text);
-    background: color-mix(in srgb, var(--raised) 70%, transparent);
-    transition:
-      border-color 200ms var(--ease),
-      background-color 200ms var(--ease),
-      transform 200ms var(--ease);
-  }
-
-  .button:hover {
-    border-color: color-mix(in oklch, var(--accent) 55%, var(--rule));
-  }
-
-  .button:active {
-    transform: translateY(1px);
-  }
-
-  .button.primary {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--bg);
-    font-weight: 600;
-  }
-
-  .button.primary:hover {
-    background: color-mix(in oklch, var(--accent) 88%, white);
+    max-width: 16ch;
+    font-size: clamp(2rem, 1.1rem + 4.6vw, 5.25rem);
+    line-height: 1.02;
   }
 
   .hero :global(.horizon) {
@@ -363,7 +184,7 @@ const principles = [
     animation-delay: 90ms;
   }
 
-  .hero-copy > :nth-child(3) {
+  .hero-copy > :nth-child(n + 3) {
     animation-delay: 180ms;
   }
 
@@ -381,438 +202,216 @@ const principles = [
     }
   }
 
-  /* ---------------------------------------------------------------- raptor */
+  .marks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3) var(--s-5);
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    list-style: none;
+  }
 
-  .raptor {
+  .marks a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    font-size: var(--t-small);
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .marks a:hover {
+    color: var(--text);
+  }
+
+  .marks :global(img) {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9px;
+    transition: transform 200ms var(--ease);
+  }
+
+  .marks a:hover :global(img) {
+    transform: translateY(-2px);
+  }
+
+  /* ---------------------------------------------------------------- paths */
+
+  .paths {
     padding-block: var(--s-8);
   }
 
-  .raptor-head {
-    max-width: 52rem;
+  .paths-grid {
+    display: grid;
+    gap: var(--s-5);
   }
 
-  .raptor-head :global(.raptor-logo) {
-    width: clamp(10rem, 8rem + 8vw, 13rem);
-    height: auto;
-    margin-bottom: var(--s-6);
+  .path {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--s-7);
+    align-items: center;
+    padding: clamp(var(--s-5), 4vw, var(--s-8));
+    border: 1px solid var(--rule);
+    border-radius: calc(var(--radius) * 1.5);
+    background: color-mix(in srgb, var(--raised) 80%, transparent);
   }
 
-  .raptor h2 {
+  .path h2 {
     font-size: var(--t-h2);
   }
 
+  .path-list {
+    margin: var(--s-6) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .path-list li {
+    display: grid;
+    gap: var(--s-1);
+    padding-block: var(--s-4);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .path-list a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .path-list a:hover {
+    color: var(--accent);
+  }
+
+  .path-list span {
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
   .shot {
-    margin: var(--s-7) 0 0;
+    margin: 0;
   }
 
   .shot :global(img) {
     width: 100%;
     height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: left top;
     border: 1px solid var(--rule);
     border-radius: var(--radius);
-    /* Raptor's capture is cropped mid-page; let it trail off instead of stopping. */
-    -webkit-mask-image: linear-gradient(to bottom, var(--bg) 72%, transparent);
-    mask-image: linear-gradient(to bottom, var(--bg) 72%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, var(--bg) 70%, transparent);
+    mask-image: linear-gradient(to bottom, var(--bg) 70%, transparent);
   }
 
-  /* On phones the full console is too small to read: show its top-left
-     (server, status, tabs, readouts) at a legible size instead. The square
-     crop draws the whole capture about 1.7 screens wide, hence sizes 170vw. */
-  @media (max-width: 44rem) {
-    .shot :global(img) {
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      object-position: left top;
-    }
-  }
-
-  .shot figcaption {
-    margin-top: var(--s-3);
-  }
-
-  .raptor-detail {
+  .server-art {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    gap: var(--s-7);
-    margin-top: var(--s-8);
-  }
-
-  .parts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-4);
     margin: 0;
-    border-top: 1px solid var(--rule);
+    padding: 0;
+    list-style: none;
   }
 
-  .part {
+  .server-art a {
     display: grid;
-    grid-template-columns: 9rem minmax(0, 1fr) 11rem;
-    gap: var(--s-2) var(--s-5);
-    padding-block: var(--s-5);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .part dt {
-    font-weight: 600;
-  }
-
-  .part dd {
-    margin: 0;
-  }
-
-  .what {
-    color: var(--muted);
-  }
-
-  .where {
-    display: flex;
-    flex-direction: column;
     gap: var(--s-1);
-    font-size: var(--t-small);
+    text-decoration: none;
   }
 
-  .raptor-links {
-    padding-top: var(--s-5);
-    border-top: 1px solid var(--rule);
-  }
-
-  .raptor-links p {
-    color: var(--muted);
-  }
-
-  .raptor-links ul {
-    display: grid;
-    gap: var(--s-2);
-    margin: var(--s-5) 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .raptor-links a {
-    color: var(--text);
-  }
-
-  @media (max-width: 60rem) {
-    .raptor-detail {
-      grid-template-columns: 1fr;
-      gap: var(--s-6);
-    }
-
-    /* Stacked under the parts, whose last row already ends in a hairline. */
-    .raptor-links {
-      padding-top: 0;
-      border-top: 0;
-    }
-  }
-
-  @media (max-width: 44rem) {
-    .part {
-      grid-template-columns: 1fr;
-    }
-
-    .where {
-      flex-direction: row;
-      align-items: baseline;
-      gap: var(--s-3);
-    }
-  }
-
-  /* ---------------------------------------------------------------- neoskript */
-
-  .neoskript {
-    padding-block: var(--s-8);
-    border-top: 1px solid var(--rule);
-  }
-
-  .neoskript-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: var(--s-7);
-    align-items: center;
-  }
-
-  .neoskript-head :global(.neoskript-logo) {
-    width: clamp(10rem, 8rem + 8vw, 13rem);
-    height: auto;
-    margin-bottom: var(--s-6);
-  }
-
-  .neoskript h2 {
-    font-size: var(--t-h2);
-  }
-
-  .status {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: var(--s-3);
-    margin-top: var(--s-5);
-    font-size: var(--t-small);
-  }
-
-  /* Source and licence links under NeoSkript's and MostWanted's status. */
-  .project-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-5);
-    margin: var(--s-5) 0 0;
-    padding: 0;
-    list-style: none;
-    font-size: var(--t-small);
-  }
-
-  .project-links a {
-    color: var(--text);
-  }
-
-  .script {
-    margin: 0;
-  }
-
-  .script pre {
-    margin: 0;
-    padding: var(--s-5);
-    overflow-x: auto;
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    background: var(--raised);
-    font-size: var(--t-small);
-    line-height: 1.8;
-  }
-
-  .script figcaption {
-    margin-top: var(--s-3);
-  }
-
-  @media (max-width: 60rem) {
-    .neoskript-inner {
-      /* minmax(0, …) so the code scrolls inside its box instead of widening the page. */
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-
-  /* ---------------------------------------------------------------- mostwanted */
-
-  .mostwanted {
-    padding-block: var(--s-8);
-    border-top: 1px solid var(--rule);
-  }
-
-  .mostwanted-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-    gap: var(--s-7);
-    align-items: center;
-  }
-
-  .mostwanted-head :global(.mostwanted-logo) {
-    display: block;
-    width: clamp(14rem, 11rem + 10vw, 20rem);
-    height: auto;
-    margin-bottom: var(--s-6);
-  }
-
-  .mostwanted h2 {
-    font-size: var(--t-h2);
-  }
-
-  .key-art {
-    margin: 0;
-  }
-
-  .key-art :global(img) {
-    display: block;
+  .server-art :global(img) {
     width: 100%;
     height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     border: 1px solid var(--rule);
     border-radius: var(--radius);
+    margin-bottom: var(--s-3);
+    transition:
+      transform 600ms var(--ease),
+      border-color 200ms var(--ease);
   }
 
-  .key-art figcaption {
-    margin-top: var(--s-3);
+  .server-art a:hover :global(img) {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklch, var(--accent) 45%, var(--rule));
   }
 
-  @media (max-width: 60rem) {
-    .mostwanted-inner {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-
-  /* ---------------------------------------------------------------- plugins */
-
-  .plugins {
-    padding-block: var(--s-8);
-    border-top: 1px solid var(--rule);
-  }
-
-  .plugins h2 {
-    font-size: var(--t-h2);
-  }
-
-  .plugin-list {
-    margin: var(--s-7) 0 0;
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--rule);
-  }
-
-  .plugin {
-    display: grid;
-    grid-template-columns: 3rem 9rem minmax(0, 1fr) 9rem auto;
-    gap: var(--s-2) var(--s-5);
-    align-items: center;
-    padding-block: var(--s-5);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .plugin-icon {
-    display: block;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 10px;
-  }
-
-  .plugin h3 {
-    font-size: var(--t-body);
+  .server-name {
     font-weight: 600;
   }
 
-  .plugin .what {
-    max-width: var(--measure);
-  }
-
-  .plugin-links,
-  .plugins-all {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-5);
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  .server-what {
     font-size: var(--t-small);
+    color: var(--muted);
   }
 
-  .plugin-links {
-    flex-direction: column;
+  /* The servers lead with their art: the copy on top, the two key arts wide below. */
+  .path.servers {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-6);
   }
 
-  .plugin-links a,
-  .plugins-all a {
-    color: var(--text);
-  }
-
-  .plugins-all {
-    margin-top: var(--s-5);
-  }
-
-  @media (max-width: 52rem) {
-    .plugin {
-      grid-template-columns: 3rem minmax(0, 1fr);
-      align-items: start;
-    }
-
-    .plugin > :not(.plugin-icon) {
-      grid-column: 2;
-    }
-
-    .plugin-icon {
-      grid-row: span 4;
-    }
-
-    .plugin .where {
-      flex-direction: row;
-      align-items: baseline;
-      gap: var(--s-3);
-    }
-
-    .plugin-links {
-      flex-direction: row;
-    }
-  }
-
-  /* ---------------------------------------------------------------- principles */
-
-  .principles {
-    padding-block: var(--s-7) var(--s-8);
-  }
-
-  .principles h2 {
-    font-size: var(--t-h2);
-  }
-
-  .principle-list {
-    margin: var(--s-7) 0 0;
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--rule);
-  }
-
-  .principle {
+  .path.servers .path-copy {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--s-3) var(--s-7);
-    padding-block: var(--s-6);
-    border-bottom: 1px solid var(--rule);
+    gap: var(--s-2) var(--s-7);
+    align-items: end;
   }
 
-  .principle h3 {
-    font-size: var(--t-h3);
+  .path.servers .path-copy .lead {
+    margin-top: 0;
   }
 
-  .principle p {
-    max-width: var(--measure);
-    color: var(--muted);
+  .path.servers .more {
+    grid-column: 1;
+    margin-top: var(--s-2);
   }
 
-  .principle a {
-    color: var(--text);
-  }
-
-  @media (max-width: 52rem) {
-    .principle {
-      grid-template-columns: 1fr;
+  @media (max-width: 44rem) {
+    .server-art {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
-  /* ---------------------------------------------------------------- contact */
+  @media (max-width: 64rem) {
+    .path.servers .path-copy {
+      grid-template-columns: minmax(0, 1fr);
+    }
 
-  .contact {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-    padding-block: var(--s-7) clamp(12rem, 26vw, 20rem);
+    .path {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-6);
+    }
   }
 
-  .contact :global(.horizon) {
-    position: absolute;
-    inset: auto 0 0 0;
-    z-index: -1;
-    width: 100%;
-    height: clamp(10rem, 24vw, 18rem);
+  /* ---------------------------------------------------------------- news */
+
+  .news-list {
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
   }
 
-  .contact h2 {
-    font-size: var(--t-h2);
+  .news-list li {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr) auto;
+    gap: var(--s-2) var(--s-5);
+    align-items: baseline;
+    padding-block: var(--s-4);
+    border-bottom: 1px solid var(--rule);
   }
 
-  .mail {
-    margin-top: var(--s-6);
-    font-size: clamp(1.25rem, 0.9rem + 1.6vw, 2.25rem);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    overflow-wrap: anywhere;
-  }
-
-  .mail a {
-    color: var(--accent);
-    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
-  }
-
-  .mail a:hover {
-    text-decoration-color: var(--accent);
-  }
-
-  .aside {
-    margin-top: var(--s-5);
+  .news-list a {
     font-size: var(--t-small);
-    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 44rem) {
+    .news-list li {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

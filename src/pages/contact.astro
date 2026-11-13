@@ -1,0 +1,167 @@
+---
+import Base from "../layouts/Base.astro";
+import Horizon from "../components/Horizon.astro";
+import External from "../components/External.astro";
+
+const ways = [
+  {
+    what: "Security problems",
+    how: "Email security@xenastudios.co, or use Report a vulnerability on the repo. Never a public issue.",
+    links: [
+      { href: "mailto:security@xenastudios.co", text: "security@xenastudios.co", external: false },
+      { href: "https://github.com/xena-studios/.github/blob/main/SECURITY.md", text: "Security policy", external: true },
+    ],
+  },
+  {
+    what: "Playing on MostWanted or Airfields",
+    how: "Bugs, reports, appeals and store help go through each server's own support page.",
+    links: [
+      { href: "https://mostwantedmc.com/support", text: "mostwantedmc.com/support", external: true },
+      { href: "https://airfieldsmc.com/support", text: "airfieldsmc.com/support", external: true },
+    ],
+  },
+  {
+    what: "Help with Raptor",
+    how: "The documentation answers most questions. Bugs and ideas go to its repo.",
+    links: [
+      { href: "https://docs.raptorpanel.net", text: "docs.raptorpanel.net", external: true },
+      { href: "https://github.com/xena-studios/raptor/issues/new/choose", text: "Open an issue", external: true },
+    ],
+  },
+  {
+    what: "Help with NeoSkript or the plugins",
+    how: "Start with the docs, then open an issue on the project's repo.",
+    links: [
+      { href: "https://neoskript.dev/docs", text: "neoskript.dev/docs", external: true },
+      { href: "https://docs.xenastudios.co", text: "docs.xenastudios.co", external: true },
+    ],
+  },
+];
+---
+<Base
+  title="Contact · Xena Studios"
+  description="How to reach Xena Studios: partnerships and press, security reports, help with Raptor, NeoSkript and the plugins, and support for our servers."
+>
+  <section class="contact" aria-labelledby="contact-title">
+    <div class="wrap copy">
+      <p class="kicker">// Contact</p>
+      <h1 id="contact-title">Get in touch.</h1>
+      <p class="lead">Partnerships, press, hosting, or a question about what we build.</p>
+      <p class="mail"><a href="mailto:contact@xenastudios.co">contact@xenastudios.co</a></p>
+    </div>
+  </section>
+
+  <section class="ways section" aria-labelledby="ways-title">
+    <div class="wrap">
+      <h2 id="ways-title">For everything else</h2>
+      <ul class="way-list">
+        {
+          ways.map((w) => (
+            <li>
+              <h3>{w.what}</h3>
+              <p>{w.how}</p>
+              <ul class="project-links">
+                {w.links.map((l) => (
+                  <li>{l.external ? <a href={l.href}><External>{l.text}</External></a> : <a href={l.href}>{l.text}</a>}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <div class="foot-horizon" aria-hidden="true"><Horizon class="horizon" idPrefix="contact-horizon" /></div>
+</Base>
+
+<style>
+  .contact {
+    padding-block: var(--s-8) var(--s-7);
+  }
+
+  h1 {
+    font-size: var(--t-h1);
+    line-height: 1.05;
+  }
+
+  .copy > * {
+    animation: settle 1000ms var(--ease) both;
+  }
+
+  .copy > :nth-child(n + 2) {
+    animation-delay: 90ms;
+  }
+
+  @keyframes settle {
+    from {
+      transform: translateY(0.75rem);
+      opacity: 0;
+    }
+  }
+
+  .mail {
+    margin-top: var(--s-6);
+    font-size: clamp(1.5rem, 0.9rem + 2.6vw, 3.25rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .mail a {
+    color: var(--accent);
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  .mail a:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  .way-list {
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .way-list > li {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 4fr);
+    gap: var(--s-3) var(--s-6);
+    align-items: baseline;
+    padding-block: var(--s-5);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .way-list h3 {
+    font-size: var(--t-body);
+  }
+
+  .way-list p {
+    color: var(--muted);
+  }
+
+  .way-list .project-links {
+    flex-direction: column;
+    margin: 0;
+  }
+
+  @media (max-width: 52rem) {
+    .way-list > li {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .foot-horizon {
+    position: relative;
+    height: clamp(10rem, 24vw, 18rem);
+    overflow: hidden;
+  }
+
+  .foot-horizon :global(.horizon) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

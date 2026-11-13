@@ -65,4 +65,4 @@ pnpm dlx impeccable update --project --yes --no-hooks             # update it
 
 ## Licence
 
-All rights reserved: the source is public to read, not to reuse, so the repo doesn't take outside pull requests. The Impeccable skill is under Apache-2.0, and JetBrains Mono is under the SIL Open Font License.
+All rights reserved; see [LICENSE](LICENSE). The source is public to read, not to reuse, so the repo doesn't take outside pull requests. The Impeccable skill is under Apache-2.0, and JetBrains Mono is under the SIL Open Font License.

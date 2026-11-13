@@ -1,0 +1,19 @@
+Copyright (c) 2026 Xena Studios. All rights reserved.
+
+This repository is the source of xenastudios.co: its code, design, copy,
+images and the Xena Studios brand assets copied into it. It is public so it
+can be read. No licence is granted to copy, modify, distribute, host or
+otherwise reuse any part of it, in whole or in part, without prior written
+permission from Xena Studios.
+
+Third-party software and assets included here remain under their own
+licences, among them:
+  - the Impeccable skill in .agents/skills/impeccable/ (Apache-2.0, see its
+    LICENSE file)
+  - JetBrains Mono (SIL Open Font License)
+  - the npm packages in package.json, under their own licences
+
+The Xena Studios logos may be used to refer to us as described in the brand
+repository's licence: https://github.com/xena-studios/brand/blob/main/LICENSE
+
+Contact: contact@xenastudios.co

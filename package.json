@@ -1,6 +1,7 @@
 {
   "name": "xena-website",
   "private": true,
+  "license": "UNLICENSED",
   "type": "module",
   "packageManager": "pnpm@12.16.1",
   "scripts": {

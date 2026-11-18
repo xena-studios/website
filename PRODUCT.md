@@ -14,7 +14,7 @@ They are technical or close to it, skeptical of hype, and spend under a minute d
 
 ## Product Purpose
 
-xenastudios.co is the studio's front door. It says what Xena Studios is in one breath, then splits into two paths: **tools** for the people who run servers (Raptor, NeoSkript in public beta, and the Minecraft plugins with their docs at docs.xenastudios.co) and **servers** for the people who play (MostWanted and Airfields, both in development and marked that way, each with its own site). About says how the studio works and what's open source; Contact gives every way to reach us. The home page's "Lately" list is the start of a news section, so a blog can come later without a redesign.
+xenastudios.co is the studio's front door. It says what Xena Studios is in one breath, then splits into two paths: **tools** for the people who run servers (Raptor, NeoSkript in public beta, and the Minecraft plugins with their docs at plugins.xenastudios.co) and **servers** for the people who play (MostWanted and Airfields, both in development and marked that way, each with its own site). About says how the studio works and what's open source; Contact gives every way to reach us. The home page's "Lately" list is the start of a news section, so a blog can come later without a redesign.
 
 Success: a visitor can tell within seconds what the studio builds and which side is for them, can reach Raptor's site, docs, and source, or a server's site, in one or two clicks, and leaves trusting that the claims are checkable.
 

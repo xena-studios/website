@@ -6,7 +6,7 @@ contact_links:
   - name: Raptor
     url: https://github.com/xena-studios/raptor/issues/new/choose
     about: Bugs and ideas for Raptor go to its own repository. For help, see docs.raptorpanel.net.
-  - name: xUtilities, zChat or xLimbo
+  - name: xUtilities, zChat, xLimbo or xRewind
     url: https://github.com/xena-studios/plugins/issues/new/choose
     about: Bugs and ideas for the plugins go to their repository.
   - name: NeoSkript

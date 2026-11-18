@@ -38,6 +38,7 @@ const files = [
   ["plugins/xutilities/icon.svg", "src/brand/plugins/xutilities.svg"],
   ["plugins/zchat/icon.svg", "src/brand/plugins/zchat.svg"],
   ["plugins/xlimbo/icon.svg", "src/brand/plugins/xlimbo.svg"],
+  ["plugins/xrewind/icon.svg", "src/brand/plugins/xrewind.svg"],
   ["avatar/favicon.svg", "public/favicon.svg"],
   ["avatar/apple-touch-icon.png", "public/apple-touch-icon.png"],
   ["social/og-card.png", "public/og.png"],

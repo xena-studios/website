@@ -1,7 +1,9 @@
-# The plugin docs moved to their own site. Modrinth's wiki links point here
-# (xenastudios.co/docs/<plugin>), so keep them working.
-/docs    https://docs.xenastudios.co/         301
-/docs/*  https://docs.xenastudios.co/:splat   301
+# The plugins have their own site, plugins.xenastudios.co. Modrinth's wiki links point
+# here (xenastudios.co/docs/<plugin>), so keep them working; /plugins is the short form.
+/docs    https://plugins.xenastudios.co/         301
+/docs/*  https://plugins.xenastudios.co/:splat   301
+/plugins    https://plugins.xenastudios.co/         301
+/plugins/*  https://plugins.xenastudios.co/:splat   301
 
 # Short addresses for each project, so a link like xenastudios.co/raptor works.
 /raptor      /tools#raptor        301

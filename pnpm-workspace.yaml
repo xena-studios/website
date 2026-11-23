@@ -13,5 +13,5 @@ allowBuilds:
 # astro check ("setLastError is not a function"). Stay on the stable 1.x
 # until 2.0 is released.
 overrides:
-  'undici@>=7.0.0 <7.30.1': 7.30.1
+  'undici@>=7.0.0 <7.30.1': 8.13.1
   '@emnapi/runtime': 1.11.3

@@ -1,19 +1,28 @@
 ---
-// The plugins, as they appear on the Tools page: one hairline row each.
+// The plugins, as they appear on the Tools page: one hairline row each. A plugin Modrinth is
+// still reviewing has no public Modrinth page yet (it's a 404 for everyone else), so it
+// links its download page on plugins.xenastudios.co, which lists its GitHub releases.
 import External from "../External.astro";
 import xutilitiesIcon from "../../brand/plugins/xutilities.svg?url";
 import zchatIcon from "../../brand/plugins/zchat.svg?url";
 import xlimboIcon from "../../brand/plugins/xlimbo.svg?url";
 import xrewindIcon from "../../brand/plugins/xrewind.svg?url";
+import xplotsIcon from "../../brand/plugins/xplots.svg?url";
+import xteleportIcon from "../../brand/plugins/xteleport.svg?url";
+import xvoteIcon from "../../brand/plugins/xvote.svg?url";
+import xbansIcon from "../../brand/plugins/xbans.svg?url";
+import xmoneyIcon from "../../brand/plugins/xmoney.svg?url";
+import xstatsIcon from "../../brand/plugins/xstats.svg?url";
+import xbackupIcon from "../../brand/plugins/xbackup.svg?url";
 
-const plugins = [
+const plugins: { name: string; icon: string; what: string; runs: string; docs: string; modrinth?: string }[] = [
   {
     name: "xUtilities",
     icon: xutilitiesIcon,
     what: "Gamemodes, flight, heal, /back, workstation menus, and link commands like /discord that you write yourself. Every command can be switched off.",
     runs: "Paper, Folia",
     docs: "https://plugins.xenastudios.co/xutilities/",
-    href: "https://modrinth.com/plugin/xutilities",
+    modrinth: "https://modrinth.com/plugin/xutilities",
   },
   {
     name: "zChat",
@@ -21,7 +30,7 @@ const plugins = [
     what: "A chat format per rank, a filter that's hard to dodge, cooldowns, mentions and private messages. Each message is drawn once, however many players see it.",
     runs: "Paper, Folia",
     docs: "https://plugins.xenastudios.co/zchat/",
-    href: "https://modrinth.com/plugin/zchat",
+    modrinth: "https://modrinth.com/plugin/zchat",
   },
   {
     name: "xLimbo",
@@ -29,7 +38,7 @@ const plugins = [
     what: "Your network's fallback server. When the main server goes down, players wait in a safe void world instead of being disconnected, and go back when it's up.",
     runs: "Paper",
     docs: "https://plugins.xenastudios.co/xlimbo/",
-    href: "https://modrinth.com/plugin/xlimbo",
+    modrinth: "https://modrinth.com/plugin/xlimbo",
   },
   {
     name: "xRewind",
@@ -37,7 +46,55 @@ const plugins = [
     what: "A block logger with rollback: see who placed, broke or took what, preview a rollback and undo it. Every feature free, with CoreProtect's commands and your CoreProtect history.",
     runs: "Paper, Folia",
     docs: "https://plugins.xenastudios.co/xrewind/",
-    href: "https://modrinth.com/plugin/xrewind",
+  },
+  {
+    name: "xPlots",
+    icon: xplotsIcon,
+    what: "Rentable plots for box and PvP servers. Select an area and every plot and its sign is made for you; players rent with money or an item, add members and pay ahead.",
+    runs: "Paper",
+    docs: "https://plugins.xenastudios.co/xplots/",
+  },
+  {
+    name: "xTeleport",
+    icon: xteleportIcon,
+    what: "Homes, TPA, warps, spawn and random teleport in one plugin, with warmups, cooldowns and costs. Imports homes and warps from EssentialsX.",
+    runs: "Paper, Folia",
+    docs: "https://plugins.xenastudios.co/xteleport/",
+  },
+  {
+    name: "xVote",
+    icon: xvoteIcon,
+    what: "Vote rewards with a built-in Votifier that keeps NuVotifier's keys: rewards per site, streaks, a vote party and leaderboards, paid once even across a network.",
+    runs: "Paper, Folia",
+    docs: "https://plugins.xenastudios.co/xvote/",
+  },
+  {
+    name: "xBans",
+    icon: xbansIcon,
+    what: "Bans, mutes, warnings and kicks, checked from memory at every join and chat message, with templates, staff limits, alts and IP bans. Uses LiteBans' commands and imports its history.",
+    runs: "Paper, Folia",
+    docs: "https://plugins.xenastudios.co/xbans/",
+  },
+  {
+    name: "xMoney",
+    icon: xmoneyIcon,
+    what: "An economy that is its own Vault: balances, /pay, /baltop and a ledger of every change, with Vault's API built in, so shops work without Vault.jar.",
+    runs: "Paper, Folia",
+    docs: "https://plugins.xenastudios.co/xmoney/",
+  },
+  {
+    name: "xStats",
+    icon: xstatsIcon,
+    what: "Player stats and leaderboards by day, week and month, with playtime that leaves out AFK time, placeholders, and a stats website your server hosts itself.",
+    runs: "Paper, Folia",
+    docs: "https://plugins.xenastudios.co/xstats/",
+  },
+  {
+    name: "xBackup",
+    icon: xbackupIcon,
+    what: "Incremental backups: only what changed is stored, chunk by chunk, and copied to S3, SFTP, WebDAV or a cloud drive. Restore from the command line or on the next start.",
+    runs: "Paper, Folia",
+    docs: "https://plugins.xenastudios.co/xbackup/",
   },
 ];
 ---
@@ -60,7 +117,13 @@ const plugins = [
             </p>
             <ul class="plugin-links">
               <li><a href={p.docs}><External>Docs<span class="visually-hidden"> for {p.name}</span></External></a></li>
-              <li><a href={p.href}><External>Modrinth<span class="visually-hidden"> page for {p.name}</span></External></a></li>
+              <li>
+                {p.modrinth ? (
+                  <a href={p.modrinth}><External>Modrinth<span class="visually-hidden"> page for {p.name}</span></External></a>
+                ) : (
+                  <a href={`${p.docs}download/`}><External>Download<span class="visually-hidden"> {p.name}</span></External></a>
+                )}
+              </li>
             </ul>
           </li>
         ))
@@ -68,7 +131,7 @@ const plugins = [
     </ul>
     <ul class="plugins-all">
       <li><a href="https://plugins.xenastudios.co"><External>plugins.xenastudios.co</External></a></li>
-      <li><a href="https://modrinth.com/organization/xena-studios">All our plugins on <External>Modrinth</External></a></li>
+      <li><a href="https://github.com/xena-studios/plugins">Source and every release on <External>GitHub</External></a></li>
     </ul>
   </div>
 </section>

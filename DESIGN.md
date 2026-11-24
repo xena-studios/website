@@ -59,6 +59,7 @@ One family, **JetBrains Mono** (variable, self-hosted via Fontsource), with size
 ## 4. Components
 
 - **External** (`src/components/External.astro`): the site's only icon, an outbound arrow drawn as SVG at 0.62em in `currentColor`, nudging up-right on hover and focus. It wraps the link's last word (`Source on <External>GitHub</External>`) so the arrow never lands on a line by itself. Every link to another site carries it, in the header, body and footer alike; the contact address, a `mailto:` link, doesn't. No Unicode arrows.
+- **Footer** (`src/layouts/Base.astro`): what the studio does and the Tools, Servers and Studio columns, then the row every Xena site ends with (raptorpanel.net, neoskript.dev, mostwantedmc.com, airfieldsmc.com, brand.xenastudios.co): the XENA mark, `© <year> Xena Studios` as a `.label`, and one note, here the Minecraft disclaimer the server sites carry.
 - **Inward link** (`.more` in `global.css`): a link deeper into this site, with a chevron drawn in CSS that nudges right on hover. Outbound links use External instead.
 - **PageHero** (`src/components/PageHero.astro`): the top of every page but home: kicker, title, lead, and a low horizon that rises on load.
 - **Path panels** (home): two large panels, Tools and Servers, each with its own content (a Raptor capture; the two servers' key art). Two different panels, not a card grid.

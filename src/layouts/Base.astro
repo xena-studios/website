@@ -87,10 +87,9 @@ const section = nav.find((n) => path === n.href || path.startsWith(`${n.href}/`)
 
     <footer class="site-footer">
       <div class="wrap foot">
-        <div class="foot-studio">
-          <Logo name="xena" class="foot-logo" />
-          <p class="label">© {year} Xena Studios</p>
-        </div>
+        <p class="foot-about">
+          Game servers, and the tools to run them. Raptor, NeoSkript and the plugins are open source; the servers are ours.
+        </p>
         <nav class="foot-cols" aria-label="Footer">
           <div>
             <h2 class="label">Tools</h2>
@@ -112,12 +111,20 @@ const section = nav.find((n) => path === n.href || path.startsWith(`${n.href}/`)
             <ul>
               <li><a href="/about">About</a></li>
               <li><a href="/contact">Contact</a></li>
+              <li><a href="https://brand.xenastudios.co"><External>Brand</External></a></li>
               <li><a href="https://github.com/xena-studios"><External>GitHub</External></a></li>
               <li><a href="https://modrinth.com/organization/xena-studios"><External>Modrinth</External></a></li>
-              <li><a href="https://brand.xenastudios.co"><External>Brand</External></a></li>
             </ul>
           </div>
         </nav>
+      </div>
+      <!-- The row every Xena site ends with: the XENA mark, the copyright, and its one note. -->
+      <div class="wrap legal">
+        <p class="studio">
+          <a href="/" aria-label="Xena Studios, home"><Logo name="xena" class="foot-logo" /></a>
+          <span class="label">© {year} Xena Studios</span>
+        </p>
+        <p>Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
       </div>
     </footer>
   </body>
@@ -152,7 +159,7 @@ const section = nav.find((n) => path === n.href || path.startsWith(`${n.href}/`)
     width: auto;
   }
 
-  nav ul {
+  .site-header nav ul {
     display: flex;
     gap: clamp(var(--s-4), 2.5vw, var(--s-6));
     margin: 0;
@@ -161,7 +168,7 @@ const section = nav.find((n) => path === n.href || path.startsWith(`${n.href}/`)
     font-size: var(--t-small);
   }
 
-  nav a {
+  .site-header nav a {
     display: inline-block;
     padding-block: var(--s-2);
     white-space: nowrap;
@@ -169,12 +176,12 @@ const section = nav.find((n) => path === n.href || path.startsWith(`${n.href}/`)
     text-decoration: none;
   }
 
-  nav a:hover,
-  nav a[aria-current="page"] {
+  .site-header nav a:hover,
+  .site-header nav a[aria-current="page"] {
     color: var(--text);
   }
 
-  nav a[aria-current="page"] {
+  .site-header nav a[aria-current="page"] {
     text-decoration: underline;
     text-decoration-color: var(--accent);
     text-decoration-thickness: 2px;
@@ -192,14 +199,14 @@ const section = nav.find((n) => path === n.href || path.startsWith(`${n.href}/`)
       height: 0.6875rem;
     }
 
-    nav ul {
+    .site-header nav ul {
       gap: var(--s-3);
       font-size: var(--t-label);
     }
   }
 
   .site-footer {
-    padding-block: var(--s-7) var(--s-7);
+    padding-top: var(--s-7);
     border-top: 1px solid var(--rule);
   }
 
@@ -208,17 +215,13 @@ const section = nav.find((n) => path === n.href || path.startsWith(`${n.href}/`)
     grid-template-columns: minmax(0, 1fr) auto;
     gap: var(--s-6);
     align-items: start;
+    padding-bottom: var(--s-7);
   }
 
-  .foot-studio {
-    display: grid;
-    gap: var(--s-3);
-  }
-
-  .foot :global(.foot-logo) {
-    height: 0.75rem;
-    width: auto;
-    color: var(--text);
+  .foot-about {
+    max-width: 34ch;
+    font-size: var(--t-small);
+    color: var(--muted);
   }
 
   .foot-cols {
@@ -241,12 +244,50 @@ const section = nav.find((n) => path === n.href || path.startsWith(`${n.href}/`)
     font-size: var(--t-small);
   }
 
-  .foot-cols a {
+  .foot-cols a,
+  .legal a {
     color: var(--muted);
+    text-decoration: none;
   }
 
   .foot-cols a:hover {
     color: var(--text);
+  }
+
+  /* As on raptorpanel.net, mostwantedmc.com and airfieldsmc.com. */
+  .legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3) var(--s-5);
+    padding-block: var(--s-5);
+    border-top: 1px solid var(--rule);
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  .studio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-3) var(--s-5);
+  }
+
+  .studio a {
+    display: block;
+    color: var(--text);
+    transition: color 160ms var(--ease);
+  }
+
+  .studio a:hover {
+    color: var(--accent);
+  }
+
+  .studio :global(.foot-logo) {
+    display: block;
+    height: 0.75rem;
+    width: auto;
   }
 
   @media (max-width: 48rem) {

@@ -37,7 +37,10 @@ const work = [
           work.map((w) => (
             <div>
               <dt>
-                {w.href ? <a href={w.href}><External>{w.name}</External></a> : w.name}
+                {w.href ? (
+                  // The arrow wraps only the last word, so a long name can still break.
+                  <a href={w.href}>{w.name.includes(" ") && `${w.name.slice(0, w.name.lastIndexOf(" "))} `}<External>{w.name.slice(w.name.lastIndexOf(" ") + 1)}</External></a>
+                ) : w.name}
               </dt>
               <dd class="label">{w.kind}</dd>
               <dd>{w.licence}</dd>

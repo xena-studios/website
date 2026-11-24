@@ -1,9 +1,13 @@
-// Copies the site's brand assets from a checkout of xena-studios/brand, the
-// single source of truth for logos, colours and scenes. The copies are
-// committed, so builds never fetch the brand repo and the site only changes
-// when someone syncs on purpose.
+// Copies the site's brand assets from a release of xena-studios/brand, the single
+// source of truth for logos, colours and scenes. The copies are committed, so builds
+// never fetch the brand repo and the site only changes when someone syncs on purpose.
 //
-//   pnpm brand:sync                    # expects ../brand
+// It reads the files from a release tag in a checkout of the brand repo, not from
+// whatever that checkout has open, so the site always matches a release (and what
+// jsDelivr serves for it).
+//
+//   pnpm brand:sync                    # the latest release, from ../brand
+//   pnpm brand:sync v1.2.0             # a given release
 //   BRAND_DIR=/path/to/brand pnpm brand:sync
 import fs from "node:fs";
 import path from "node:path";
@@ -12,8 +16,19 @@ import { execFileSync } from "node:child_process";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const BRAND = path.resolve(process.env.BRAND_DIR ?? path.join(ROOT, "../brand"));
 
-if (!fs.existsSync(path.join(BRAND, "tokens/colors.css"))) {
+if (!fs.existsSync(path.join(BRAND, ".git"))) {
   console.error(`No brand checkout at ${BRAND}. Clone xena-studios/brand there or set BRAND_DIR.`);
+  process.exit(1);
+}
+
+const git = (...args: string[]) => execFileSync("git", ["-C", BRAND, ...args], { encoding: "utf8", maxBuffer: 64 << 20 });
+const gitBytes = (...args: string[]) => execFileSync("git", ["-C", BRAND, ...args], { maxBuffer: 64 << 20 });
+
+// The release: the one asked for, or the newest tag on GitHub.
+git("fetch", "--quiet", "--tags", "origin");
+const release = process.argv[2] ?? git("describe", "--tags", "--abbrev=0", "--match", "v[0-9]*", "origin/main").trim();
+if (!/^v\d+\.\d+\.\d+$/.test(release)) {
+  console.error(`${release} isn't a release tag (vX.Y.Z).`);
   process.exit(1);
 }
 
@@ -35,17 +50,8 @@ const files = [
   ["neoskript/icon.png", "src/brand/icons/neoskript.png"],
   ["mostwanted/icon.png", "src/brand/icons/mostwanted.png"],
   ["airfields/icon.png", "src/brand/icons/airfields.png"],
-  ["plugins/xutilities/icon.svg", "src/brand/plugins/xutilities.svg"],
-  ["plugins/zchat/icon.svg", "src/brand/plugins/zchat.svg"],
-  ["plugins/xlimbo/icon.svg", "src/brand/plugins/xlimbo.svg"],
-  ["plugins/xrewind/icon.svg", "src/brand/plugins/xrewind.svg"],
-  ["plugins/xplots/icon.svg", "src/brand/plugins/xplots.svg"],
-  ["plugins/xteleport/icon.svg", "src/brand/plugins/xteleport.svg"],
-  ["plugins/xvote/icon.svg", "src/brand/plugins/xvote.svg"],
-  ["plugins/xbans/icon.svg", "src/brand/plugins/xbans.svg"],
-  ["plugins/xmoney/icon.svg", "src/brand/plugins/xmoney.svg"],
-  ["plugins/xstats/icon.svg", "src/brand/plugins/xstats.svg"],
-  ["plugins/xbackup/icon.svg", "src/brand/plugins/xbackup.svg"],
+  ...["xutilities", "zchat", "xlimbo", "xrewind", "xplots", "xteleport", "xvote", "xbans", "xmoney", "xstats", "xbackup"]
+    .map((id) => [`plugins/${id}/icon.svg`, `src/brand/plugins/${id}.svg`]),
   ["avatar/favicon.svg", "public/favicon.svg"],
   ["avatar/apple-touch-icon.png", "public/apple-touch-icon.png"],
   ["social/og-card.png", "public/og.png"],
@@ -54,11 +60,10 @@ const files = [
 for (const [from, to] of files) {
   const dest = path.join(ROOT, to);
   fs.mkdirSync(path.dirname(dest), { recursive: true });
-  fs.copyFileSync(path.join(BRAND, from), dest);
+  fs.writeFileSync(dest, gitBytes("show", `${release}:${from}`));
 }
 
-const git = (...args: string[]) => execFileSync("git", ["-C", BRAND, ...args], { encoding: "utf8" }).trim();
-const source = { repo: "xena-studios/brand", commit: git("rev-parse", "HEAD"), dirty: git("status", "--porcelain") !== "" };
+const source = { repo: "xena-studios/brand", release, commit: git("rev-parse", `${release}^{commit}`).trim() };
 fs.writeFileSync(path.join(ROOT, "src/brand/SOURCE.json"), JSON.stringify(source, null, 2) + "\n");
 
-console.log(`synced ${files.length} files from brand@${source.commit.slice(0, 7)}${source.dirty ? " (dirty)" : ""}`);
+console.log(`synced ${files.length} files from brand ${release} (${source.commit.slice(0, 7)})`);

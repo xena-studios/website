@@ -33,11 +33,14 @@ Add new pages to `src/pages/sitemap.xml.ts`.
 
 ## Brand assets
 
-Logos, colours, the horizon and the icons come from [xena-studios/brand](https://github.com/xena-studios/brand). Change them there, then copy them in:
+Logos, colours, the horizon and the icons come from [xena-studios/brand](https://github.com/xena-studios/brand) ([brand.xenastudios.co](https://brand.xenastudios.co)). Change them there and release them, then copy the release in:
 
 ```sh
-pnpm brand:sync    # expects the brand repo at ../brand, or set BRAND_DIR
+pnpm brand:sync           # the latest brand release, from a checkout at ../brand (or set BRAND_DIR)
+pnpm brand:sync v1.2.0    # a given release
 ```
+
+It reads the files from the release tag, not from whatever the checkout has open, and `src/brand/SOURCE.json` records which release they came from.
 
 Never set Ethnocentric (the logo font) as live text. Its licence only covers the outlined logos.
 

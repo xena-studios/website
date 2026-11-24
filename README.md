@@ -30,7 +30,8 @@ Pushing to `main` builds and deploys to the `xenastudios-website` Cloudflare Wor
 
 ## Maintenance
 
-- Renovate opens dependency PRs on Monday mornings.
+- Renovate opens dependency PRs on Monday mornings, for releases at least 3 days old.
+- A link check (`links.yml`) runs on pull requests and every Monday; a Monday failure opens an issue. It doesn't block a merge.
 - **`public/.well-known/security.txt` expires on 2027-11-10.** Move the date a year out before then.
 
 ## Design skill

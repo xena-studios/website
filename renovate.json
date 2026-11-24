@@ -1,8 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>xena-studios/.github:renovate-config"
-  ],
+  "description": "The shared settings every Xena repo extends (pinned third-party actions, the Monday schedule, a 3-day wait on new releases, Node majors by approval) are in xena-studios/.github's renovate-config.json. These rules are this repo's own.",
+  "extends": ["local>xena-studios/.github:renovate-config"],
   "packageRules": [
     {
       "description": "astro check doesn't support TypeScript 7 yet (\"install TypeScript 6 instead\"). Drop this once @astrojs/check does.",

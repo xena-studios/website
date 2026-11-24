@@ -1,35 +1,11 @@
-![xenastudios.co by Xena Studios. The title "xenastudios.co" over the Ion Blue planet horizon, with "The studio's website. Astro, served by Cloudflare."](.github/assets/banner.png)
+![xenastudios.co by Xena Studios. The title "xenastudios.co" over the Ion Blue planet horizon, with "The studio's website. Astro, served by Cloudflare."](https://cdn.jsdelivr.net/gh/xena-studios/brand@1/github/website-banner.png)
 
 **The studio's website. Astro, served by Cloudflare.**
 
-The studio's site at **[xenastudios.co](https://xenastudios.co)**: a home page, then Tools, Servers, About and Contact. It's static [Astro](https://astro.build) and ships no JavaScript.
+Xena Studios' own website, **[xenastudios.co](https://xenastudios.co)**: a home page, then Tools, Servers, About and Contact. It's static [Astro](https://astro.build) and ships no JavaScript.
 
 - [PRODUCT.md](PRODUCT.md): who the site is for and what it has to do
 - [DESIGN.md](DESIGN.md): the visual system
-
-## Develop
-
-Needs Node 24 and pnpm.
-
-```sh
-pnpm install
-pnpm dev        # http://localhost:4321
-pnpm build      # type-check, then build to dist/
-pnpm preview    # serve dist/
-```
-
-```
-src/pages/        index (home), tools, servers, about, contact, 404, sitemap.xml
-src/layouts/      Base: <head>, header, footer
-src/components/   Logo, Horizon, External (the outbound-link arrow), PageHero, ServerFeature, ContactCta
-src/components/sections/   Raptor, NeoSkript, Plugins, Principles: the blocks the pages share
-src/styles/       global.css: tokens and type
-src/assets/       images processed at build, such as the Raptor screenshot
-src/brand/        synced from the brand repo, don't edit
-public/           served as-is: _headers, _redirects, robots.txt, .well-known/security.txt, icons
-```
-
-Add new pages to `src/pages/sitemap.xml.ts`.
 
 ## Brand assets
 
@@ -54,7 +30,6 @@ Pushing to `main` builds and deploys to the `xenastudios-website` Cloudflare Wor
 
 ## Maintenance
 
-- `main` only takes pull requests, and `build` has to pass. CodeQL runs too, but isn't required.
 - Renovate opens dependency PRs on Monday mornings.
 - **`public/.well-known/security.txt` expires on 2027-11-10.** Move the date a year out before then.
 
@@ -67,6 +42,34 @@ Pushing to `main` builds and deploys to the `xenastudios-website` Cloudflare Wor
 pnpm dlx impeccable update --project --yes --no-hooks             # update it
 ```
 
+## Building
+
+Needs Node 24 and pnpm.
+
+```sh
+pnpm install
+pnpm dev        # http://localhost:4321
+pnpm build      # type-check, then build to dist/
+pnpm preview    # serve dist/
+```
+
+```
+src/pages/        index (home), tools, servers, about, contact, 404, sitemap.xml
+src/layouts/      Base: <head>, header, footer
+src/components/   Logo, Horizon, External (the outbound-link arrow), PageHero, ServerFeature, ContactCta
+src/components/sections/   Raptor, NeoSkript, Plugins, Principles: the blocks the pages share
+src/styles/       global.css: tokens and type
+src/assets/       images processed at build, such as the Raptor screenshot
+src/brand/        synced from the brand repo, don't edit
+public/           served as-is: _headers, _redirects, robots.txt, .well-known/security.txt, icons
+```
+
+Add new pages to `src/pages/sitemap.xml.ts`.
+
+## Contributing
+
+For the team only: the source is public to read, not to reuse, so the repo doesn't take outside pull requests. Ideas and problems go in an [issue](https://github.com/xena-studios/website/issues/new/choose). `main` only takes pull requests, and `build` has to pass; CodeQL runs too, but isn't required.
+
 ## Licence
 
-All rights reserved; see [LICENSE](LICENSE). The source is public to read, not to reuse, so the repo doesn't take outside pull requests. The Impeccable skill is under Apache-2.0, and JetBrains Mono is under the SIL Open Font License.
+All rights reserved; see [LICENSE](LICENSE). The Impeccable skill is under Apache-2.0, and JetBrains Mono is under the SIL Open Font License.

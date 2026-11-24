@@ -27,6 +27,9 @@ jobs:
       # Email addresses are only checked for their form.
       - uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
+          # github.com throttles anonymous checks (503s); with the token, lychee asks
+          # GitHub's API about github.com links instead.
+          token: ${{ github.token }}
           args: >-
             --no-progress --include-mail=false --max-retries 3
             'src/**/*.astro' 'src/**/*.ts' '*.md' 'public/**/*.txt'

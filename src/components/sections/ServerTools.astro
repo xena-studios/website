@@ -1,0 +1,83 @@
+---
+// Tools (tools.xenastudios.co), as it appears on the Tools page: what it is, its status,
+// and the tools that are live, one hairline row each. It's a studio site, like the
+// brand site, so it has no logo of its own.
+import External from "../External.astro";
+
+const live: { name: string; path: string; what: string }[] = [
+  {
+    name: "Gradient Text",
+    path: "/gradient",
+    what: "Colour text with a gradient for chat, ranks, MOTDs and item names, in every format servers and plugins read.",
+  },
+  {
+    name: "Text Converter",
+    path: "/text-converter",
+    what: "Paste & codes, MiniMessage or JSON, see it the way players will, and convert it to any of the others.",
+  },
+];
+---
+<section id="server-tools" class="server-tools section" aria-labelledby="server-tools-title">
+  <div class="wrap">
+    <h2 id="server-tools-title">Tools for running a Minecraft server.</h2>
+    <p class="lead">
+      Free web tools for server owners. Everything runs in your browser, the link keeps your settings, and the output is
+      ready to paste into your server.
+    </p>
+    <p class="status"><span class="label">Status</span> Early: two tools live, more on the way</p>
+    <ul class="project-links">
+      <li><a href="https://tools.xenastudios.co"><External>tools.xenastudios.co</External></a></li>
+      <li><a href="https://github.com/xena-studios/tools">Source on <External>GitHub</External></a></li>
+      <li><a href="https://github.com/xena-studios/tools/blob/main/LICENSE"><External>AGPL-3.0</External></a></li>
+    </ul>
+    <ul class="tool-list">
+      {
+        live.map((t) => (
+          <li>
+            <span class="name">{t.name}</span>
+            <span class="what">{t.what}</span>
+            <a href={`https://tools.xenastudios.co${t.path}`}>
+              <External>Open<span class="visually-hidden"> {t.name}</span></External>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .tool-list {
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .tool-list li {
+    display: grid;
+    grid-template-columns: 14rem minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: var(--s-2) var(--s-5);
+    padding-block: var(--s-5);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .name {
+    font-weight: 600;
+  }
+
+  .what {
+    color: var(--muted);
+  }
+
+  .tool-list a {
+    font-size: var(--t-small);
+  }
+
+  @media (max-width: 52rem) {
+    .tool-list li {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

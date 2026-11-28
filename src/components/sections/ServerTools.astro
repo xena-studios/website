@@ -5,16 +5,14 @@
 import External from "../External.astro";
 
 const live: { name: string; path: string; what: string }[] = [
-  {
-    name: "Gradient Text",
-    path: "/gradient",
-    what: "Colour text with a gradient for chat, ranks, MOTDs and item names, in every format servers and plugins read.",
-  },
-  {
-    name: "Text Converter",
-    path: "/text-converter",
-    what: "Paste & codes, MiniMessage or JSON, see it the way players will, and convert it to any of the others.",
-  },
+  { name: "Gradient Text", path: "/gradient", what: "Colour text with a gradient for chat, ranks, MOTDs and item names, in every format servers and plugins read." },
+  { name: "Text Converter", path: "/text-converter", what: "Paste & codes, MiniMessage or JSON, see it the way players will, and convert it to any of the others." },
+  { name: "MOTD Generator", path: "/motd", what: "Design your server list message with a true-to-game preview, for server.properties and proxies." },
+  { name: "Server Icon", path: "/server-icon", what: "Turn any image into a 64×64 server-icon.png, previewed in the server list." },
+  { name: "Startup Flags", path: "/flags", what: "A start script with tuned JVM flags for your RAM, Java version and server software." },
+  { name: "Log Analyzer", path: "/log-analyzer", what: "Paste a server log or crash report and get the problems explained, with the fix for each." },
+  { name: "Server Status", path: "/status", what: "Check whether a Java or Bedrock server is online, with its MOTD, version, players and ping." },
+  { name: "Player Lookup", path: "/player", what: "Find a player's UUID and skin from their name, or their name from a UUID." },
 ];
 ---
 <section id="server-tools" class="server-tools section" aria-labelledby="server-tools-title">
@@ -24,7 +22,7 @@ const live: { name: string; path: string; what: string }[] = [
       Free web tools for server owners. Everything runs in your browser, the link keeps your settings, and the output is
       ready to paste into your server.
     </p>
-    <p class="status"><span class="label">Status</span> Early: two tools live, more on the way</p>
+    <p class="status"><span class="label">Status</span> Live: eight tools, with more planned</p>
     <ul class="project-links">
       <li><a href="https://tools.xenastudios.co"><External>tools.xenastudios.co</External></a></li>
       <li><a href="https://github.com/xena-studios/tools">Source on <External>GitHub</External></a></li>
